@@ -39,10 +39,13 @@
   .lock img{height:.82em;display:block}
   .lock.dark .ex{color:var(--navy)}
 
-  /* dashed brand line */
-  .dash{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-  .dash svg{width:100%;height:100%}
-  .dash path{fill:none;stroke:rgba(255,255,255,.28);stroke-width:2.5;stroke-dasharray:7 9;stroke-linecap:round}
+  /* dashed brand line — big background motif */
+  .bigdash{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .bigdash svg{width:100%;height:100%;display:block}
+  .bigdash path{fill:none;stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
+  .hero-dash{z-index:1}
+  .hero-dash path{stroke:rgba(255,255,255,.15)}
+  .why-dash path{stroke:rgba(25,43,55,.13)}
 
   /* ---------- HERO ---------- */
   header.hero{background:var(--navy);position:relative;overflow:hidden}
@@ -245,14 +248,14 @@
   .divc.ku .dl,.divc.ku .dd{color:rgba(25,43,55,.7)}.divc.ku .dn{color:var(--navy)}
 
   .why{padding:30px 0 90px}
-  .why-inner{border-radius:28px;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;overflow:hidden;box-shadow:var(--sh);min-height:320px;background:var(--navy)}
-  .why-img{position:relative;overflow:hidden}.why-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .why-txt{padding:46px;display:flex;flex-direction:column;justify-content:center;color:#fff;position:relative;overflow:hidden}
+  .why-inner{border-radius:28px;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;overflow:hidden;box-shadow:var(--sh);min-height:320px;background:#fff;position:relative;isolation:isolate}
+  .why-img{position:relative;overflow:hidden;z-index:1}.why-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .why-txt{padding:46px;display:flex;flex-direction:column;justify-content:center;color:var(--ink);position:relative;z-index:1}
   .why-txt h2{font-size:31px;letter-spacing:-1px;font-weight:900}
-  .why-txt p{color:#B6C1C8;font-size:15.5px;line-height:1.65;margin-top:15px}
-  .who{display:flex;flex-direction:column;gap:10px;margin-top:22px;position:relative;z-index:2}
-  .who .row{display:flex;gap:13px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 15px}
-  .who .row .e{font-size:21px}.who .row b{font-size:14px}.who .row small{font-size:12.5px;color:#9DAAB1;display:block;margin-top:2px}
+  .why-txt p{color:#56676F;font-size:15.5px;line-height:1.65;margin-top:15px}
+  .who{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .who .row{display:flex;gap:13px;align-items:center;background:var(--canvas);border:1px solid var(--line);border-radius:14px;padding:12px 15px}
+  .who .row .e{font-size:21px}.who .row b{font-size:14px}.who .row small{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
 
   footer{text-align:center;padding:34px 20px 64px;color:var(--muted);font-size:13px;line-height:1.8}
   footer .lock{font-size:16px}footer a{color:var(--red);text-decoration:none;font-weight:700}
@@ -268,6 +271,7 @@
 <body>
 
 <header class="hero">
+  <div class="bigdash hero-dash"><svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice"><path d="M-60,440 C240,250 470,540 720,300 C930,100 1090,310 1280,200"/></svg></div>
   <div class="hero-grid">
     <div class="nav-top">
       <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
@@ -287,7 +291,6 @@
         <div><b>1500+</b><span>montérov</span></div>
         <div><b>15 min</b><span>na vyzdvihnutie</span></div>
       </div>
-      <img class="hero-masc masc" src="img/mascot.png" alt="">
     </div>
 
     <div class="stage" id="demo">
@@ -300,14 +303,12 @@
             <!-- ===== HOME ===== -->
             <div class="scr active" data-s="home">
               <div class="apphead">
-                <div class="dash"><svg viewBox="0 0 340 160" preserveAspectRatio="none"><path d="M-10,40 C90,120 160,-10 360,90"/></svg></div>
                 <div class="ah-row">
                   <img class="pf" src="img/staff.jpg" alt="">
                   <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div>
                   <div class="bell">🔔<span class="bdg">2</span></div>
                 </div>
                 <div class="ah-title">Čo dnes<br>potrebuješ?</div>
-                <img class="ah-masc masc" src="img/mascot.png" alt="">
                 <div class="search">
                   <div class="sf">🔍 Hľadať diel, kotol, rúrku…</div>
                   <div class="filt">⚙️</div>
@@ -342,9 +343,7 @@
 
                 <div class="sect">Nové zákazky <a onclick="go('leady')">Viac →</a></div>
                 <div class="promo" onclick="go('leady')">
-                  <div class="dash"><svg viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M-10,30 C70,100 150,-10 320,70"/></svg></div>
                   <div class="pt"><div class="tg">📨 3 NOVÉ LEADY</div><b>Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
-                  <img class="pmasc masc" src="img/mascot.png" alt="">
                 </div>
               </div>
             </div>
@@ -394,10 +393,8 @@
             <div class="scr" data-s="leady">
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Zákazky pre teba</h2></div>
-                <div class="promo" style="min-height:96px;margin-bottom:14px">
-                  <div class="dash"><svg viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M-10,20 C70,90 150,-10 320,60"/></svg></div>
+                <div class="promo" style="min-height:88px;margin-bottom:14px">
                   <div class="pt"><div class="tg">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:14px;margin:5px 0 0">Vidíš leady ako prvý</b></div>
-                  <img class="pmasc masc" src="img/mascot.png" alt="">
                 </div>
                 <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
                 <div class="prow">
@@ -483,11 +480,11 @@
 <div class="wrap">
 <div class="why">
   <div class="why-inner">
+    <div class="bigdash why-dash"><svg viewBox="0 0 1100 360" preserveAspectRatio="xMidYMid slice"><path d="M-40,90 C260,300 420,40 680,210 C860,320 980,140 1140,250"/></svg></div>
     <div class="why-img"><img src="img/staff.jpg" alt=""></div>
     <div class="why-txt">
-      <div class="dash"><svg viewBox="0 0 400 320" preserveAspectRatio="none"><path d="M-10,60 C120,200 240,20 420,160"/></svg></div>
       <h2>Prečo práve toto?</h2>
-      <p>Empiria je <b style="color:#fff">prepojenie medzi výrobcom, realizačkou a investorom</b>. Eshop rieši objednávku. Ale rozhodnutie padá na stavbe, v ruke montéra — a tam dnes Empiria nie je. Appka obsadí presne to miesto.</p>
+      <p>Empiria je <b style="color:var(--ink)">prepojenie medzi výrobcom, realizačkou a investorom</b>. Eshop rieši objednávku. Ale rozhodnutie padá na stavbe, v ruke montéra — a tam dnes Empiria nie je. Appka obsadí presne to miesto.</p>
       <div class="who">
         <div class="row"><span class="e">🔧</span><div><b>Montér / inštalatér</b><small>nájde diel a sklad bez telefonátu</small></div></div>
         <div class="row"><span class="e">🏗️</span><div><b>Realizačná firma</b><small>projekty, ponuky a tím na jednom mieste</small></div></div>
