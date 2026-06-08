@@ -21,6 +21,7 @@
     --muted2:#A2AEB4;
     --line:#E6EBEE;
     --ok:#1E9E5A;--warn:#E0A53B;--bad:#E5635B;
+    --sage:#AFC0BC;--sage-d:#5E726C;
     --r:22px;
     --font:'Inter',system-ui,-apple-system,sans-serif;
     --sh:0 16px 36px -22px rgba(25,43,55,.5);
@@ -81,7 +82,7 @@
   .phone{position:relative;z-index:2;width:336px;height:700px;border-radius:50px;padding:12px;background:linear-gradient(165deg,#34454f,#0f1b22);box-shadow:0 50px 90px -30px rgba(0,0,0,.6),0 0 0 2px #3a4b55,inset 0 0 0 6px #0c151b}
   .notch{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:118px;height:30px;background:#0a131a;border-radius:0 0 18px 18px;z-index:8}
   .screen{position:relative;width:100%;height:100%;background:var(--canvas);border-radius:39px;overflow:hidden;display:flex;flex-direction:column}
-  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 4px;font-size:12px;font-weight:700;flex:none;color:#fff;position:relative;z-index:3}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 4px;font-size:12px;font-weight:700;flex:none;color:var(--ink);position:relative;z-index:3}
   .view{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 0 90px}
   .view::-webkit-scrollbar{width:0}
   .scr{display:none}.scr.active{display:block;animation:fade .42s cubic-bezier(.2,.7,.2,1)}
@@ -89,7 +90,7 @@
   .pad{padding:0 16px}
 
   /* navy app header */
-  .apphead{background:var(--navy);padding:0 16px 22px;border-radius:0 0 26px 26px;position:relative;overflow:hidden;margin-top:-34px;padding-top:42px}
+  .apphead{background:var(--navy);padding:14px 16px 22px;border-radius:0 0 26px 26px;position:relative;overflow:hidden;margin-top:0}
   .apphead .dash path{stroke:rgba(255,255,255,.22)}
   .ah-row{display:flex;align-items:center;gap:11px;position:relative;z-index:2}
   .ah-row .pf{width:44px;height:44px;border-radius:13px;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.2)}
@@ -276,7 +277,7 @@
   .mbtn.red{background:var(--red);color:#fff}.mbtn.o{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
   .mbtn.navy{background:var(--navy);color:#fff}
   /* profile / vernostka */
-  .prof-hero{background:var(--navy);margin:-34px -16px 0;padding:46px 18px 30px;position:relative;overflow:hidden;color:#fff;text-align:center;border-radius:0 0 26px 26px}
+  .prof-hero{background:var(--navy);margin:0;padding:24px 18px 30px;position:relative;overflow:hidden;color:#fff;text-align:center;border-radius:0 0 26px 26px}
   .prof-hero .bigdash path{stroke:rgba(255,255,255,.13)}
   .prof-hero .pav{width:74px;height:74px;border-radius:20px;object-fit:cover;border:3px solid rgba(255,255,255,.22);margin:0 auto 10px;display:block;position:relative;z-index:2}
   .prof-hero .pname{font-size:18px;font-weight:800;position:relative;z-index:2}
@@ -321,6 +322,47 @@
   .quote-doc .qb{padding:13px 16px}
   .qrow{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
   .qrow.tot{border:0;font-size:16px;font-weight:900;padding-top:12px}
+
+  /* ===== kúpeľne app (sage) ===== */
+  .kbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+  .kbell{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:var(--sh-sm);display:grid;place-items:center;font-size:15px}
+  .khero{height:166px;border-radius:18px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:15px;color:#fff;box-shadow:var(--sh)}
+  .khero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .khero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(25,43,55,.8))}
+  .khero .kt{position:relative;z-index:1}.khero .kt b{font-size:17px;font-weight:850}.khero .kt small{font-size:11.5px;color:#dbe2e6;display:block}
+  .ktag{display:inline-block;background:var(--sage);color:var(--navy);font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:7px;margin-bottom:6px}
+  .brands{display:flex;gap:7px;flex-wrap:wrap}
+  .brandchip{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:11.5px;font-weight:800;color:var(--ink);box-shadow:var(--sh-sm)}
+  .arview{height:300px;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--sh)}
+  .arview img{width:100%;height:100%;object-fit:cover}
+  .arview .arobj{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);font-size:64px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.4))}
+  .arview .arc{position:absolute;top:12px;left:12px;background:rgba(25,43,55,.7);color:#fff;font-size:10.5px;font-weight:700;padding:6px 11px;border-radius:18px}
+  .arctrl{display:flex;gap:8px;margin-top:11px}
+  .arctrl .ac{flex:1;background:#fff;border-radius:12px;padding:10px;text-align:center;font-size:11px;font-weight:700;box-shadow:var(--sh-sm);cursor:pointer}
+  .arctrl .ac .e{font-size:17px;display:block;margin-bottom:3px}
+  .studio{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+  .studio:last-child{border:0}.studio img{width:44px;height:44px;border-radius:11px;object-fit:cover;flex:none}
+  .studio b{font-size:13px;display:block}.studio small{font-size:11px;color:var(--muted)}
+  .studio .km{font-size:10.5px;font-weight:800;color:var(--navy);background:#EEF2F4;padding:4px 8px;border-radius:8px}
+  .vrtag{margin-left:auto;background:var(--navy);color:#fff;font-size:9.5px;font-weight:800;padding:4px 8px;border-radius:7px}
+  .inst{background:#fff;border-radius:16px;padding:13px;box-shadow:var(--sh-sm);cursor:pointer}
+  .inst .ih{display:flex;gap:10px;align-items:center}
+  .inst .ih img{width:50px;height:50px;border-radius:13px;object-fit:cover;flex:none}
+  .inst .ih b{font-size:13.5px;display:block}.inst .ih small{font-size:11px;color:var(--muted)}
+  .verif{display:inline-flex;align-items:center;gap:4px;background:#E7F6EE;color:var(--ok);font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:7px;margin-top:4px}
+  .itags{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+  .itags span{background:var(--canvas);font-size:10px;font-weight:700;color:var(--ink);padding:5px 9px;border-radius:8px}
+
+  /* app switcher */
+  .appsw{display:inline-flex;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:5px;margin-bottom:18px}
+  .appsw button{border:0;background:0;color:#AEBAC1;font-family:inherit;font-weight:700;font-size:13px;padding:9px 15px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.2s}
+  .appsw button.on{background:#fff;color:var(--navy)}
+  .nav.kup{display:none}
+  .screen.kup .nav.partak{display:none}
+  .screen.kup .nav.kup{display:flex}
+  .nav.kup button.on{color:var(--sage-d)}
+  .nav.kup button.on::before{background:var(--sage-d)}
+  .nav.kup .scanfab{background:var(--navy);box-shadow:0 16px 26px -8px rgba(25,43,55,.5)}
 
   /* ===== boot / splash animation (Bistro-style zoom reveal) ===== */
   .boot{position:absolute;inset:0;z-index:30;background:var(--navy);border-radius:39px;overflow:hidden;
@@ -368,6 +410,10 @@
     </div>
 
     <div class="stage" id="demo">
+      <div class="appsw">
+        <button class="on" data-app="partak" onclick="setApp('partak')">🔧 Parťák · montér</button>
+        <button data-app="kupelne" onclick="setApp('kupelne')">🛁 Kúpeľne · zákazník</button>
+      </div>
       <div class="phone">
         <div class="notch"></div>
         <div class="screen">
@@ -621,13 +667,103 @@
               </div>
             </div>
 
+            <!-- ============ KÚPEĽNE APP ============ -->
+            <!-- k-home -->
+            <div class="scr" data-s="k-home">
+              <div class="pad" style="padding-top:10px">
+                <div class="kbar"><span class="lock dark" style="font-size:16px"><span class="ex">kúpeľne.</span><img src="img/logo-red.png" alt="EMPIRIA"></span><div class="kbell">🔍</div></div>
+                <div class="khero"><img src="img/bathroom.jpg" alt=""><div class="kt"><span class="ktag">NOVÉ</span><br><b>Letná kolekcia 2026</b><small>minimalistická séria</small></div></div>
+                <div class="sect">Značky u nás</div>
+                <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
+                <div class="sect">Inšpirácia <a onclick="go('k-product')">Viac →</a></div>
+                <div class="prow" onclick="go('k-product')"><img class="pi" src="img/bathroom.jpg" alt=""><div class="pinfo"><b>Grohe Rainshower 310</b><div class="sub">dažďová hlavica</div><div class="price">489 €</div></div><div class="goa">→</div></div>
+                <div class="promo" onclick="go('k-find')" style="min-height:84px"><div class="pt"><div class="tg" style="color:#CDE0DB">🔧 NÁJDI MONTÁŽNIKA</div><b>Overení Empiria partneri v okolí</b><button class="pb" onclick="go('k-find')">Pozrieť →</button></div></div>
+              </div>
+            </div>
+
+            <!-- k-ar -->
+            <div class="scr" data-s="k-ar">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Skús si kúpeľňu</h2></div>
+                <div class="arview"><img src="img/bathroom.jpg" alt=""><div class="arc">📐 Nájdená stena · ťukni a umiestni</div><div class="arobj">🚿</div></div>
+                <div class="arctrl"><div class="ac"><span class="e">🔄</span>Otočiť</div><div class="ac"><span class="e">🎨</span>Farba</div><div class="ac"><span class="e">📷</span>Foto</div></div>
+                <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:10px"><div style="width:42px;height:42px;border-radius:11px;background:var(--canvas);display:grid;place-items:center;font-size:20px">🚿</div><div style="flex:1"><b style="font-size:13px">Grohe Rainshower 310</b><br><small style="color:var(--muted);font-size:11px">dažďová hlavica</small></div><span style="font-size:15px;font-weight:850">489 €</span></div>
+              </div>
+            </div>
+
+            <!-- k-product -->
+            <div class="scr" data-s="k-product">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Detail produktu</h2></div>
+                <div class="prod-hero"><img src="img/bathroom.jpg" alt=""><span class="pill ok" style="position:absolute;top:11px;left:11px">Skladom v štúdiu</span></div>
+                <div class="prod-brand">GROHE</div>
+                <h2 style="font-size:19px;font-weight:850;margin:2px 0 5px">Rainshower 310</h2>
+                <p class="lede" style="font-size:13px;margin-bottom:8px">Stropná dažďová hlavica, kartáčovaný nikel, 2 prúdy.</p>
+                <div class="arctrl"><div class="ac" style="border:1.5px solid var(--navy)" onclick="go('k-ar')"><span class="e">📲</span>Skús v AR</div><div class="ac"><span class="e">❤️</span>Uložiť</div></div>
+                <div class="buybar"><div class="pp">489 €</div><button class="mbtn navy" onclick="go('k-booking')">Do návrhu →</button></div>
+              </div>
+            </div>
+
+            <!-- k-booking -->
+            <div class="scr" data-s="k-booking">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Doladíme v štúdiu</h2></div>
+                <p class="lede" style="font-size:13px;margin:-4px 0 12px">Vezmi návrh do jedného z 15 štúdií — naživo aj vo VR.</p>
+                <div class="card" style="padding:4px 14px">
+                  <div class="studio"><img src="img/store-interior.jpg" alt=""><div><b>Štúdio Žilina</b><small>dnes 9–18</small></div><span class="vrtag">VR</span></div>
+                  <div class="studio"><img src="img/bathroom.jpg" alt=""><div><b>Štúdio Martin</b><small>dnes 9–17</small></div><span class="km">19 km</span></div>
+                </div>
+                <div class="sect">Voľný termín</div>
+                <div class="timechips"><div class="t">Št 10:00</div><div class="t on">Št 14:30</div><div class="t">Pi 11:00</div></div>
+                <button class="mbtn navy" style="width:100%;margin-top:16px">Rezervovať konzultáciu</button>
+              </div>
+            </div>
+
+            <!-- k-find -->
+            <div class="scr" data-s="k-find">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Nájdi montážnika</h2></div>
+                <div class="search" style="margin:0 0 12px"><div class="sf">🔍 Špecializácia, mesto…</div><div class="filt" style="background:var(--navy)">⚙️</div></div>
+                <div class="chips"><div class="c on">Všetci</div><div class="c">Kúrenie</div><div class="c">Kúpeľne</div></div>
+                <div class="inst" onclick="go('k-installer')">
+                  <div class="ih"><img src="img/staff.jpg" alt=""><div><b>Marek Kováč</b><small>ELEKTROVOD · 4 km</small><br><span class="verif">✓ Overený Empiria partner</span></div><div style="margin-left:auto;text-align:right"><div class="star">★ 4,9</div><small style="font-size:10px;color:var(--muted)">32 prác</small></div></div>
+                  <div class="itags"><span>Kúrenie</span><span>Voda</span><span>Kotly</span></div>
+                  <button class="mbtn red" style="width:100%;padding:11px;margin-top:10px">Vyžiadať cenovú ponuku</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- k-installer -->
+            <div class="scr" data-s="k-installer">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('k-find')">←</div><h2>Profil montéra</h2></div>
+                <div class="pbanner" style="height:120px"><img src="img/staff.jpg" alt=""><div class="pbt"><b>Marek Kováč</b><small>ELEKTROVOD s.r.o. · Žilina</small></div></div>
+                <div style="display:flex;gap:7px;margin:12px 0"><span class="verif">✓ Overený partner</span><span class="pill" style="background:var(--red-soft);color:var(--red)">⚡ Level 4</span><span class="pill warn">★ 4,9</span></div>
+                <div class="card">
+                  <div class="kv"><span>Realizácií</span><b>32</b></div>
+                  <div class="kv"><span>Špecializácia</span><b>Kúrenie · Voda</b></div>
+                  <div class="kv"><span>Reakcia</span><b>do 2 h</b></div>
+                </div>
+                <div class="sect">Realizácie</div>
+                <div style="display:flex;gap:7px"><img src="img/heatpump.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""><img src="img/store-interior.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""><img src="img/bathroom.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""></div>
+                <button class="mbtn red" style="width:100%;margin-top:13px">Vyžiadať cenovú ponuku</button>
+              </div>
+            </div>
+
           </div>
-          <div class="nav">
+          <div class="nav partak">
             <button class="on" data-n="home" onclick="go('home')"><span class="ni">🏠</span>Domov</button>
             <button data-n="stock" onclick="go('stock')"><span class="ni">📍</span>Sklad</button>
             <button class="scanfab" onclick="go('scan')">📷</button>
             <button data-n="leady" onclick="go('leady')"><span class="ni">📨</span>Zákazky</button>
             <button data-n="proj" onclick="go('proj')"><span class="ni">🗂️</span>Stavby</button>
+          </div>
+          <div class="nav kup">
+            <button class="on" data-n="k-home" onclick="go('k-home')"><span class="ni">🏠</span>Domov</button>
+            <button data-n="k-product" onclick="go('k-product')"><span class="ni">🧩</span>Návrh</button>
+            <button class="scanfab" onclick="go('k-ar')">📲</button>
+            <button data-n="k-find" onclick="go('k-find')"><span class="ni">🔧</span>Montér</button>
+            <button data-n="k-booking" onclick="go('k-booking')"><span class="ni">📅</span>Štúdio</button>
           </div>
         </div>
       </div>
@@ -692,6 +828,12 @@
     const cur=document.getElementById('boot');
     const tmp=document.createElement('div'); tmp.innerHTML=bootHTML;
     cur.replaceWith(tmp.firstElementChild);
+  }
+  function setApp(app){
+    const sc=document.querySelector('.screen');
+    sc.classList.toggle('kup', app==='kupelne');
+    document.querySelectorAll('.appsw button').forEach(b=>b.classList.toggle('on', b.dataset.app===app));
+    go(app==='kupelne'?'k-home':'home');
   }
   function go(s){
     const swap=()=>{
