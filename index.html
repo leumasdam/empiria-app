@@ -3,420 +3,455 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Empiria Parťák — koncept appky</title>
+<title>express.EMPIRIA Parťák — koncept appky</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#EDF1F4;
-    --canvas:#F3F6F8;
+    --navy:#192B37;        /* express.EMPIRIA navy */
+    --navy2:#22343F;
+    --navy3:#2C404C;
+    --red:#D7282E;         /* EMPIRIA red */
+    --red-dk:#B11D22;
+    --red-soft:#FCEBEC;
+    --canvas:#F1F4F6;
     --card:#FFFFFF;
-    --ink:#1B2E38;
-    --ink2:#2C424E;
-    --muted:#7C8A93;
-    --muted2:#A4B0B7;
-    --red:#D71920;
-    --red-dk:#B3141B;
-    --red-soft:#FDEDED;
-    --navy:#1B323E;
-    --mint:#E8F5EE;--mint-d:#1E9E5A;
-    --line:#E8ECEF;
+    --ink:#192B37;
+    --muted:#74838C;
+    --muted2:#A2AEB4;
+    --line:#E6EBEE;
     --ok:#1E9E5A;--warn:#E0A53B;--bad:#E5635B;
-    --r:24px;
+    --r:22px;
     --font:'Inter',system-ui,-apple-system,sans-serif;
-    --sh:0 14px 34px -20px rgba(27,46,56,.45);
-    --sh-sm:0 8px 20px -14px rgba(27,46,56,.4);
+    --sh:0 16px 36px -22px rgba(25,43,55,.5);
+    --sh-sm:0 8px 20px -14px rgba(25,43,55,.4);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;
-    background:
-      radial-gradient(900px 500px at 86% -8%, rgba(215,25,32,.07) 0, transparent 56%),
-      radial-gradient(700px 460px at -6% 60%, rgba(27,50,62,.06) 0, transparent 55%),
-      var(--bg)}
+  body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;background:var(--canvas)}
   ::selection{background:var(--red);color:#fff}
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .masc{filter:brightness(0) invert(1)}      /* maskot -> biely na navy */
 
-  /* ---------- HERO (landing) ---------- */
-  header.hero{padding:58px 0 40px;display:grid;grid-template-columns:1.04fr .96fr;gap:48px;align-items:center}
-  .brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:26px}
-  .logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:22px;background:var(--red);box-shadow:0 10px 22px -8px rgba(215,25,32,.5)}
-  .brand .bt{font-weight:800;font-size:17px;letter-spacing:-.3px;line-height:1.1}
-  .brand .bt small{display:block;font-weight:600;color:var(--muted);font-size:11px;letter-spacing:1.3px;text-transform:uppercase;margin-top:4px}
-  .eyebrow{display:inline-flex;align-items:center;gap:9px;background:var(--red-soft);color:var(--red);padding:8px 15px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:22px}
-  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(215,25,32,.5);animation:pulse 2.2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(215,25,32,.5)}70%{box-shadow:0 0 0 9px rgba(215,25,32,0)}100%{box-shadow:0 0 0 0 rgba(215,25,32,0)}}
-  h1{font-size:clamp(40px,5.2vw,66px);line-height:1.0;letter-spacing:-2.2px;font-weight:900}
+  /* express logo lockup */
+  .lock{display:inline-flex;align-items:center;gap:7px;font-weight:800;letter-spacing:-.3px}
+  .lock .ex{font-size:inherit;color:#fff}
+  .lock img{height:.82em;display:block}
+  .lock.dark .ex{color:var(--navy)}
+
+  /* dashed brand line */
+  .dash{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .dash svg{width:100%;height:100%}
+  .dash path{fill:none;stroke:rgba(255,255,255,.28);stroke-width:2.5;stroke-dasharray:7 9;stroke-linecap:round}
+
+  /* ---------- HERO ---------- */
+  header.hero{background:var(--navy);position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(215,40,46,.22),transparent 68%)}
+  .hero-grid{max-width:1180px;margin:0 auto;padding:30px 28px 60px;display:grid;grid-template-columns:1.04fr .96fr;gap:44px;align-items:center;position:relative;z-index:2}
+  .nav-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:14px 0 40px}
+  .nav-top .lock{font-size:21px}
+  .nav-top .links{display:flex;gap:26px;font-size:14px;font-weight:600;color:#AEBAC1}
+  .nav-top .links span{cursor:pointer}
+  .nav-top .links span:hover{color:#fff}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16);padding:8px 15px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:22px}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(215,40,46,.6);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(215,40,46,.6)}70%{box-shadow:0 0 0 9px rgba(215,40,46,0)}100%{box-shadow:0 0 0 0 rgba(215,40,46,0)}}
+  h1{font-size:clamp(42px,5.4vw,66px);line-height:1.0;letter-spacing:-2.2px;font-weight:900;color:#fff}
   h1 .r{color:var(--red)}
-  .lede{margin:22px 0 30px;font-size:18px;line-height:1.62;color:#56676F;max-width:500px}
-  .cta{display:flex;gap:13px;flex-wrap:wrap}
-  .btn{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;border-radius:15px;padding:15px 26px;transition:transform .18s,box-shadow .18s}
-  .btn.primary{color:#fff;background:var(--red);box-shadow:0 14px 28px -12px rgba(215,25,32,.55)}
-  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 20px 36px -12px rgba(215,25,32,.6)}
-  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh-sm)}
-  .btn.ghost:hover{transform:translateY(-2px)}
-  .stats{display:flex;gap:30px;margin-top:38px}
-  .stats b{font-size:27px;font-weight:900;letter-spacing:-.8px;display:block;color:var(--ink)}
-  .stats span{font-size:12px;color:var(--muted);font-weight:600}
+  .lede{margin:22px 0 30px;font-size:18px;line-height:1.62;color:#B6C1C8;max-width:500px}
+  .cta{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+  .btn{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;border-radius:14px;padding:15px 26px;transition:transform .18s,box-shadow .18s}
+  .btn.primary{color:#fff;background:var(--red);box-shadow:0 14px 28px -12px rgba(215,40,46,.6)}
+  .btn.primary:hover{transform:translateY(-2px)}
+  .btn.ghost{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.18)}
+  .btn.ghost:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.4)}
+  .stats{display:flex;gap:30px;margin-top:36px}
+  .stats b{font-size:26px;font-weight:900;letter-spacing:-.8px;display:block;color:#fff}
+  .stats span{font-size:12px;color:#8E9BA2;font-weight:600}
+
+  /* mascot floating */
+  .hero-masc{position:absolute;left:-46px;bottom:-10px;width:150px;opacity:.9;z-index:1}
 
   /* phone */
   .stage{display:flex;justify-content:center;position:relative}
-  .stage .ph-glow{position:absolute;width:380px;height:480px;border-radius:50%;filter:blur(46px);z-index:0;background:radial-gradient(circle,rgba(215,25,32,.14),transparent 62%);top:10%}
-  .phone{position:relative;z-index:1;width:340px;height:706px;border-radius:52px;padding:13px;background:linear-gradient(165deg,#dfe6ea,#c2cdd3);box-shadow:0 50px 90px -34px rgba(27,46,56,.5),0 0 0 2px #e6ecef,inset 0 0 0 6px #fff}
-  .notch{position:absolute;top:21px;left:50%;transform:translateX(-50%);width:120px;height:31px;background:#0b1418;border-radius:0 0 18px 18px;z-index:8}
-  .screen{position:relative;width:100%;height:100%;background:var(--canvas);border-radius:40px;overflow:hidden;display:flex;flex-direction:column}
-  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 4px;font-size:12.5px;font-weight:700;flex:none;color:var(--ink)}
-  .view{flex:1;overflow-y:auto;overflow-x:hidden;padding:6px 16px 92px}
+  .phone{position:relative;z-index:2;width:336px;height:700px;border-radius:50px;padding:12px;background:linear-gradient(165deg,#34454f,#0f1b22);box-shadow:0 50px 90px -30px rgba(0,0,0,.6),0 0 0 2px #3a4b55,inset 0 0 0 6px #0c151b}
+  .notch{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:118px;height:30px;background:#0a131a;border-radius:0 0 18px 18px;z-index:8}
+  .screen{position:relative;width:100%;height:100%;background:var(--canvas);border-radius:39px;overflow:hidden;display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 4px;font-size:12px;font-weight:700;flex:none;color:#fff;position:relative;z-index:3}
+  .view{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 0 90px}
   .view::-webkit-scrollbar{width:0}
   .scr{display:none}.scr.active{display:block;animation:fade .42s cubic-bezier(.2,.7,.2,1)}
   @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .pad{padding:0 16px}
 
-  /* ===== HOME (home-services style) ===== */
-  .h-top{display:flex;align-items:center;gap:12px;padding:6px 2px 14px}
-  .h-top .pf{width:46px;height:46px;border-radius:14px;object-fit:cover;flex:none;box-shadow:var(--sh-sm)}
-  .h-top .hi{flex:1}
-  .h-top .hi small{font-size:12px;color:var(--muted);font-weight:600}
-  .h-top .hi b{font-size:16px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:5px}
-  .h-top .loc{font-size:11.5px;color:var(--red);font-weight:700;display:flex;align-items:center;gap:3px;margin-top:1px}
-  .bell{width:44px;height:44px;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:17px;position:relative;flex:none;box-shadow:var(--sh-sm)}
-  .bell .bdg{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;border:2px solid var(--canvas)}
+  /* navy app header */
+  .apphead{background:var(--navy);padding:0 16px 22px;border-radius:0 0 26px 26px;position:relative;overflow:hidden;margin-top:-34px;padding-top:42px}
+  .apphead .dash path{stroke:rgba(255,255,255,.22)}
+  .ah-row{display:flex;align-items:center;gap:11px;position:relative;z-index:2}
+  .ah-row .pf{width:44px;height:44px;border-radius:13px;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.2)}
+  .ah-row .hi{flex:1}
+  .ah-row .hi small{font-size:11.5px;color:#9DAAB1;font-weight:600}
+  .ah-row .hi b{font-size:16px;font-weight:800;color:#fff;display:block}
+  .ah-row .bell{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:16px;position:relative;flex:none}
+  .ah-row .bell .bdg{position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;border-radius:9px;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;display:grid;place-items:center;border:2px solid var(--navy)}
+  .ah-title{position:relative;z-index:2;color:#fff;font-size:22px;font-weight:900;letter-spacing:-.6px;margin-top:16px;line-height:1.1}
+  .ah-masc{position:absolute;right:8px;bottom:-6px;width:96px;opacity:.92;z-index:1}
 
-  .bighead{font-size:25px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin:6px 2px 14px}
+  .search{display:flex;gap:9px;margin:14px 0 6px;position:relative;z-index:2}
+  .search .sf{flex:1;background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-sm);font-size:13px;color:var(--muted2);font-weight:500}
+  .search .filt{width:46px;height:46px;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:16px;flex:none}
 
-  .search{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-  .search .sf{flex:1;background:#fff;border-radius:15px;padding:14px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)}
-  .search .sf .mg{color:var(--muted2);font-size:16px}
-  .search .sf span{color:var(--muted2);font-size:13.5px;font-weight:500}
-  .search .filt{width:48px;height:48px;border-radius:15px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:17px;flex:none;box-shadow:0 12px 24px -12px rgba(215,25,32,.55)}
+  .sect{font-size:15px;font-weight:800;letter-spacing:-.3px;margin:20px 2px 12px;display:flex;justify-content:space-between;align-items:center}
+  .sect a{font-size:12px;color:var(--red);font-weight:700;cursor:pointer}
 
-  /* promo banner (navy + photo) */
-  .promo{background:var(--navy);border-radius:var(--r);padding:18px;position:relative;overflow:hidden;display:flex;align-items:center;color:#fff;min-height:120px;box-shadow:var(--sh)}
-  .promo .pimg{position:absolute;right:0;top:0;bottom:0;width:42%;object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%)}
-  .promo .pt{position:relative;z-index:1;max-width:62%}
-  .promo .pt .tag{font-size:11px;font-weight:800;color:#FF8A8F;letter-spacing:.3px}
-  .promo .pt b{font-size:17px;font-weight:800;letter-spacing:-.3px;display:block;margin:5px 0 12px;line-height:1.2}
-  .promo .pt .pb{background:var(--red);color:#fff;border:0;font-family:inherit;font-weight:800;font-size:12.5px;padding:10px 16px;border-radius:11px;cursor:pointer}
+  /* advisor */
+  .advisor{background:#fff;border-radius:16px;padding:11px;display:flex;align-items:center;gap:11px;box-shadow:var(--sh-sm);margin-top:14px}
+  .advisor img{width:46px;height:46px;border-radius:13px;object-fit:cover;flex:none}
+  .advisor .ai{flex:1}.advisor .ai b{font-size:13.5px;display:block}.advisor .ai small{font-size:11.5px;color:var(--muted)}
+  .advisor .acts{display:flex;gap:7px}
+  .advisor .acts span{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:15px;flex:none;background:#EEF2F4;color:var(--navy)}
+  .advisor .acts span.call{background:var(--red);color:#fff}
 
-  .sect{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--ink);margin:22px 2px 13px;display:flex;justify-content:space-between;align-items:center}
-  .sect a{font-size:12px;color:var(--red);font-weight:700}
-
-  /* category cards */
-  .cats{display:flex;gap:11px;overflow:hidden}
-  .catc{flex:1;background:#fff;border-radius:18px;padding:10px 10px 12px;text-align:center;box-shadow:var(--sh-sm);cursor:pointer;transition:transform .18s}
+  .cats{display:flex;gap:10px}
+  .catc{flex:1;background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--sh-sm);cursor:pointer;transition:transform .18s}
   .catc:hover{transform:translateY(-3px)}
-  .catc .ct{width:100%;height:62px;border-radius:13px;object-fit:cover;margin-bottom:8px}
-  .catc b{font-size:11.5px;font-weight:700;display:block;letter-spacing:-.2px}
-  .catc small{font-size:9.5px;color:var(--muted)}
+  .catc .ct{width:100%;height:64px;object-fit:cover;display:block}
+  .catc .cl{padding:9px 8px 11px;text-align:center}
+  .catc b{font-size:11.5px;font-weight:700;display:block}.catc small{font-size:9.5px;color:var(--muted)}
 
-  /* product / stock rows */
-  .prow{background:#fff;border-radius:18px;padding:11px;display:flex;align-items:center;gap:12px;margin-bottom:11px;box-shadow:var(--sh-sm);cursor:pointer;transition:transform .18s}
+  .prow{background:#fff;border-radius:16px;padding:10px;display:flex;align-items:center;gap:11px;margin-bottom:10px;box-shadow:var(--sh-sm);cursor:pointer;transition:transform .18s}
   .prow:hover{transform:translateY(-2px)}
-  .prow .pi{width:62px;height:62px;border-radius:14px;object-fit:cover;flex:none}
-  .prow .pinfo{flex:1;min-width:0}
-  .prow .pinfo b{font-size:14px;display:block;letter-spacing:-.2px}
-  .prow .pinfo .sub{font-size:11.5px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:6px}
-  .prow .pinfo .price{font-size:14.5px;font-weight:800;color:var(--ink);margin-top:5px}
-  .prow .pinfo .price small{font-size:10.5px;color:var(--muted);font-weight:600}
-  .prow .go{width:38px;height:38px;border-radius:12px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:17px;flex:none}
+  .prow .pi{width:60px;height:60px;border-radius:13px;object-fit:cover;flex:none}
+  .prow .pinfo{flex:1;min-width:0}.prow .pinfo b{font-size:13.5px;display:block;letter-spacing:-.2px}
+  .prow .pinfo .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  .prow .pinfo .price{font-size:13.5px;font-weight:800;margin-top:5px}.prow .pinfo .price small{font-size:10px;color:var(--muted);font-weight:600}
+  .prow .goa{width:36px;height:36px;border-radius:11px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:16px;flex:none}
+
+  /* navy promo with mascot + dash */
+  .promo{background:var(--navy);border-radius:var(--r);padding:16px;position:relative;overflow:hidden;display:flex;align-items:center;color:#fff;min-height:108px;box-shadow:var(--sh);cursor:pointer}
+  .promo .pt{position:relative;z-index:2;max-width:66%}
+  .promo .pt .tg{font-size:10.5px;font-weight:800;color:#FF8E92;letter-spacing:.4px}
+  .promo .pt b{font-size:15.5px;font-weight:800;display:block;margin:5px 0 11px;line-height:1.2}
+  .promo .pt .pb{background:var(--red);color:#fff;border:0;font-family:inherit;font-weight:800;font-size:12px;padding:9px 15px;border-radius:10px;cursor:pointer}
+  .promo .pmasc{position:absolute;right:10px;bottom:-8px;width:84px;z-index:1;opacity:.95}
 
   .pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:20px}
-  .pill.ok{background:var(--mint);color:var(--mint-d)}.pill.warn{background:#FCF1DC;color:#B97B16}.pill.bad{background:#FCE9E8;color:var(--bad)}
+  .pill.ok{background:#E7F6EE;color:var(--ok)}.pill.warn{background:#FCF1DC;color:#B97B16}.pill.bad{background:#FCE9E8;color:var(--bad)}
   .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
   .dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
-  .star{color:#F2A93B}
+  .star{color:#F2A93B;font-weight:800}
 
-  /* ===== SCAN ===== */
-  .topline{display:flex;align-items:center;gap:12px;margin:8px 0 16px}
-  .back{width:40px;height:40px;border-radius:13px;background:#fff;display:grid;place-items:center;font-size:16px;box-shadow:var(--sh-sm);flex:none}
-  .topline h2{font-size:19px;letter-spacing:-.5px;font-weight:800}
-  .scanbox{height:300px;border-radius:24px;position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--sh)}
-  .scanbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .scanbox::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35))}
-  .reticle{width:184px;height:122px;border-radius:16px;position:relative;z-index:2}
+  /* topline for subpages */
+  .topline{display:flex;align-items:center;gap:11px;margin:6px 0 14px}
+  .back{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:15px;box-shadow:var(--sh-sm);flex:none;cursor:pointer}
+  .topline h2{font-size:18px;letter-spacing:-.5px;font-weight:800}
+
+  /* scan */
+  .scanbox{height:290px;border-radius:20px;position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--sh)}
+  .scanbox img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .scanbox::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.4))}
+  .reticle{width:178px;height:120px;border-radius:14px;position:relative;z-index:2}
   .reticle span{position:absolute;width:28px;height:28px;border:3px solid #fff}
   .reticle span:nth-child(1){top:0;left:0;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
   .reticle span:nth-child(2){top:0;right:0;border-left:0;border-bottom:0;border-radius:0 10px 0 0}
   .reticle span:nth-child(3){bottom:0;left:0;border-right:0;border-top:0;border-radius:0 0 0 10px}
   .reticle span:nth-child(4){bottom:0;right:0;border-left:0;border-top:0;border-radius:0 0 10px 0}
-  .laser{position:absolute;left:18px;right:18px;height:3px;background:var(--red);border-radius:3px;box-shadow:0 0 14px rgba(215,25,32,.8);top:18px;animation:scan 2.4s ease-in-out infinite;z-index:3}
-  @keyframes scan{0%,100%{top:18px}50%{top:101px}}
-  .scan-cap{position:absolute;bottom:16px;font-size:11.5px;color:#fff;z-index:3;display:flex;align-items:center;gap:7px;background:rgba(27,46,56,.6);padding:8px 14px;border-radius:20px;backdrop-filter:blur(6px);font-weight:600}
-  .scan-cap .ld{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
+  .laser{position:absolute;left:18px;right:18px;height:3px;background:var(--red);border-radius:3px;box-shadow:0 0 14px rgba(215,40,46,.85);top:18px;animation:scan 2.4s ease-in-out infinite;z-index:3}
+  @keyframes scan{0%,100%{top:18px}50%{top:100px}}
+  .scan-cap{position:absolute;bottom:14px;font-size:11px;color:#fff;z-index:3;background:rgba(25,43,55,.7);padding:8px 14px;border-radius:18px;font-weight:600;display:flex;align-items:center;gap:7px}
+  .ld{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   .card{background:#fff;border-radius:var(--r);padding:15px;box-shadow:var(--sh-sm)}
   .card+.card{margin-top:11px}
-  .match{display:flex;gap:13px;align-items:center}
-  .match .mi{width:54px;height:54px;border-radius:14px;object-fit:cover;flex:none}
-  .match b{font-size:14.5px}.match small{color:var(--muted);font-size:12px;display:block;margin-top:2px}
+  .match{display:flex;gap:12px;align-items:center}
+  .match .mi{width:52px;height:52px;border-radius:13px;object-fit:cover;flex:none}
+  .match b{font-size:14.5px}.match small{color:var(--muted);font-size:12px;display:block;margin-top:1px}
   .pricerow{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
-  .pricerow .p{font-size:22px;font-weight:900;letter-spacing:-.6px}
-  .pricerow .p small{font-size:12px;color:var(--muted);font-weight:600}
-  .add{color:#fff;border:0;padding:13px 18px;border-radius:13px;font-weight:800;font-size:13.5px;cursor:pointer;background:var(--red);box-shadow:0 12px 22px -12px rgba(215,25,32,.55)}
+  .pricerow .p{font-size:22px;font-weight:900;letter-spacing:-.6px}.pricerow .p small{font-size:11px;color:var(--muted);font-weight:600}
+  .add{color:#fff;border:0;padding:13px 18px;border-radius:13px;font-weight:800;font-size:13.5px;cursor:pointer;background:var(--red)}
 
-  /* STOCK */
-  .chips{display:flex;gap:8px;margin-bottom:14px}
-  .chips .c{background:#fff;border-radius:11px;padding:9px 14px;font-size:12.5px;font-weight:700;color:var(--muted);box-shadow:var(--sh-sm)}
-  .chips .c.on{background:var(--red);color:#fff}
-  .reserve{width:100%;color:#fff;border:0;padding:15px;border-radius:14px;font-weight:800;font-size:14.5px;cursor:pointer;background:var(--red);box-shadow:0 14px 26px -14px rgba(215,25,32,.55)}
+  /* stock — real map hero */
+  .map-hero{border-radius:var(--r);overflow:hidden;position:relative;box-shadow:var(--sh);margin-bottom:14px}
+  .map-hero img{width:100%;display:block}
+  .map-hero .mtag{position:absolute;left:14px;top:14px;background:rgba(255,255,255,.92);color:var(--navy);font-size:11px;font-weight:800;padding:7px 12px;border-radius:20px}
+  .branch{display:flex;align-items:center;gap:11px;padding:11px;background:#fff;border-radius:15px;box-shadow:var(--sh-sm);margin-bottom:9px}
+  .branch .pi{width:50px;height:50px;border-radius:12px;object-fit:cover;flex:none}
+  .branch .bi{flex:1}.branch .bi b{font-size:13.5px;display:block}.branch .bi small{font-size:11.5px;color:var(--muted)}
+  .branch .km{font-size:11px;font-weight:800;color:var(--navy);background:#EEF2F4;padding:4px 8px;border-radius:8px}
+  .reserve{width:100%;color:#fff;border:0;padding:15px;border-radius:14px;font-weight:800;font-size:14.5px;cursor:pointer;background:var(--red);margin-top:4px}
 
-  /* PROJECT */
-  .seg{display:flex;gap:6px;background:#fff;border-radius:14px;padding:5px;margin-bottom:16px;box-shadow:var(--sh-sm)}
-  .seg button{flex:1;border:0;background:0;color:var(--muted);font-family:inherit;font-weight:700;font-size:13px;padding:10px;border-radius:10px;cursor:pointer}
-  .seg button.on{background:var(--red);color:#fff}
-  .proj-banner{border-radius:var(--r);overflow:hidden;position:relative;height:120px;margin-bottom:14px;box-shadow:var(--sh)}
-  .proj-banner img{width:100%;height:100%;object-fit:cover}
-  .proj-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(27,50,62,.85),rgba(27,50,62,.25))}
-  .proj-banner .pb-t{position:absolute;left:16px;bottom:14px;color:#fff;z-index:1}
-  .proj-banner .pb-t b{font-size:17px;font-weight:800}
-  .proj-banner .pb-t small{font-size:12px;color:#d6dde1;display:block;margin-top:2px}
-  .bar{height:7px;border-radius:5px;background:rgba(255,255,255,.3);margin-top:9px;overflow:hidden;width:160px}
+  /* leady */
+  .chips{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+  .chips .c{background:#fff;border-radius:10px;padding:8px 13px;font-size:12px;font-weight:700;color:var(--muted);box-shadow:var(--sh-sm)}
+  .chips .c.on{background:var(--navy);color:#fff}
+
+  /* project */
+  .seg{display:flex;gap:6px;background:#fff;border-radius:13px;padding:5px;margin-bottom:14px;box-shadow:var(--sh-sm)}
+  .seg button{flex:1;border:0;background:0;color:var(--muted);font-family:inherit;font-weight:700;font-size:13px;padding:10px;border-radius:9px;cursor:pointer}
+  .seg button.on{background:var(--navy);color:#fff}
+  .pbanner{border-radius:var(--r);overflow:hidden;position:relative;height:118px;margin-bottom:14px;box-shadow:var(--sh)}
+  .pbanner img{width:100%;height:100%;object-fit:cover}
+  .pbanner::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(25,43,55,.88),rgba(25,43,55,.25))}
+  .pbanner .pbt{position:absolute;left:15px;bottom:13px;color:#fff;z-index:1}
+  .pbanner .pbt b{font-size:16px;font-weight:800}.pbanner .pbt small{font-size:11.5px;color:#cfd7db;display:block;margin-top:2px}
+  .bar{height:7px;border-radius:5px;background:rgba(255,255,255,.3);margin-top:9px;overflow:hidden;width:150px}
   .bar i{display:block;height:100%;width:62%;background:var(--red);border-radius:5px}
   .line-item{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line);font-size:14px}
-  .line-item:last-child{border:0}
-  .line-item .q{color:var(--muted);font-size:12.5px}
+  .line-item:last-child{border:0}.line-item .q{color:var(--muted);font-size:12.5px}
   .line-item.done b{text-decoration:line-through;color:var(--muted)}
   .chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-size:13px;color:#fff}
   .chk.on{background:var(--ok);border-color:var(--ok)}
-  .timechips{display:flex;gap:8px;margin-top:4px}
-  .timechips .t{flex:1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px;font-size:12.5px;font-weight:700;box-shadow:var(--sh-sm)}
+  .timechips{display:flex;gap:8px;margin-top:2px}
+  .timechips .t{flex:1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px;font-size:12px;font-weight:700;box-shadow:var(--sh-sm)}
   .timechips .t.on{background:var(--red);color:#fff;border-color:var(--red)}
-  .quotebtn{width:100%;margin-top:16px;color:#fff;border:0;padding:15px;border-radius:14px;font-weight:800;font-size:14.5px;cursor:pointer;background:var(--red);box-shadow:0 14px 26px -14px rgba(215,25,32,.55)}
+  .quotebtn{width:100%;margin-top:15px;color:#fff;border:0;padding:15px;border-radius:14px;font-weight:800;font-size:14.5px;cursor:pointer;background:var(--red)}
 
   /* bottom nav */
-  .nav{position:absolute;bottom:0;left:0;right:0;height:76px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px;z-index:6}
-  .nav button{background:0;border:0;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted2);font-size:10px;font-weight:700;flex:1;transition:color .2s}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:74px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px;z-index:6}
+  .nav button{background:0;border:0;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted2);font-size:9.5px;font-weight:700;flex:1;transition:color .2s;position:relative}
   .nav button .ni{font-size:19px}
   .nav button.on{color:var(--red)}
-  .nav .scanfab{color:#fff;width:56px;height:56px;border-radius:19px;display:grid;place-items:center;font-size:23px;margin-top:-24px;flex:none;background:var(--red);box-shadow:0 16px 26px -8px rgba(215,25,32,.6)}
+  .nav button.on::before{content:"";position:absolute;top:-9px;width:24px;height:3px;border-radius:3px;background:var(--red)}
+  .nav .scanfab{color:#fff;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:23px;margin-top:-24px;flex:none;background:var(--red);box-shadow:0 16px 26px -8px rgba(215,40,46,.6)}
+  .nav .scanfab::before{display:none}
 
-  /* ---------- FEATURES ---------- */
-  section.features{padding:70px 0 80px}
+  /* ---------- SECTIONS ---------- */
+  section.features{padding:70px 0 40px}
   .features h2{font-size:clamp(30px,3.6vw,46px);letter-spacing:-1.4px;font-weight:900;text-align:center}
   .features h2 .r{color:var(--red)}
-  .features .sub{text-align:center;color:var(--muted);font-size:17px;margin:16px auto 50px;max-width:580px;line-height:1.55}
+  .features .sub{text-align:center;color:var(--muted);font-size:17px;margin:16px auto 48px;max-width:580px;line-height:1.55}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .fcard{background:#fff;border-radius:22px;padding:26px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
-  .fcard:hover{transform:translateY(-6px);box-shadow:0 30px 50px -28px rgba(27,46,56,.4)}
-  .fcard .fi{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:24px;margin-bottom:16px;background:var(--red-soft);color:var(--red)}
-  .fcard.alt .fi{background:var(--mint);color:var(--mint-d)}
-  .fcard h3{font-size:18px;letter-spacing:-.4px;font-weight:800;margin-bottom:9px}
+  .fcard{background:#fff;border-radius:20px;padding:26px;box-shadow:var(--sh);transition:transform .2s}
+  .fcard:hover{transform:translateY(-6px)}
+  .fcard .fi{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:23px;margin-bottom:15px;background:var(--red-soft);color:var(--red)}
+  .fcard.alt .fi{background:var(--navy);color:#fff}
+  .fcard h3{font-size:18px;letter-spacing:-.4px;font-weight:800;margin-bottom:8px}
   .fcard p{color:#5A6A72;font-size:14.5px;line-height:1.6}
 
-  /* WHY */
-  .why{padding:0 0 90px}
-  .why-inner{border-radius:30px;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;overflow:hidden;box-shadow:var(--sh);min-height:330px;background:#fff}
-  .why-img{position:relative;overflow:hidden}
-  .why-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .why-txt{padding:46px;display:flex;flex-direction:column;justify-content:center}
-  .why-txt h2{font-size:31px;letter-spacing:-1px;font-weight:900}
-  .why-txt p{color:#56676F;font-size:15.5px;line-height:1.65;margin-top:15px}
-  .who{display:flex;flex-direction:column;gap:11px;margin-top:22px}
-  .who .row{display:flex;gap:13px;align-items:center;background:var(--canvas);border-radius:14px;padding:13px 15px;transition:.2s}
-  .who .row:hover{transform:translateX(5px)}
-  .who .row .e{font-size:22px}.who .row b{font-size:14px}.who .row small{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
+  /* divisions strip */
+  .divs{padding:50px 0 30px}
+  .divs h2{text-align:center;font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+  .divs .sub{text-align:center;color:var(--muted);font-size:16px;margin-bottom:34px}
+  .divrow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .divc{border-radius:22px;padding:26px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden}
+  .divc.vo{background:var(--red)}
+  .divc.ex{background:var(--navy);outline:3px solid var(--red);outline-offset:3px}
+  .divc.ku{background:#AFC0BC}
+  .divc .dl{font-size:13px;color:rgba(255,255,255,.8);font-weight:600}
+  .divc .dn{font-weight:900;font-size:22px;letter-spacing:-.5px;margin-top:6px}
+  .divc .tagme{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:7px}
+  .divc .dd{font-size:13px;color:rgba(255,255,255,.82);line-height:1.5;margin-top:10px}
+  .divc.ku .dl,.divc.ku .dd{color:rgba(25,43,55,.7)}.divc.ku .dn{color:var(--navy)}
 
-  footer{text-align:center;padding:34px 20px 70px;color:var(--muted);font-size:13px;line-height:1.8}
-  footer b{color:var(--ink)}footer a{color:var(--red);text-decoration:none;font-weight:700}
+  .why{padding:30px 0 90px}
+  .why-inner{border-radius:28px;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;overflow:hidden;box-shadow:var(--sh);min-height:320px;background:var(--navy)}
+  .why-img{position:relative;overflow:hidden}.why-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .why-txt{padding:46px;display:flex;flex-direction:column;justify-content:center;color:#fff;position:relative;overflow:hidden}
+  .why-txt h2{font-size:31px;letter-spacing:-1px;font-weight:900}
+  .why-txt p{color:#B6C1C8;font-size:15.5px;line-height:1.65;margin-top:15px}
+  .who{display:flex;flex-direction:column;gap:10px;margin-top:22px;position:relative;z-index:2}
+  .who .row{display:flex;gap:13px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 15px}
+  .who .row .e{font-size:21px}.who .row b{font-size:14px}.who .row small{font-size:12.5px;color:#9DAAB1;display:block;margin-top:2px}
+
+  footer{text-align:center;padding:34px 20px 64px;color:var(--muted);font-size:13px;line-height:1.8}
+  footer .lock{font-size:16px}footer a{color:var(--red);text-decoration:none;font-weight:700}
 
   @media(max-width:920px){
-    header.hero{grid-template-columns:1fr;padding-top:44px}
-    .stage{order:-1}.grid{grid-template-columns:1fr}
-    .why-inner{grid-template-columns:1fr}.why-img{min-height:200px}
-    .stats{flex-wrap:wrap;gap:22px}
+    .hero-grid{grid-template-columns:1fr}.stage{order:-1}.nav-top .links{display:none}
+    .grid,.divrow{grid-template-columns:1fr}.why-inner{grid-template-columns:1fr}.why-img{min-height:200px}
+    .stats{flex-wrap:wrap;gap:20px}.hero-masc{display:none}
   }
   ::view-transition-old(root),::view-transition-new(root){animation-duration:.42s}
 </style>
 </head>
 <body>
 
-<div class="wrap">
 <header class="hero">
-  <div>
-    <div class="brand"><span class="logo">E</span><span class="bt">Empiria Parťák<small>koncept appky</small></span></div>
-    <span class="eyebrow"><span class="pulse"></span>pre montérov · od roku 1991</span>
-    <h1>Čokoľvek pod<br>strechou <span class="r">opravíš.</span></h1>
-    <p class="lede">Naskenuj kotol, nájdi kompatibilný diel a zisti, ktorá pobočka ho má práve teraz skladom. Sklad, stavby aj poradca — vo vrecku.</p>
-    <div class="cta">
-      <button class="btn primary" onclick="document.getElementById('demo').scrollIntoView()">Vyskúšať prototyp ↓</button>
-      <button class="btn ghost" onclick="document.getElementById('feat').scrollIntoView()">Ako to funguje</button>
+  <div class="hero-grid">
+    <div class="nav-top">
+      <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
+      <div class="links"><span onclick="document.getElementById('feat').scrollIntoView()">Funkcie</span><span onclick="document.getElementById('divs').scrollIntoView()">Divízie</span><span onclick="document.getElementById('demo').scrollIntoView()">Prototyp</span></div>
     </div>
-    <div class="stats">
-      <div><b>10+</b><span>veľkoobchodov</span></div>
-      <div><b>1500+</b><span>montérov</span></div>
-      <div><b>15 min</b><span>na vyzdvihnutie</span></div>
+
+    <div style="position:relative">
+      <span class="eyebrow"><span class="pulse"></span>samoobslužné predajne · pre montérov</span>
+      <h1>Remeslo má<br>svojho <span class="r">parťáka.</span></h1>
+      <p class="lede">Naskenuj kotol, nájdi kompatibilný diel a zisti, ktorá z predajní ho má práve teraz skladom. Sklad, stavby aj zákazky — vo vrecku.</p>
+      <div class="cta">
+        <button class="btn primary" onclick="document.getElementById('demo').scrollIntoView()">Vyskúšať prototyp ↓</button>
+        <button class="btn ghost" onclick="document.getElementById('feat').scrollIntoView()">Ako to funguje</button>
+      </div>
+      <div class="stats">
+        <div><b>17</b><span>predajní</span></div>
+        <div><b>1500+</b><span>montérov</span></div>
+        <div><b>15 min</b><span>na vyzdvihnutie</span></div>
+      </div>
+      <img class="hero-masc masc" src="img/mascot.png" alt="">
     </div>
-  </div>
 
-  <div class="stage" id="demo">
-    <div class="ph-glow"></div>
-    <div class="phone">
-      <div class="notch"></div>
-      <div class="screen">
-        <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
-        <div class="view">
+    <div class="stage" id="demo">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
+          <div class="view">
 
-          <!-- ===== HOME ===== -->
-          <div class="scr active" data-s="home">
-            <div class="h-top">
-              <img class="pf" src="img/worker2.jpg" alt="">
-              <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b><span class="loc">📍 Express Žilina</span></div>
-              <div class="bell">🔔<span class="bdg">2</span></div>
-            </div>
+            <!-- ===== HOME ===== -->
+            <div class="scr active" data-s="home">
+              <div class="apphead">
+                <div class="dash"><svg viewBox="0 0 340 160" preserveAspectRatio="none"><path d="M-10,40 C90,120 160,-10 360,90"/></svg></div>
+                <div class="ah-row">
+                  <img class="pf" src="img/staff.jpg" alt="">
+                  <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div>
+                  <div class="bell">🔔<span class="bdg">2</span></div>
+                </div>
+                <div class="ah-title">Čo dnes<br>potrebuješ?</div>
+                <img class="ah-masc masc" src="img/mascot.png" alt="">
+                <div class="search">
+                  <div class="sf">🔍 Hľadať diel, kotol, rúrku…</div>
+                  <div class="filt">⚙️</div>
+                </div>
+              </div>
 
-            <div class="bighead">Čo dnes<br>potrebuješ?</div>
+              <div class="pad">
+                <div class="sect">Kategórie <a onclick="go('scan')">Všetko →</a></div>
+                <div class="cats">
+                  <div class="catc" onclick="go('scan')"><img class="ct" src="img/heatpump.jpg" alt=""><div class="cl"><b>Kúrenie</b><small>2 340</small></div></div>
+                  <div class="catc" onclick="go('stock')"><img class="ct" src="img/store-aisle.jpg" alt=""><div class="cl"><b>Voda</b><small>5 120</small></div></div>
+                  <div class="catc" onclick="go('stock')"><img class="ct" src="img/bathroom.jpg" alt=""><div class="cl"><b>Sanita</b><small>1 870</small></div></div>
+                </div>
 
-            <div class="search">
-              <div class="sf"><span class="mg">🔍</span><span>Hľadať diel, kotol, rúrku…</span></div>
-              <div class="filt">⚙️</div>
-            </div>
+                <div class="advisor">
+                  <img src="img/staff.jpg" alt="">
+                  <div class="ai"><b>Tomáš · tvoj predajca</b><small>express.EMPIRIA Žilina</small></div>
+                  <div class="acts"><span>💬</span><span class="call">📞</span></div>
+                </div>
 
-            <div class="promo">
-              <img class="pimg" src="img/worker2.jpg" alt="">
-              <div class="pt">
-                <div class="tag">SKENUJ &amp; NÁJDI</div>
-                <b>Odfoť starý diel,<br>nájdi náhradu</b>
-                <button class="pb" onclick="go('scan')">Skenovať →</button>
+                <div class="sect">Naskladom pri tebe <a onclick="go('stock')">Viac →</a></div>
+                <div class="prow" onclick="go('stock')">
+                  <img class="pi" src="img/heatpump.jpg" alt="">
+                  <div class="pinfo"><b>Čerpadlo Grundfos 15/60</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div>
+                  <div class="goa">→</div>
+                </div>
+                <div class="prow" onclick="go('stock')">
+                  <img class="pi" src="img/store-aisle.jpg" alt="">
+                  <div class="pinfo"><b>Expanzná nádoba 8L</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">24,90 € <small>bez DPH</small></div></div>
+                  <div class="goa">→</div>
+                </div>
+
+                <div class="sect">Nové zákazky <a onclick="go('leady')">Viac →</a></div>
+                <div class="promo" onclick="go('leady')">
+                  <div class="dash"><svg viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M-10,30 C70,100 150,-10 320,70"/></svg></div>
+                  <div class="pt"><div class="tg">📨 3 NOVÉ LEADY</div><b>Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
+                  <img class="pmasc masc" src="img/mascot.png" alt="">
+                </div>
               </div>
             </div>
 
-            <div class="sect">Kategórie <a>Všetko →</a></div>
-            <div class="cats">
-              <div class="catc" onclick="go('scan')"><img class="ct" src="img/boiler.jpg" alt=""><b>Kúrenie</b><small>2 340</small></div>
-              <div class="catc" onclick="go('stock')"><img class="ct" src="img/worker3.jpg" alt=""><b>Voda</b><small>5 120</small></div>
-              <div class="catc" onclick="go('stock')"><img class="ct" src="img/heating.jpg" alt=""><b>Sanita</b><small>1 870</small></div>
-              <div class="catc" onclick="go('stock')"><img class="ct" src="img/copper.jpg" alt=""><b>Tep. č.</b><small>340</small></div>
-            </div>
-
-            <div class="sect">Naskladom pri tebe <a>Viac →</a></div>
-            <div class="prow" onclick="go('stock')">
-              <img class="pi" src="img/copper.jpg" alt="">
-              <div class="pinfo">
-                <b>Čerpadlo Grundfos 15/60</b>
-                <div class="sub"><span class="star">★ 2,1 km</span> · Express Žilina</div>
-                <div class="price">86,40 € <small>bez DPH</small></div>
+            <!-- ===== SCAN ===== -->
+            <div class="scr" data-s="scan">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Skenuj &amp; nájdi</h2></div>
+                <div class="scanbox">
+                  <img class="bg" src="img/heatpump.jpg" alt="">
+                  <div class="laser"></div>
+                  <div class="reticle"><span></span><span></span><span></span><span></span></div>
+                  <div class="scan-cap"><span class="ld"></span>Rozpoznávam typový štítok…</div>
+                </div>
+                <div class="sect">Rozpoznané ✓</div>
+                <div class="card">
+                  <div class="match"><img class="mi" src="img/heatpump.jpg" alt=""><div style="flex:1"><b>Thermia Mega 2020</b><small>tepelné čerpadlo · r. 2021</small></div><span class="pill ok">98%</span></div>
+                </div>
+                <div class="sect">Kompatibilná náhrada</div>
+                <div class="card">
+                  <div class="match"><img class="mi" src="img/store-aisle.jpg" alt=""><div style="flex:1"><b>Obehové čerpadlo Grundfos</b><small>pasuje 1:1</small></div></div>
+                  <div class="pricerow"><div class="p">86,40 € <small>/ ks</small></div><button class="add" onclick="go('stock')">Nájsť skladom →</button></div>
+                </div>
               </div>
-              <div class="go">→</div>
             </div>
-            <div class="prow" onclick="go('stock')">
-              <img class="pi" src="img/boiler.jpg" alt="">
-              <div class="pinfo">
-                <b>Expanzná nádoba 8L</b>
-                <div class="sub"><span class="star">★ 2,1 km</span> · Express Žilina</div>
-                <div class="price">24,90 € <small>bez DPH</small></div>
+
+            <!-- ===== STOCK / POBOČKY ===== -->
+            <div class="scr" data-s="stock">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Skladom pri tebe</h2></div>
+                <div class="map-hero"><img src="img/map-express.png" alt=""><div class="mtag">📍 Čerpadlo Grundfos · 17 predajní</div></div>
+                <div class="branch">
+                  <img class="pi" src="img/store-interior.jpg" alt="">
+                  <div class="bi"><b>Express Žilina</b><small>Vysokoškolákov 8</small><div style="margin-top:5px"><span class="pill ok"><span class="dot ok"></span>5 ks</span></div></div>
+                  <span class="km">2,1 km</span>
+                </div>
+                <div class="branch">
+                  <img class="pi" src="img/store-aisle.jpg" alt="">
+                  <div class="bi"><b>Veľkoobchod Žilina</b><small>Kragujevská 12</small><div style="margin-top:5px"><span class="pill warn"><span class="dot warn"></span>1 ks</span></div></div>
+                  <span class="km">6,8 km</span>
+                </div>
+                <button class="reserve" onclick="go('proj')">📦 Rezervovať v Express Žilina</button>
               </div>
-              <div class="go">→</div>
             </div>
 
-            <div class="sect">Nové zákazky pre teba <a onclick="go('leady')" style="cursor:pointer">Viac →</a></div>
-            <div class="promo" style="min-height:96px" onclick="go('leady')">
-              <img class="pimg" src="img/heating.jpg" alt="">
-              <div class="pt"><div class="tag">📨 3 NOVÉ LEADY</div><b style="font-size:15px;margin:5px 0 10px">Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
+            <!-- ===== LEADY ===== -->
+            <div class="scr" data-s="leady">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Zákazky pre teba</h2></div>
+                <div class="promo" style="min-height:96px;margin-bottom:14px">
+                  <div class="dash"><svg viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M-10,20 C70,90 150,-10 320,60"/></svg></div>
+                  <div class="pt"><div class="tg">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:14px;margin:5px 0 0">Vidíš leady ako prvý</b></div>
+                  <img class="pmasc masc" src="img/mascot.png" alt="">
+                </div>
+                <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
+                <div class="prow">
+                  <img class="pi" src="img/heatpump.jpg" alt="">
+                  <div class="pinfo"><b>Výmena tepelného čerpadla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:5px"><span class="pill ok">✓ Sedí na teba</span> <b style="font-size:11px">~3 400 €</b></div></div>
+                  <div class="goa">→</div>
+                </div>
+                <div class="prow">
+                  <img class="pi" src="img/bathroom.jpg" alt="">
+                  <div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:5px"><span class="pill warn">Súrne</span> <b style="font-size:11px">~5 200 €</b></div></div>
+                  <div class="goa">→</div>
+                </div>
+                <div class="prow">
+                  <img class="pi" src="img/plumber.jpg" alt="">
+                  <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub">📍 Martin · 19 km · včera</div><div style="margin-top:5px"><b style="font-size:11px">~280 €</b></div></div>
+                  <div class="goa">→</div>
+                </div>
+              </div>
             </div>
+
+            <!-- ===== PROJECT ===== -->
+            <div class="scr" data-s="proj">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Rodinný dom · Bytča</h2></div>
+                <div class="pbanner">
+                  <img src="img/heatpump.jpg" alt="">
+                  <div class="pbt"><b>Výmena čerpadla + rozvody</b><small>investor: p. Novák · termín 14.6.</small><div class="bar"><i></i></div></div>
+                </div>
+                <div class="seg"><button class="on">Materiál</button><button>Termín</button></div>
+                <div class="card">
+                  <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Tepelné čerpadlo Thermia</b></span><span class="q">1 ks</span></div>
+                  <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Medená rúrka 18mm</b></span><span class="q">12 m</span></div>
+                  <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Obehové čerpadlo Grundfos</b></span><span class="q">1 ks</span></div>
+                  <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Expanzná nádoba 8L</b></span><span class="q">1 ks</span></div>
+                </div>
+                <div class="sect">Vyzdvihnutie</div>
+                <div class="timechips"><div class="t">Dnes 14:00</div><div class="t on">Zajtra 8:00</div><div class="t">Pi 10:00</div></div>
+                <button class="quotebtn">📄 Cenová ponuka pre investora</button>
+              </div>
+            </div>
+
           </div>
-
-          <!-- ===== SCAN ===== -->
-          <div class="scr" data-s="scan">
-            <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Skenuj &amp; nájdi</h2></div>
-            <div class="scanbox">
-              <img src="img/boiler.jpg" alt="">
-              <div class="laser"></div>
-              <div class="reticle"><span></span><span></span><span></span><span></span></div>
-              <div class="scan-cap"><span class="ld"></span>Rozpoznávam typový štítok…</div>
-            </div>
-            <div class="sect">Rozpoznané ✓</div>
-            <div class="card">
-              <div class="match"><img class="mi" src="img/boiler.jpg" alt=""><div style="flex:1"><b>Protherm Panther 25 KTV</b><small>plynový kotol · r. 2013</small></div><span class="pill ok">98%</span></div>
-            </div>
-            <div class="sect">Kompatibilná náhrada</div>
-            <div class="card">
-              <div class="match"><img class="mi" src="img/copper.jpg" alt=""><div style="flex:1"><b>Čerpadlo Grundfos 15/60</b><small>pasuje 1:1</small></div></div>
-              <div class="pricerow"><div class="p">86,40 € <small>/ ks</small></div><button class="add" onclick="go('stock')">Nájsť skladom →</button></div>
-            </div>
+          <div class="nav">
+            <button class="on" data-n="home" onclick="go('home')"><span class="ni">🏠</span>Domov</button>
+            <button data-n="stock" onclick="go('stock')"><span class="ni">📍</span>Sklad</button>
+            <button class="scanfab" onclick="go('scan')">📷</button>
+            <button data-n="leady" onclick="go('leady')"><span class="ni">📨</span>Zákazky</button>
+            <button data-n="proj" onclick="go('proj')"><span class="ni">🗂️</span>Stavby</button>
           </div>
-
-          <!-- ===== STOCK ===== -->
-          <div class="scr" data-s="stock">
-            <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Skladom pri tebe</h2></div>
-            <div class="chips"><div class="c on">Všetky</div><div class="c">Express</div><div class="c">Veľkoobchod</div></div>
-            <div class="prow">
-              <img class="pi" src="img/worker3.jpg" alt="">
-              <div class="pinfo"><b>Express Žilina</b><div class="sub">Vysokoškolákov 8 · 2,1 km</div><div style="margin-top:6px"><span class="pill ok"><span class="dot ok"></span>5 ks skladom</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <div class="prow">
-              <img class="pi" src="img/heating.jpg" alt="">
-              <div class="pinfo"><b>VO Žilina-Centrum</b><div class="sub">Kragujevská 12 · 6,8 km</div><div style="margin-top:6px"><span class="pill warn"><span class="dot warn"></span>posledný 1 ks</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <div class="prow">
-              <img class="pi" src="img/copper.jpg" alt="">
-              <div class="pinfo"><b>VO Martin</b><div class="sub">Robotnícka 4 · 19 km</div><div style="margin-top:6px"><span class="pill bad"><span class="dot bad"></span>naskladnenie zajtra</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <button class="reserve" style="margin-top:4px" onclick="go('proj')">📦 Rezervovať v Express Žilina</button>
-          </div>
-
-          <!-- ===== LEADY (montér side of marketplace) ===== -->
-          <div class="scr" data-s="leady">
-            <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Zákazky pre teba</h2></div>
-            <div class="promo" style="min-height:96px;margin-bottom:16px">
-              <img class="pimg" src="img/worker2.jpg" alt="">
-              <div class="pt"><div class="tag">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:15px;margin:5px 0 0">Vidíš leady ako prvý</b></div>
-            </div>
-            <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div><div class="c">Kúpeľne</div></div>
-            <div class="prow">
-              <img class="pi" src="img/boiler.jpg" alt="">
-              <div class="pinfo"><b>Výmena plynového kotla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:6px"><span class="pill ok">✓ Sedí na teba</span> <span style="font-size:11.5px;color:var(--muted);font-weight:700">~1 400 €</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <div class="prow">
-              <img class="pi" src="img/heating.jpg" alt="">
-              <div class="pinfo"><b>Rozvody kúrenia — novostavba</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:6px"><span class="pill warn">Súrne</span> <span style="font-size:11.5px;color:var(--muted);font-weight:700">~3 200 €</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <div class="prow">
-              <img class="pi" src="img/worker3.jpg" alt="">
-              <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub">📍 Martin · 19 km · včera</div><div style="margin-top:6px"><span style="font-size:11.5px;color:var(--muted);font-weight:700">~280 €</span></div></div>
-              <div class="go">→</div>
-            </div>
-            <div class="card" style="margin-top:4px;background:var(--red-soft);box-shadow:none;text-align:center">
-              <small style="color:var(--ink2);font-size:12px;font-weight:600;line-height:1.5">Leady z Empiria siete — investori, čo si u nás vybrali materiál a hľadajú, kto im ho namontuje.</small>
-            </div>
-          </div>
-
-          <!-- ===== PROJECT ===== -->
-          <div class="scr" data-s="proj">
-            <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Rodinný dom · Bytča</h2></div>
-            <div class="proj-banner">
-              <img src="img/heating.jpg" alt="">
-              <div class="pb-t"><b>Výmena kotla + rozvody</b><small>investor: p. Novák · termín 14.6.</small><div class="bar"><i></i></div></div>
-            </div>
-            <div class="seg"><button class="on">Materiál</button><button>Termín</button></div>
-            <div class="card">
-              <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Kotol Protherm 25</b></span><span class="q">1 ks</span></div>
-              <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Medená rúrka 18mm</b></span><span class="q">12 m</span></div>
-              <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Čerpadlo Grundfos 15/60</b></span><span class="q">1 ks</span></div>
-              <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Expanzná nádoba 8L</b></span><span class="q">1 ks</span></div>
-            </div>
-            <div class="sect">Vyzdvihnutie</div>
-            <div class="timechips"><div class="t">Dnes 14:00</div><div class="t on">Zajtra 8:00</div><div class="t">Pi 10:00</div></div>
-            <button class="quotebtn">📄 Cenová ponuka pre investora</button>
-          </div>
-
-        </div>
-        <div class="nav">
-          <button class="on" data-n="home" onclick="go('home')"><span class="ni">🏠</span>Domov</button>
-          <button data-n="stock" onclick="go('stock')"><span class="ni">📍</span>Sklad</button>
-          <button class="scanfab" onclick="go('scan')">📷</button>
-          <button data-n="leady" onclick="go('leady')"><span class="ni">📨</span>Zákazky</button>
-          <button data-n="proj" onclick="go('proj')"><span class="ni">🗂️</span>Stavby</button>
         </div>
       </div>
     </div>
   </div>
 </header>
-</div>
 
 <div class="wrap">
 <section class="features" id="feat">
@@ -424,20 +459,35 @@
   <p class="sub">Appka nestojí na ďalšom eshope. Stojí na jednom momente: <b style="color:var(--ink)">som na stavbe, niečo mi chýba, a chcem to teraz.</b></p>
   <div class="grid">
     <div class="fcard"><div class="fi">📷</div><h3>Skenuj &amp; nájdi</h3><p>Foto štítku kotla alebo starej súčiastky → appka rozpozná model a vyhodí kompatibilnú náhradu. Koniec hádania, či to pasuje.</p></div>
-    <div class="fcard alt"><div class="fi">📍</div><h3>Živý sklad pobočiek</h3><p>Semafor dostupnosti naprieč predajňami podľa vzdialenosti. Rezervuj a vyzdvihni v Express predajni do 15 minút.</p></div>
+    <div class="fcard alt"><div class="fi">📍</div><h3>Živý sklad predajní</h3><p>Reálna mapa 17 predajní so semaforom dostupnosti podľa vzdialenosti. Rezervuj a vyzdvihni v Express predajni do 15 minút.</p></div>
     <div class="fcard"><div class="fi">🗂️</div><h3>Stavby ako projekty</h3><p>Každá zákazka má súpis materiálu, fotky a stav. Jedným klikom z neho spravíš cenovú ponuku pre investora.</p></div>
-    <div class="fcard alt"><div class="fi">🎙️</div><h3>Objednávka hlasom</h3><p>„Tri metre medenej osemnástky a dve kolená." Nadiktuješ v aute, košík čaká pripravený na pobočke.</p></div>
+    <div class="fcard alt"><div class="fi">📨</div><h3>Zákazky z Empiria siete</h3><p>Investori, čo si u nás vybrali materiál, hľadajú montéra. Vyšší level = vidíš leady ako prvý.</p></div>
     <div class="fcard"><div class="fi">🔥</div><h3>Konfigurátor TČ</h3><p>Zadáš parametre domu → appka navrhne tepelné čerpadlo a vygeneruje kompletný zoznam dielov.</p></div>
     <div class="fcard alt"><div class="fi">⚡</div><h3>Skúsenosti (vernostka)</h3><p><i>Empiria</i> = skúsenosť. Montér zbiera body a levely, lepšie ceny a prednostný sklad.</p></div>
   </div>
 </section>
+</div>
 
+<div class="wrap">
+<section class="divs" id="divs">
+  <h2>Jedna značka, tri svety</h2>
+  <p class="sub">Appka žije pod <b>express.EMPIRIA</b> — samoobslužnou divíziou pre montérov.</p>
+  <div class="divrow">
+    <div class="divc vo"><div><div class="dl">veľkoobchod.</div><div class="dn">EMPIRIA</div></div><div class="dd">Projekty, investori, veľké dodávky materiálu.</div></div>
+    <div class="divc ex"><div class="tagme">TU ŽIJE APPKA</div><div><div class="dl">express.</div><div class="dn">EMPIRIA</div></div><div class="dd">Samoobslužné predajne. Montér, sklad, rýchlosť.</div></div>
+    <div class="divc ku"><div><div class="dl">kúpeľne.</div><div class="dn">EMPIRIA</div></div><div class="dd">Štúdiá, návrh kúpeľne, koncový zákazník.</div></div>
+  </div>
+</section>
+</div>
+
+<div class="wrap">
 <div class="why">
   <div class="why-inner">
-    <div class="why-img"><img src="img/worker2.jpg" alt=""></div>
+    <div class="why-img"><img src="img/staff.jpg" alt=""></div>
     <div class="why-txt">
+      <div class="dash"><svg viewBox="0 0 400 320" preserveAspectRatio="none"><path d="M-10,60 C120,200 240,20 420,160"/></svg></div>
       <h2>Prečo práve toto?</h2>
-      <p>Empiria je <b style="color:var(--ink)">prepojenie medzi výrobcom, realizačkou a investorom</b>. Eshop rieši objednávku. Ale rozhodnutie padá na stavbe, v ruke montéra — a tam dnes Empiria nie je. Appka obsadí presne to miesto.</p>
+      <p>Empiria je <b style="color:#fff">prepojenie medzi výrobcom, realizačkou a investorom</b>. Eshop rieši objednávku. Ale rozhodnutie padá na stavbe, v ruke montéra — a tam dnes Empiria nie je. Appka obsadí presne to miesto.</p>
       <div class="who">
         <div class="row"><span class="e">🔧</span><div><b>Montér / inštalatér</b><small>nájde diel a sklad bez telefonátu</small></div></div>
         <div class="row"><span class="e">🏗️</span><div><b>Realizačná firma</b><small>projekty, ponuky a tím na jednom mieste</small></div></div>
@@ -449,8 +499,8 @@
 </div>
 
 <footer>
-  <b>Empiria Parťák</b> — koncept · svetlý service-app štýl &nbsp;·&nbsp; Empiria červená + biele karty + reálna fotografia<br>
-  klikni na kategórie a spodnú navigáciu &nbsp;·&nbsp; <a href="screens.html">→ pozri všetky artboards</a>
+  <span class="lock dark"><span class="ex">express.</span><img src="img/logo-red.png" alt="EMPIRIA"></span> &nbsp;Parťák — koncept appky<br>
+  reálna brand identita · navy #192B37 + EMPIRIA červená + maskot &nbsp;·&nbsp; <a href="screens.html">→ pozri všetky artboards</a>
 </footer>
 
 <script>
