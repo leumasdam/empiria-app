@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empiria — App Screens Board (Figma-ready)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#D71920;          /* Empiria brand red */
+    --red-k:#ED1D25;        /* Kúpeľne red */
+    --slate:#1B323E;        /* dark slate */
+    --slate2:#42575C;       /* secondary slate */
+    --muted:#6B7C84;
+    --line:#E6EBEE;
+    --bg:#F4F6F8;
+    --kbg:#F5F9FA;          /* kúpeľne light bg */
+    --ok:#16A34A;--warn:#F59E0B;--bad:#EF4444;
+    --font:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
+  body{background:#10171C;color:#fff;padding:60px 40px 100px;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.045) 1px,transparent 0);background-size:26px 26px}
+
+  /* board header */
+  .board-h{max-width:1500px;margin:0 auto 50px}
+  .board-h .tag{display:inline-flex;align-items:center;gap:8px;background:var(--red);padding:7px 14px;border-radius:30px;font-size:12px;font-weight:800;letter-spacing:.4px}
+  .board-h h1{font-size:42px;font-weight:900;letter-spacing:-1.2px;margin:18px 0 8px}
+  .board-h p{color:#9FB0BA;font-size:16px;max-width:640px;line-height:1.55}
+
+  .group{max-width:1500px;margin:0 auto 70px}
+  .group>.gh{display:flex;align-items:center;gap:14px;margin:0 0 26px;padding-bottom:16px;border-bottom:1px solid #25323b}
+  .group>.gh .badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:19px}
+  .group>.gh h2{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .group>.gh small{display:block;color:#8497A1;font-weight:500;font-size:13.5px;margin-top:2px}
+
+  .row{display:flex;gap:34px;flex-wrap:wrap}
+
+  /* frame + label (Figma artboard style) */
+  .frame{display:flex;flex-direction:column;gap:12px}
+  .frame>.flabel{font-size:12.5px;font-weight:700;color:#7E919C;letter-spacing:.2px;padding-left:4px}
+  .frame>.flabel b{color:#fff;font-weight:800}
+  .device{width:300px;height:650px;border-radius:30px;overflow:hidden;position:relative;
+    box-shadow:0 30px 60px -24px rgba(0,0,0,.7);border:1px solid #2a3640}
+
+  /* generic screen */
+  .s{width:100%;height:100%;display:flex;flex-direction:column;color:var(--slate);position:relative}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 4px;font-size:12px;font-weight:700;flex:none}
+  .body{flex:1;overflow:hidden;padding:8px 18px}
+  .light{background:var(--bg)}
+  .kdef{background:var(--kbg)}
+
+  h3{font-size:21px;font-weight:850;letter-spacing:-.5px}
+  .lede{font-size:13.5px;color:var(--muted);line-height:1.55;font-weight:500}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 8px 20px -16px rgba(27,50,62,.4)}
+  .card+.card{margin-top:10px}
+  .sect{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:16px 2px 9px}
+  .btn{border:0;width:100%;padding:14px;border-radius:13px;font-weight:800;font-size:14.5px;cursor:default;font-family:inherit}
+  .btn.red{background:var(--red);color:#fff;box-shadow:0 12px 24px -12px rgba(215,25,32,.7)}
+  .btn.dark{background:var(--slate);color:#fff}
+  .btn.outline{background:#fff;border:1.5px solid var(--line);color:var(--slate)}
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:5px 9px;border-radius:20px}
+  .pill.ok{background:#E7F7EE;color:var(--ok)}.pill.warn{background:#FEF3DD;color:#B97500}.pill.bad{background:#FDE8E8;color:var(--bad)}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+
+  /* progress dots */
+  .dots{display:flex;gap:6px;justify-content:center;margin:0 0 4px}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+  .dots i.on{width:22px;border-radius:5px;background:var(--red)}
+  .dots.k i.on{background:var(--red-k)}
+
+  /* splash */
+  .splash{background:var(--red);color:#fff;align-items:center;justify-content:center;text-align:center;gap:0}
+  .splash .lg{width:84px;height:84px;border-radius:24px;background:#fff;color:var(--red);display:grid;place-items:center;font-size:42px;font-weight:900;margin-bottom:24px;box-shadow:0 20px 40px -12px rgba(0,0,0,.35)}
+  .splash h2{font-size:34px;font-weight:900;letter-spacing:-1px}
+  .splash p{font-size:14px;opacity:.85;margin-top:8px;font-weight:500;letter-spacing:.3px}
+  .splash .ld{position:absolute;bottom:46px;width:120px;height:4px;border-radius:3px;background:rgba(255,255,255,.25);overflow:hidden}
+  .splash .ld::after{content:"";position:absolute;left:0;top:0;height:100%;width:55%;background:#fff;border-radius:3px}
+
+  /* hero illustration block for onboarding */
+  .hero-ill{height:230px;border-radius:20px;display:grid;place-items:center;font-size:90px;margin-bottom:18px;position:relative;overflow:hidden}
+  .hero-ill.r1{background:linear-gradient(150deg,#FFE9EA,#FFD2D4)}
+  .hero-ill.r2{background:linear-gradient(150deg,#E7EEF1,#D4E0E5)}
+  .hero-ill .ring{position:absolute;border-radius:50%;border:2px dashed rgba(215,25,32,.25)}
+
+  /* role choice */
+  .choice{display:flex;align-items:center;gap:13px;border:2px solid var(--line);border-radius:15px;padding:14px;background:#fff;margin-bottom:11px}
+  .choice.sel{border-color:var(--red);background:#FFF5F5}
+  .choice .ci{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:23px;flex:none;background:#F2F5F7}
+  .choice.sel .ci{background:var(--red);}
+  .choice b{font-size:15px;display:block}
+  .choice small{font-size:12px;color:var(--muted)}
+  .choice .rad{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);margin-left:auto;flex:none;display:grid;place-items:center}
+  .choice.sel .rad{border-color:var(--red);background:var(--red);color:#fff;font-size:12px}
+
+  /* input */
+  .field{margin-bottom:14px}
+  .field label{font-size:12px;font-weight:700;color:var(--slate2);display:block;margin-bottom:6px}
+  .input{border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between;background:#fff}
+  .input.filled{border-color:var(--slate);}
+  .input .ph{color:#A9B6BD;font-weight:500}
+
+  /* branch list */
+  .branch{display:flex;align-items:center;gap:11px;padding:12px 4px;border-bottom:1px solid var(--line)}
+  .branch:last-child{border:0}
+  .branch .pin{width:38px;height:38px;border-radius:11px;background:#FFF0F0;color:var(--red);display:grid;place-items:center;font-size:18px;flex:none}
+  .branch.sel .pin{background:var(--red);color:#fff}
+  .branch b{font-size:14px;display:block}
+  .branch small{font-size:12px;color:var(--muted)}
+  .branch .km{margin-left:auto;font-size:12px;font-weight:700;color:var(--slate2)}
+
+  /* toggles */
+  .tg{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .tg:last-of-type{border:0}
+  .tg .te{font-size:20px}
+  .tg b{font-size:13.5px;display:block}
+  .tg small{font-size:11.5px;color:var(--muted)}
+  .sw{width:42px;height:25px;border-radius:20px;background:var(--red);margin-left:auto;position:relative;flex:none}
+  .sw::after{content:"";position:absolute;width:19px;height:19px;border-radius:50%;background:#fff;top:3px;right:3px}
+  .sw.off{background:#D4DBE0}.sw.off::after{right:auto;left:3px}
+
+  /* top app bar */
+  .appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 14px}
+  .appbar .av{width:38px;height:38px;border-radius:11px;background:var(--slate);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+  .appbar .greet b{font-size:18px;font-weight:850;letter-spacing:-.3px}
+  .appbar .greet small{font-size:12px;color:var(--muted)}
+
+  /* quick grid */
+  .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .qt{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
+  .qt .qi{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;margin-bottom:9px;background:#FFF0F0;color:var(--red)}
+  .qt b{font-size:13.5px;display:block}
+  .qt small{font-size:11px;color:var(--muted)}
+
+  /* bottom nav */
+  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:rgba(255,255,255,.95);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;backdrop-filter:blur(8px)}
+  .nav .n{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:700;color:var(--muted)}
+  .nav .n.on{color:var(--red)}
+  .nav .n .ni{font-size:18px}
+  .nav .fab{width:50px;height:50px;border-radius:16px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:22px;margin-top:-20px;box-shadow:0 12px 22px -8px rgba(215,25,32,.7)}
+
+  /* kúpeľne specific */
+  .kbar{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 16px}
+  .kbar .klogo{font-weight:900;font-size:18px;letter-spacing:-.5px;color:var(--slate)}
+  .kbar .klogo i{color:var(--red-k);font-style:normal}
+  .khero{height:200px;border-radius:20px;background:linear-gradient(150deg,#EAF1F3,#D7E3E7);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;color:var(--slate)}
+  .khero .em{position:absolute;right:-6px;top:-12px;font-size:120px;opacity:.18}
+  .khero b{font-size:19px;font-weight:850;letter-spacing:-.4px}
+  .khero small{font-size:12.5px;color:var(--slate2)}
+  .collections{display:flex;gap:10px;overflow:hidden;margin-top:4px}
+  .coll{min-width:120px;border-radius:14px;height:130px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;font-weight:800;font-size:13.5px}
+  .coll.a{background:linear-gradient(160deg,#5B6B72,#32373C)}
+  .coll.b{background:linear-gradient(160deg,#B98C6E,#8C6346)}
+  .brands{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+  .brandchip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--slate2)}
+
+  .arview{height:340px;border-radius:20px;background:linear-gradient(180deg,#cdd8dc,#aeb9bd);position:relative;overflow:hidden}
+  .arview .floor{position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(180deg,#e6dcd0,#cdbfae)}
+  .arview .obj{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);font-size:80px}
+  .arview .grid-ar{position:absolute;bottom:0;left:0;right:0;height:45%;background-image:linear-gradient(rgba(255,255,255,.4) 1px,transparent 0),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 0);background-size:34px 22px;transform:perspective(220px) rotateX(55deg);transform-origin:bottom}
+  .arview .chip{position:absolute;top:14px;left:14px;background:rgba(27,50,62,.85);color:#fff;font-size:11px;font-weight:700;padding:7px 11px;border-radius:20px}
+  .arctrl{display:flex;gap:8px;margin-top:12px}
+  .arctrl .ac{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:11.5px;font-weight:700}
+  .arctrl .ac .e{font-size:18px;display:block;margin-bottom:3px}
+
+  .prod{display:flex;gap:12px;align-items:center}
+  .prod .pimg{width:64px;height:64px;border-radius:14px;background:#EAF1F3;display:grid;place-items:center;font-size:30px;flex:none}
+  .prod b{font-size:14.5px}
+  .prod small{font-size:12px;color:var(--muted);display:block}
+  .price{font-size:20px;font-weight:850;letter-spacing:-.5px}
+  .price small{font-size:11px;color:var(--muted);font-weight:600}
+
+  .studio{display:flex;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+  .studio:last-child{border:0}
+  .studio .si{width:42px;height:42px;border-radius:12px;background:#EAF1F3;display:grid;place-items:center;font-size:19px;flex:none}
+  .studio b{font-size:13.5px;display:block}
+  .studio small{font-size:11.5px;color:var(--muted)}
+  .vrtag{margin-left:auto;background:#EEF6F8;color:var(--slate);font-size:10px;font-weight:800;padding:5px 8px;border-radius:8px}
+
+  .footnote{max-width:1500px;margin:30px auto 0;color:#6E818C;font-size:13px;line-height:1.6}
+  .footnote code{background:#1d262d;padding:2px 7px;border-radius:6px;color:#cdd8dc;font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="board-h">
+  <span class="tag">● EMPIRIA · APP SCREENS</span>
+  <h1>Onboarding montéra + Kúpeľňová appka</h1>
+  <p>Samostatné obrazovky pripravené na import do Figmy. Rebrand na reálne firemné farby: červená <b style="color:#FF5258">#D71920</b>, bridlica <b>#1B323E</b>, font Inter. Každý rám = jeden screen.</p>
+</div>
+
+<!-- =================== APP 1: PARŤÁK ONBOARDING =================== -->
+<div class="group">
+  <div class="gh">
+    <div class="badge" style="background:var(--red)">🔧</div>
+    <div><h2>App 1 — Empiria Parťák · Onboarding montéra</h2><small>6 krokov · od splashu po hotový profil · B2B overenie cez IČO</small></div>
+  </div>
+  <div class="row">
+
+    <!-- 1 splash -->
+    <div class="frame"><div class="flabel"><b>01</b> · Splash</div>
+      <div class="device"><div class="s splash">
+        <div class="lg">E</div>
+        <h2>Parťák</h2>
+        <p>od Empiria · od roku 1991</p>
+        <div class="ld"></div>
+      </div></div>
+    </div>
+
+    <!-- 2 welcome -->
+    <div class="frame"><div class="flabel"><b>02</b> · Vitaj / value prop</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div class="hero-ill r1"><span>📷</span>
+            <div class="ring" style="width:160px;height:160px"></div>
+            <div class="ring" style="width:230px;height:230px"></div>
+          </div>
+          <div class="dots"><i class="on"></i><i></i><i></i></div>
+          <h3 style="margin-top:14px">Súčiastka v ruke skôr,<br>než otočíš auto</h3>
+          <p class="lede" style="margin-top:8px">Naskenuj kotol, nájdi kompatibilný diel a zisti, ktorá pobočka ho má práve teraz skladom.</p>
+        </div>
+        <div style="padding:0 18px 22px"><button class="btn red">Pokračovať</button>
+          <div style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--muted);font-weight:600">Už mám účet · Prihlásiť sa</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3 role -->
+    <div class="frame"><div class="flabel"><b>03</b> · Kto si? (rola)</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div class="dots"><i></i><i class="on"></i><i></i></div>
+          <h3 style="margin:14px 0 4px">Čo robíš?</h3>
+          <p class="lede" style="margin-bottom:16px">Prispôsobíme ti appku aj ceny.</p>
+          <div class="choice sel"><div class="ci">🔧</div><div><b>Montér / inštalatér</b><small>diely, sklad, hlasové objednávky</small></div><div class="rad">✓</div></div>
+          <div class="choice"><div class="ci">🏗️</div><div><b>Realizačná firma</b><small>projekty, tím, ponuky</small></div><div class="rad"></div></div>
+          <div class="choice"><div class="ci">🏠</div><div><b>Investor / klient</b><small>sledovanie stavby a ponúk</small></div><div class="rad"></div></div>
+        </div>
+        <div style="padding:0 18px 22px"><button class="btn red">Pokračovať</button></div>
+      </div></div>
+    </div>
+
+    <!-- 4 IČO -->
+    <div class="frame"><div class="flabel"><b>04</b> · Overenie firmy (IČO)</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div class="dots"><i></i><i class="on"></i><i></i></div>
+          <h3 style="margin:14px 0 4px">Over si firmu</h3>
+          <p class="lede" style="margin-bottom:16px">Sme B2B — odomkneme ti veľkoobchodné ceny.</p>
+          <div class="field"><label>IČO</label><div class="input filled"><span>36&nbsp;789&nbsp;456</span><span style="color:var(--red);font-weight:800">Načítať ↻</span></div></div>
+          <div class="card" style="background:#F2FAF5;border-color:#CDEBD9">
+            <span class="pill ok"><span class="dot ok"></span>Nájdené v registri</span>
+            <div style="margin-top:10px"><b style="font-size:15px">Marek Kováč – ELEKTROVOD s.r.o.</b>
+            <div style="font-size:12.5px;color:var(--muted);margin-top:3px">Žilina · DIČ 2022xxxxxx · aktívna</div></div>
+          </div>
+        </div>
+        <div style="padding:0 18px 22px"><button class="btn red">To je moja firma →</button></div>
+      </div></div>
+    </div>
+
+    <!-- 5 branch -->
+    <div class="frame"><div class="flabel"><b>05</b> · Domovská pobočka</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div class="dots"><i></i><i></i><i class="on"></i></div>
+          <h3 style="margin:14px 0 4px">Tvoja pobočka</h3>
+          <p class="lede" style="margin-bottom:14px">Odtiaľ ti budeme ukazovať sklad ako prvé.</p>
+          <div class="card" style="padding:6px 14px">
+            <div class="branch sel"><div class="pin">📍</div><div><b>Express Žilina</b><small>Vysokoškolákov 8</small></div><span class="km">2,1 km</span></div>
+            <div class="branch"><div class="pin">📍</div><div><b>VO Žilina-Centrum</b><small>Kragujevská 12</small></div><span class="km">6,8 km</span></div>
+            <div class="branch"><div class="pin">📍</div><div><b>VO Martin</b><small>Robotnícka 4</small></div><span class="km">19 km</span></div>
+          </div>
+        </div>
+        <div style="padding:0 18px 22px"><button class="btn red">Vybrať pobočku</button></div>
+      </div></div>
+    </div>
+
+    <!-- 6 notifications -->
+    <div class="frame"><div class="flabel"><b>06</b> · Notifikácie + hotovo</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div class="hero-ill r2" style="height:150px"><span>🔔</span></div>
+          <h3 style="margin:4px 0 4px">Posledná vec</h3>
+          <p class="lede" style="margin-bottom:10px">Dáme ti vedieť, keď je diel naskladom alebo objednávka pripravená.</p>
+          <div class="card">
+            <div class="tg"><span class="te">📦</span><div><b>Diel naskladom</b><small>keď naskladníme čo hľadáš</small></div><div class="sw"></div></div>
+            <div class="tg"><span class="te">🚚</span><div><b>Objednávka pripravená</b><small>vyzdvihnutie na pobočke</small></div><div class="sw"></div></div>
+            <div class="tg"><span class="te">⚡</span><div><b>Akcie pre tvoj level</b><small>vernostné ceny</small></div><div class="sw off"></div></div>
+          </div>
+        </div>
+        <div style="padding:0 18px 22px"><button class="btn red">Vstúpiť do appky 🚀</button></div>
+      </div></div>
+    </div>
+
+    <!-- 7 home (rebranded) -->
+    <div class="frame"><div class="flabel"><b>07</b> · Domov (po onboardingu)</div>
+      <div class="device"><div class="s light">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body" style="padding-bottom:70px">
+          <div class="appbar">
+            <div class="greet"><b>Čauko, Marek 👋</b><small>3 stavby · 1 objednávka na ceste</small></div>
+            <div class="av">MK</div>
+          </div>
+          <div class="card" style="background:var(--slate);border:0;color:#fff;display:flex;align-items:center;gap:12px">
+            <div style="width:46px;height:46px;border-radius:50%;background:conic-gradient(var(--red) 78%,rgba(255,255,255,.15) 0);display:grid;place-items:center;position:relative">
+              <div style="position:absolute;inset:5px;border-radius:50%;background:var(--slate)"></div>
+              <b style="position:relative;font-size:13px">L4</b></div>
+            <div><b style="font-size:14px">Skúsený majster</b><div style="font-size:11.5px;color:#AEBEC6">do L5 chýba 160 ⚡</div></div>
+          </div>
+          <div class="sect">Rýchle akcie</div>
+          <div class="quick">
+            <div class="qt"><div class="qi">📷</div><b>Skenuj &amp; nájdi</b><small>kotol · diel</small></div>
+            <div class="qt"><div class="qi">📍</div><b>Sklad pri tebe</b><small>živá dostupnosť</small></div>
+            <div class="qt"><div class="qi">🗂️</div><b>Moje stavby</b><small>3 aktívne</small></div>
+            <div class="qt"><div class="qi">🎙️</div><b>Objednať hlasom</b><small>„3m medenej"</small></div>
+          </div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span class="ni">🏠</span>Domov</div>
+          <div class="n"><span class="ni">📍</span>Sklad</div>
+          <div class="fab">📷</div>
+          <div class="n"><span class="ni">🗂️</span>Stavby</div>
+          <div class="n"><span class="ni">👤</span>Profil</div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =================== APP 2: KÚPEĽNE =================== -->
+<div class="group">
+  <div class="gh">
+    <div class="badge" style="background:var(--red-k)">🛁</div>
+    <div><h2>App 2 — Empiria Kúpeľne · pre koncového zákazníka</h2><small>prémiový šat · AR „skús si kúpeľňu doma" · rezervácia konzultácie v štúdiu (15 štúdií + VR)</small></div>
+  </div>
+  <div class="row">
+
+    <!-- K1 intro -->
+    <div class="frame"><div class="flabel"><b>K1</b> · Intro</div>
+      <div class="device"><div class="s" style="background:var(--slate);color:#fff;align-items:center;justify-content:center;text-align:center">
+        <div style="font-size:64px;margin-bottom:18px">🛁</div>
+        <div style="font-weight:900;font-size:30px;letter-spacing:-.6px">Empiria<i style="color:var(--red-k);font-style:normal"> Kúpeľne</i></div>
+        <p style="font-size:14px;color:#AEBEC6;margin:10px 30px 0;line-height:1.5">Navrhni si kúpeľňu, vyskúšaj ju v AR a doladíme ju v štúdiu.</p>
+        <div style="position:absolute;bottom:40px;left:30px;right:30px">
+          <button class="btn" style="background:var(--red-k);color:#fff">Začať návrh</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- K2 home -->
+    <div class="frame"><div class="flabel"><b>K2</b> · Domov / showroom</div>
+      <div class="device"><div class="s kdef">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body" style="padding-bottom:70px">
+          <div class="kbar"><div class="klogo">empiria<i>.</i></div><div class="av" style="background:#EAF1F3;color:var(--slate)">🔍</div></div>
+          <div class="khero"><span class="em">🚿</span><div><b>Letná kolekcia 2026</b><small>minimalistická čierna séria</small></div></div>
+          <div class="sect">Kolekcie</div>
+          <div class="collections">
+            <div class="coll a"><span style="font-size:24px;margin-bottom:auto">🖤</span>Matná čierna</div>
+            <div class="coll b"><span style="font-size:24px;margin-bottom:auto">🥉</span>Kartáčovaný bronz</div>
+          </div>
+          <div class="sect">Značky u nás</div>
+          <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
+        </div>
+        <div class="nav">
+          <div class="n on" style="color:var(--red-k)"><span class="ni">🏠</span>Domov</div>
+          <div class="n"><span class="ni">🧩</span>Návrh</div>
+          <div class="fab" style="background:var(--red-k);box-shadow:0 12px 22px -8px rgba(237,29,37,.7)">📲</div>
+          <div class="n"><span class="ni">❤️</span>Uložené</div>
+          <div class="n"><span class="ni">📅</span>Štúdio</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- K3 AR -->
+    <div class="frame"><div class="flabel"><b>K3</b> · AR – skús si kúpeľňu</div>
+      <div class="device"><div class="s kdef">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <h3 style="margin:4px 0 12px">Umiestni do priestoru</h3>
+          <div class="arview">
+            <div class="floor"></div><div class="grid-ar"></div>
+            <div class="chip">📐 Nájdená podlaha · ťukni a umiestni</div>
+            <div class="obj">🚽</div>
+          </div>
+          <div class="arctrl">
+            <div class="ac"><span class="e">🔄</span>Otočiť</div>
+            <div class="ac"><span class="e">🎨</span>Farba</div>
+            <div class="ac"><span class="e">📷</span>Foto</div>
+          </div>
+          <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:10px">
+            <div class="prod" style="flex:1"><div class="pimg" style="width:46px;height:46px;font-size:22px">🚽</div><div><b style="font-size:13.5px">Duravit ME by Starck</b><small>závesné WC</small></div></div>
+            <span class="price" style="font-size:16px">312 €</span>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- K4 product -->
+    <div class="frame"><div class="flabel"><b>K4</b> · Detail produktu</div>
+      <div class="device"><div class="s kdef">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <div style="height:200px;border-radius:18px;background:linear-gradient(160deg,#EAF1F3,#D2DEE2);display:grid;place-items:center;font-size:90px;position:relative">🚿
+            <span class="pill ok" style="position:absolute;top:12px;left:12px">Skladom v štúdiu</span></div>
+          <div style="margin-top:14px"><small style="color:var(--muted);font-weight:700;font-size:11px;letter-spacing:.4px">GROHE</small>
+            <h3 style="margin:2px 0">Grohe Rainshower 310</h3>
+            <p class="lede" style="margin-top:6px">Stropná dažďová hlavica, kartáčovaný nikel, 2 prúdy.</p></div>
+          <div class="arctrl" style="margin-top:14px">
+            <div class="ac" style="border-color:var(--slate)"><span class="e">📲</span>Skús v AR</div>
+            <div class="ac"><span class="e">❤️</span>Uložiť</div>
+          </div>
+        </div>
+        <div style="padding:0 18px 20px;display:flex;align-items:center;gap:12px">
+          <div class="price">489 €</div>
+          <button class="btn" style="background:var(--red-k);color:#fff;flex:1">Pridať do návrhu</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- K5 booking -->
+    <div class="frame"><div class="flabel"><b>K5</b> · Rezervácia konzultácie</div>
+      <div class="device"><div class="s kdef">
+        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="body">
+          <h3 style="margin:4px 0 4px">Doladíme v štúdiu</h3>
+          <p class="lede" style="margin-bottom:14px">Vezmi svoj návrh do najbližšieho z 15 štúdií — naživo aj vo VR.</p>
+          <div class="card" style="padding:6px 14px">
+            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Žilina</b><small>dnes 9–18 · VR kútik</small></div><span class="vrtag">VR</span></div>
+            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Martin</b><small>dnes 9–17</small></div><span class="km" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--slate2)">19 km</span></div>
+            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Trenčín</b><small>zatvorené · zajtra 9:00</small></div></div>
+          </div>
+          <div class="sect">Voľný termín</div>
+          <div style="display:flex;gap:8px">
+            <div class="ac" style="flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Št 10:00</div>
+            <div class="ac" style="flex:1;background:var(--slate);color:#fff;border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Št 14:30</div>
+            <div class="ac" style="flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Pi 11:00</div>
+          </div>
+        </div>
+        <div style="padding:0 18px 20px"><button class="btn" style="background:var(--red-k);color:#fff">Rezervovať konzultáciu</button></div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footnote">
+  <b style="color:#fff">Ako to dostať do Figmy</b> — pozri sprievodcu nižšie v chate. Skratka: plugin <code>html.to.design</code> naimportuje tento súbor ako editovateľné vrstvy. Každý <code>.device</code> rám = jeden screen.
+</div>
+
+</body>
+</html>

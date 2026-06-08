@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empiria Parťák — koncept appky</title>
+<style>
+  :root{
+    --voda:#0C6CF2;       /* water blue */
+    --voda-deep:#0A2540;  /* navy */
+    --teplo:#FF6A2C;      /* heat orange */
+    --teplo-soft:#FFE3D4;
+    --ok:#16A34A;
+    --warn:#F59E0B;
+    --bad:#EF4444;
+    --ink:#0A2540;
+    --muted:#6B7C93;
+    --line:#E4ECF5;
+    --bg:#EEF3FA;
+    --card:#FFFFFF;
+    --r:22px;
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);color:var(--ink);background:
+      radial-gradient(1200px 700px at 85% -10%, #DCEAFE 0%, transparent 55%),
+      radial-gradient(900px 600px at -10% 110%, #FFE3D4 0%, transparent 50%),
+      var(--bg);
+      -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* ---------- HERO ---------- */
+  header.hero{max-width:1180px;margin:0 auto;padding:72px 28px 28px;display:grid;
+    grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+  .brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.3px;
+    font-size:19px;margin-bottom:26px}
+  .logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--voda),var(--voda-deep));color:#fff;font-size:20px;
+    box-shadow:0 8px 20px -6px rgba(12,108,242,.55)}
+  .brand small{font-weight:600;color:var(--muted);font-size:12px;display:block;letter-spacing:.5px;text-transform:uppercase}
+  h1{font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-1.8px;font-weight:850}
+  h1 .grad{background:linear-gradient(100deg,var(--voda),var(--teplo));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{margin:22px 0 26px;font-size:18px;line-height:1.6;color:#3A4D63;max-width:520px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;border-radius:14px;
+    padding:14px 22px;transition:transform .18s,box-shadow .18s}
+  .btn.primary{background:linear-gradient(135deg,var(--voda),var(--voda-deep));color:#fff;
+    box-shadow:0 14px 30px -10px rgba(12,108,242,.6)}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn:hover{transform:translateY(-2px)}
+  .stats{display:flex;gap:30px;margin-top:34px}
+  .stats div{display:flex;flex-direction:column}
+  .stats b{font-size:26px;font-weight:850;letter-spacing:-.5px}
+  .stats span{font-size:12.5px;color:var(--muted);font-weight:600}
+
+  /* ---------- PHONE ---------- */
+  .stage{display:flex;justify-content:center;align-items:center;position:relative}
+  .glow{position:absolute;width:430px;height:430px;border-radius:50%;
+    background:radial-gradient(circle, rgba(12,108,242,.28), transparent 65%);filter:blur(10px);z-index:0}
+  .phone{position:relative;z-index:1;width:330px;height:680px;background:#0A1626;border-radius:46px;
+    padding:13px;box-shadow:0 40px 80px -28px rgba(10,37,64,.55), 0 0 0 2px #1d2c40, inset 0 0 0 7px #060c16}
+  .notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:120px;height:26px;
+    background:#060c16;border-radius:0 0 16px 16px;z-index:6}
+  .screen{position:relative;width:100%;height:100%;background:var(--bg);border-radius:34px;overflow:hidden;
+    display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 6px;
+    font-size:12.5px;font-weight:700;color:var(--ink)}
+  .statusbar .dots{display:flex;gap:5px;align-items:center}
+
+  /* scrollable content area */
+  .view{flex:1;overflow-y:auto;overflow-x:hidden;padding:6px 16px 84px}
+  .view::-webkit-scrollbar{width:0}
+  .scr{display:none;animation:fade .35s ease}
+  .scr.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .topline{display:flex;justify-content:space-between;align-items:flex-start;margin:6px 2px 16px}
+  .topline h2{font-size:23px;letter-spacing:-.6px;font-weight:850}
+  .topline p{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px}
+  .ava{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--teplo),#FF9466);
+    color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+
+  .card{background:var(--card);border-radius:var(--r);padding:16px;border:1px solid var(--line);
+    box-shadow:0 8px 22px -16px rgba(10,37,64,.4)}
+  .card+.card{margin-top:12px}
+
+  /* SCAN screen */
+  .scanbox{height:230px;border-radius:24px;background:
+      linear-gradient(135deg,#0A2540,#103a63);position:relative;overflow:hidden;
+      display:grid;place-items:center;color:#fff}
+  .scanbox::after{content:"";position:absolute;inset:0;background:
+      repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.04) 22px 23px)}
+  .reticle{width:160px;height:108px;border-radius:14px;position:relative;z-index:2}
+  .reticle span{position:absolute;width:24px;height:24px;border:3px solid var(--teplo)}
+  .reticle span:nth-child(1){top:0;left:0;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+  .reticle span:nth-child(2){top:0;right:0;border-left:0;border-bottom:0;border-radius:0 8px 0 0}
+  .reticle span:nth-child(3){bottom:0;left:0;border-right:0;border-top:0;border-radius:0 0 0 8px}
+  .reticle span:nth-child(4){bottom:0;right:0;border-left:0;border-top:0;border-radius:0 0 8px 0}
+  .laser{position:absolute;left:14px;right:14px;height:2px;background:var(--teplo);border-radius:2px;
+    box-shadow:0 0 12px var(--teplo);top:14px;animation:scan 2.4s ease-in-out infinite}
+  @keyframes scan{0%,100%{top:14px}50%{top:90px}}
+  .scan-cap{position:absolute;bottom:14px;font-size:12px;color:#bcd2f0;z-index:3}
+
+  .match{display:flex;gap:13px;align-items:center}
+  .match .ic{width:54px;height:54px;border-radius:14px;background:var(--teplo-soft);display:grid;place-items:center;font-size:25px;flex:none}
+  .match b{font-size:15px}
+  .match small{color:var(--muted);font-size:12px;display:block;margin-top:1px}
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:5px 9px;border-radius:20px}
+  .pill.ok{background:#E7F7EE;color:var(--ok)}
+  .pill.warn{background:#FEF3DD;color:#B97500}
+  .pill.bad{background:#FDE8E8;color:var(--bad)}
+  .pricerow{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .pricerow .p{font-size:22px;font-weight:850;letter-spacing:-.5px}
+  .pricerow .p small{font-size:12px;color:var(--muted);font-weight:600}
+  .add{background:linear-gradient(135deg,var(--voda),var(--voda-deep));color:#fff;border:0;
+    padding:12px 18px;border-radius:13px;font-weight:800;font-size:14px;cursor:pointer}
+
+  .sect{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:18px 4px 10px}
+
+  /* STOCK / branches */
+  .branch{display:flex;align-items:center;gap:12px;padding:13px 6px;border-bottom:1px solid var(--line)}
+  .branch:last-child{border-bottom:0}
+  .branch .km{width:46px;text-align:center;flex:none}
+  .branch .km b{font-size:16px;font-weight:850}
+  .branch .km small{font-size:10px;color:var(--muted);display:block}
+  .branch .nm b{font-size:14.5px;display:block}
+  .branch .nm small{font-size:12px;color:var(--muted)}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}
+  .dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+
+  /* PROJECT */
+  .proj-head{background:linear-gradient(135deg,var(--voda-deep),#0e4f8f);color:#fff;border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+  .proj-head::after{content:"🏠";position:absolute;right:-6px;bottom:-12px;font-size:90px;opacity:.12}
+  .proj-head h3{font-size:19px;font-weight:850}
+  .proj-head .meta{font-size:12.5px;color:#BFD6F4;margin-top:3px}
+  .bar{height:8px;border-radius:6px;background:rgba(255,255,255,.2);margin-top:14px;overflow:hidden}
+  .bar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--teplo),#FFB088);border-radius:6px}
+  .proj-head .pct{font-size:12px;margin-top:7px;color:#fff;font-weight:700}
+  .line-item{display:flex;justify-content:space-between;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line);font-size:14px}
+  .line-item:last-child{border-bottom:0}
+  .line-item .q{color:var(--muted);font-size:12.5px}
+  .line-item.done b{text-decoration:line-through;color:var(--muted)}
+  .chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-size:13px;color:#fff}
+  .chk.on{background:var(--ok);border-color:var(--ok)}
+  .quotebtn{width:100%;margin-top:14px;background:var(--teplo);color:#fff;border:0;padding:14px;border-radius:14px;font-weight:800;font-size:14.5px;cursor:pointer;box-shadow:0 12px 24px -12px var(--teplo)}
+
+  /* HOME */
+  .greet{font-size:24px;font-weight:850;letter-spacing:-.5px}
+  .greet span{color:var(--teplo)}
+  .quick{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:6px}
+  .q-tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;cursor:pointer;transition:transform .15s;box-shadow:0 8px 20px -16px rgba(10,37,64,.4)}
+  .q-tile:hover{transform:translateY(-3px)}
+  .q-tile .qi{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:21px;margin-bottom:10px}
+  .q-tile b{font-size:14.5px;display:block}
+  .q-tile small{font-size:11.5px;color:var(--muted)}
+  .lvl{background:linear-gradient(120deg,#0A2540,#123a63);color:#fff;border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+  .lvl::after{content:"";position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,44,.5),transparent 70%)}
+  .lvl .ring{width:54px;height:54px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:850;
+    background:conic-gradient(var(--teplo) 78%, rgba(255,255,255,.15) 0);position:relative}
+  .lvl .ring::before{content:"";position:absolute;inset:5px;border-radius:50%;background:#0d2a4a}
+  .lvl .ring b{position:relative;z-index:1;font-size:15px}
+  .lvl .lt b{font-size:15px}
+  .lvl .lt small{font-size:11.5px;color:#BFD6F4;display:block}
+
+  /* bottom nav */
+  .nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;
+    align-items:center;padding-bottom:6px;z-index:5}
+  .nav button{background:0;border:0;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;
+    align-items:center;gap:3px;color:var(--muted);font-size:10px;font-weight:700;flex:1;transition:color .2s}
+  .nav button .ni{font-size:20px;transition:transform .2s}
+  .nav button.on{color:var(--voda)}
+  .nav button.on .ni{transform:translateY(-2px)}
+  .nav .scanfab{background:linear-gradient(135deg,var(--teplo),#ff8a55);color:#fff;width:54px;height:54px;
+    border-radius:18px;display:grid;place-items:center;font-size:24px;margin-top:-22px;flex:none;
+    box-shadow:0 14px 26px -8px rgba(255,106,44,.7)}
+
+  /* ---------- FEATURE SECTION ---------- */
+  section.features{max-width:1180px;margin:40px auto 0;padding:60px 28px 90px}
+  .features h2{font-size:clamp(28px,3.5vw,42px);letter-spacing:-1px;font-weight:850;text-align:center}
+  .features .sub{text-align:center;color:var(--muted);font-size:17px;margin:14px auto 48px;max-width:560px;line-height:1.55}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .fcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;
+    box-shadow:0 18px 40px -28px rgba(10,37,64,.4);transition:transform .2s,box-shadow .2s}
+  .fcard:hover{transform:translateY(-5px);box-shadow:0 28px 50px -28px rgba(10,37,64,.5)}
+  .fcard .fi{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:25px;margin-bottom:16px}
+  .fcard h3{font-size:18.5px;letter-spacing:-.4px;font-weight:800;margin-bottom:8px}
+  .fcard p{color:#46586E;font-size:14.5px;line-height:1.6}
+  .b-voda{background:#E2EEFD;color:var(--voda)}
+  .b-teplo{background:var(--teplo-soft);color:var(--teplo)}
+  .b-ok{background:#E7F7EE;color:var(--ok)}
+
+  .why{max-width:1180px;margin:0 auto;padding:0 28px 80px}
+  .why-inner{background:linear-gradient(120deg,var(--voda-deep),#0e4f8f);border-radius:30px;
+    padding:50px;color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+  .why-inner::after{content:"";position:absolute;right:-60px;bottom:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,44,.4),transparent 70%)}
+  .why-inner h2{color:#fff;text-align:left;font-size:32px;letter-spacing:-.8px}
+  .why-inner p{color:#CFE0F5;font-size:16px;line-height:1.65;margin-top:16px}
+  .who{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+  .who .row{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px}
+  .who .row .e{font-size:26px}
+  .who .row b{font-size:15px}
+  .who .row small{font-size:13px;color:#BFD6F4;display:block;margin-top:2px}
+
+  footer{text-align:center;padding:40px 20px 60px;color:var(--muted);font-size:13px}
+  footer b{color:var(--ink)}
+
+  @media(max-width:900px){
+    header.hero{grid-template-columns:1fr;padding-top:48px}
+    .stage{order:-1}
+    .grid{grid-template-columns:1fr}
+    .why-inner{grid-template-columns:1fr;padding:34px}
+    .stats{flex-wrap:wrap;gap:20px}
+  }
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.4s}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div>
+    <div class="brand">
+      <span class="logo">💧</span>
+      <span>Empiria<br><small>Parťák · koncept appky</small></span>
+    </div>
+    <h1>Súčiastka v ruke<br>skôr, než <span class="grad">otočíš auto.</span></h1>
+    <p class="lede">Vreckový parťák inštalatéra. Naskenuj starý kotol, nájdi kompatibilnú náhradu a zisti, ktorá z 10+ pobočiek ju má <b>práve teraz skladom</b> — bez jediného telefonátu.</p>
+    <div class="cta">
+      <button class="btn primary" onclick="document.getElementById('demo').scrollIntoView()">Vyskúšať prototyp ↓</button>
+      <button class="btn ghost" onclick="document.getElementById('feat').scrollIntoView()">Ako to funguje</button>
+    </div>
+    <div class="stats">
+      <div><b>10+</b><span>veľkoobchodov</span></div>
+      <div><b>1500+</b><span>montérov</span></div>
+      <div><b>~0 min</b><span>na obrátenie auta</span></div>
+    </div>
+  </div>
+
+  <div class="stage" id="demo">
+    <div class="glow"></div>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="dots">📶 🔋 100%</span>
+        </div>
+
+        <div class="view">
+          <!-- ===== HOME ===== -->
+          <div class="scr active" data-s="home">
+            <div class="topline">
+              <div>
+                <div class="greet">Čauko, <span>Marek</span> 👋</div>
+                <p>3 stavby · 1 objednávka na ceste</p>
+              </div>
+              <div class="ava">MK</div>
+            </div>
+
+            <div class="lvl">
+              <div class="ring"><b>L4</b></div>
+              <div class="lt">
+                <b>Skúsený majster</b>
+                <small>2 340 bodov · do L5 ti chýba 160 ⚡</small>
+              </div>
+            </div>
+
+            <div class="sect">Rýchle akcie</div>
+            <div class="quick">
+              <div class="q-tile" onclick="go('scan')">
+                <div class="qi b-teplo">📷</div><b>Skenuj &amp; nájdi</b><small>kotol · súčiastku</small>
+              </div>
+              <div class="q-tile" onclick="go('stock')">
+                <div class="qi b-voda">📍</div><b>Sklad pri tebe</b><small>živá dostupnosť</small>
+              </div>
+              <div class="q-tile" onclick="go('proj')">
+                <div class="qi b-ok">🗂️</div><b>Moje stavby</b><small>3 aktívne</small>
+              </div>
+              <div class="q-tile" onclick="go('scan')">
+                <div class="qi b-teplo">🎙️</div><b>Objednať hlasom</b><small>"3m medenej 18"</small>
+              </div>
+            </div>
+
+            <div class="sect">Posledná objednávka</div>
+            <div class="card">
+              <div class="match">
+                <div class="ic" style="background:#E2EEFD">🚚</div>
+                <div style="flex:1">
+                  <b>#EMP-4821 · 7 položiek</b>
+                  <small>Express Žilina · vyzdvihnutie dnes 14:00</small>
+                </div>
+                <span class="pill ok">●&nbsp;Pripravené</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== SCAN ===== -->
+          <div class="scr" data-s="scan">
+            <div class="topline"><div><h2>Skenuj &amp; nájdi</h2><p>namier na štítok alebo súčiastku</p></div></div>
+            <div class="scanbox">
+              <div class="laser"></div>
+              <div class="reticle"><span></span><span></span><span></span><span></span></div>
+              <div class="scan-cap">Rozpoznávam typový štítok…</div>
+            </div>
+
+            <div class="sect">Rozpoznané ✓</div>
+            <div class="card">
+              <div class="match">
+                <div class="ic">🔥</div>
+                <div style="flex:1">
+                  <b>Protherm Panther 25 KTV</b>
+                  <small>plynový kotol · r. 2013</small>
+                </div>
+                <span class="pill ok">zhoda 98%</span>
+              </div>
+            </div>
+
+            <div class="sect">Kompatibilná náhrada</div>
+            <div class="card">
+              <div class="match">
+                <div class="ic">⚙️</div>
+                <div style="flex:1">
+                  <b>Čerpadlo Grundfos 15/60</b>
+                  <small>náhrada za orig. diel · pasuje 1:1</small>
+                </div>
+              </div>
+              <div class="pricerow">
+                <div class="p">86,40 € <small>/ ks bez DPH</small></div>
+                <button class="add" onclick="go('stock')">Nájsť skladom →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== STOCK ===== -->
+          <div class="scr" data-s="stock">
+            <div class="topline"><div><h2>Skladom pri tebe</h2><p>Čerpadlo Grundfos 15/60</p></div></div>
+            <div class="card" style="padding:8px 16px">
+              <div class="branch">
+                <div class="km"><b>2,1</b><small>km</small></div>
+                <div class="nm" style="flex:1"><b>Express Žilina</b><small>Vysokoškolákov 8</small></div>
+                <span class="pill ok"><span class="dot ok"></span>5 ks</span>
+              </div>
+              <div class="branch">
+                <div class="km"><b>6,8</b><small>km</small></div>
+                <div class="nm" style="flex:1"><b>VO Žilina-Centrum</b><small>Kragujevská 12</small></div>
+                <span class="pill warn"><span class="dot warn"></span>1 ks</span>
+              </div>
+              <div class="branch">
+                <div class="km"><b>19</b><small>km</small></div>
+                <div class="nm" style="flex:1"><b>VO Martin</b><small>Robotnícka 4</small></div>
+                <span class="pill bad"><span class="dot bad"></span>0 ks · zajtra</span>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:14px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div><b style="font-size:15px">Rezervovať &amp; vyzdvihnúť</b><br><small style="color:var(--muted);font-size:12.5px">Express Žilina · pripravené do 15 min</small></div>
+              </div>
+              <button class="quotebtn" style="background:linear-gradient(135deg,var(--voda),var(--voda-deep));box-shadow:0 12px 24px -12px var(--voda)" onclick="go('proj')">📦 Rezervovať 1 ks</button>
+            </div>
+          </div>
+
+          <!-- ===== PROJECT ===== -->
+          <div class="scr" data-s="proj">
+            <div class="topline"><div><h2>Rodinný dom</h2><p>Bytča · investor: p. Novák</p></div></div>
+            <div class="proj-head">
+              <h3>Výmena kotla + rozvody</h3>
+              <div class="meta">termín · 14.6. · 12 položiek</div>
+              <div class="bar"><i></i></div>
+              <div class="pct">62 % materiálu vybavené</div>
+            </div>
+
+            <div class="sect">Súpis materiálu</div>
+            <div class="card">
+              <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Kotol Protherm 25</b></span><span class="q">1 ks</span></div>
+              <div class="line-item done"><span style="display:flex;gap:10px;align-items:center"><span class="chk on">✓</span><b>Medená rúrka 18mm</b></span><span class="q">12 m</span></div>
+              <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Čerpadlo Grundfos 15/60</b></span><span class="q">1 ks</span></div>
+              <div class="line-item"><span style="display:flex;gap:10px;align-items:center"><span class="chk"></span><b>Expanzná nádoba 8L</b></span><span class="q">1 ks</span></div>
+              <button class="quotebtn">📄 Vytvoriť cenovú ponuku pre investora</button>
+            </div>
+          </div>
+        </div><!-- /view -->
+
+        <!-- bottom nav -->
+        <div class="nav">
+          <button class="on" data-n="home" onclick="go('home')"><span class="ni">🏠</span>Domov</button>
+          <button data-n="stock" onclick="go('stock')"><span class="ni">📍</span>Sklad</button>
+          <button class="scanfab" onclick="go('scan')">📷</button>
+          <button data-n="proj" onclick="go('proj')"><span class="ni">🗂️</span>Stavby</button>
+          <button data-n="prof" onclick="go('home')"><span class="ni">👤</span>Profil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="feat">
+  <h2>Päť vecí, čo montérovi šetria deň</h2>
+  <p class="sub">Appka nestojí na „ďalšom eshope". Stojí na jednom momente: <b>som na stavbe, niečo mi chýba, a chcem to teraz.</b></p>
+  <div class="grid">
+    <div class="fcard">
+      <div class="fi b-teplo">📷</div>
+      <h3>Skenuj &amp; nájdi</h3>
+      <p>Foto typového štítku alebo starej súčiastky → appka rozpozná model a vyhodí kompatibilnú náhradu. Koniec hádania, či to pasuje.</p>
+    </div>
+    <div class="fcard">
+      <div class="fi b-voda">📍</div>
+      <h3>Živý sklad pobočiek</h3>
+      <p>Semafor dostupnosti naprieč všetkými predajňami zoradený podľa vzdialenosti. Rezervuj a vyzdvihni v Express predajni do 15 minút.</p>
+    </div>
+    <div class="fcard">
+      <div class="fi b-ok">🗂️</div>
+      <h3>Stavby ako projekty</h3>
+      <p>Každá zákazka má súpis materiálu, fotky a stav. Jedným klikom z neho spravíš <b>cenovú ponuku pre investora</b> — Empiria je spojka realizačka↔investor.</p>
+    </div>
+    <div class="fcard">
+      <div class="fi b-teplo">🎙️</div>
+      <h3>Objednávka hlasom</h3>
+      <p>„Tri metre medenej osemnástky a dve kolená." Nadiktuješ cestou v aute, košík čaká pripravený na pobočke.</p>
+    </div>
+    <div class="fcard">
+      <div class="fi b-voda">🔥</div>
+      <h3>Konfigurátor TČ</h3>
+      <p>Zadáš parametre domu → appka navrhne tepelné čerpadlo a vygeneruje kompletný zoznam dielov. Predaj riešenia, nie krabíc.</p>
+    </div>
+    <div class="fcard">
+      <div class="fi b-ok">⚡</div>
+      <h3>Skúsenosti (vernostka)</h3>
+      <p><i>Empiria</i> = skúsenosť. Montér zbiera body a levely, lepšie ceny a prednostný sklad. Gamifikovaný B2B vzťah, ktorý drží zákazníka pri značke.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY ===== -->
+<div class="why">
+  <div class="why-inner">
+    <div>
+      <h2>Prečo práve toto?</h2>
+      <p>Empiria sa sama opisuje ako <b>prepojenie medzi výrobcom, realizačkou a investorom</b>. Web a eshop riešia objednávku. Ale rozhodnutie padá <b>na stavbe, v ruke montéra</b> — a tam dnes Empiria nie je. Appka obsadí presne to miesto a zviaže si 1500+ inštalatérov na seba.</p>
+    </div>
+    <div class="who">
+      <div class="row"><span class="e">🔧</span><div><b>Montér / inštalatér</b><small>nájde diel a sklad bez telefonátu</small></div></div>
+      <div class="row"><span class="e">🏗️</span><div><b>Realizačná firma</b><small>projekty, ponuky a tím na jednom mieste</small></div></div>
+      <div class="row"><span class="e">🏠</span><div><b>Investor</b><small>dostane prehľadnú ponuku a stav stavby</small></div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <b>Empiria Parťák</b> — koncept · dizajn prototyp &nbsp;·&nbsp; voda 💧 + teplo 🔥 ako vizuálna DNA značky<br>
+  klik na dlaždice a spodnú navigáciu v telefóne funguje
+</footer>
+
+<script>
+  function go(s){
+    const swap=()=>{
+      document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('active',e.dataset.s===s));
+      document.querySelectorAll('.nav button[data-n]').forEach(b=>b.classList.toggle('on',b.dataset.n===s));
+      document.querySelector('.view').scrollTop=0;
+    };
+    if(document.startViewTransition){document.startViewTransition(swap);}else{swap();}
+  }
+</script>
+</body>
+</html>
