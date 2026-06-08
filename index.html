@@ -272,7 +272,7 @@
   .boot{position:absolute;inset:0;z-index:30;background:var(--navy);border-radius:39px;overflow:hidden;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     animation:bootFade 2.6s cubic-bezier(.7,0,.84,.3) forwards}
-  .boot-lock{font-size:25px;margin-bottom:20px;animation:bootIn .5s .1s both, bootHide .35s 1.25s forwards}
+  .boot-logo{width:152px;margin-bottom:10px;animation:bootIn .5s .1s both, bootHide .35s 1.25s forwards}
   .boot-masc{width:132px;transform-origin:50% 46%;will-change:transform,opacity;
     animation:bootMasc 2.6s cubic-bezier(.66,0,.86,.25) forwards}
   .boot-bar{position:absolute;bottom:52px;width:120px;height:4px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
@@ -316,7 +316,7 @@
         <div class="notch"></div>
         <div class="screen">
           <div class="boot" id="boot">
-            <span class="lock boot-lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
+            <img class="boot-logo masc" src="img/logo-stacked.png" alt="express.EMPIRIA">
             <img class="boot-masc masc" src="img/mascot.png" alt="">
             <div class="boot-bar"><i></i></div>
           </div>
