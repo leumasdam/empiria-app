@@ -277,8 +277,10 @@
     animation:bootMasc 2.6s cubic-bezier(.66,0,.86,.25) forwards}
   .boot-bar{position:absolute;bottom:52px;width:120px;height:4px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
   .boot-bar i{display:block;height:100%;width:0;background:var(--red);border-radius:3px;animation:bootBar 1.35s ease-out forwards}
-  @keyframes bootMasc{0%{transform:scale(.62);opacity:0}13%{opacity:1}46%{transform:scale(1.05);opacity:1}100%{transform:scale(19);opacity:0}}
-  @keyframes bootFade{0%,64%{opacity:1}100%{opacity:0;visibility:hidden}}
+  .boot-flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:5;pointer-events:none;animation:bootFlash 2.6s forwards}
+  @keyframes bootMasc{0%{transform:scale(.62);opacity:0}13%{opacity:1}46%{transform:scale(1.05);opacity:1}88%,100%{transform:scale(17);opacity:0}}
+  @keyframes bootFlash{0%,72%{opacity:0}86%{opacity:1}100%{opacity:1}}
+  @keyframes bootFade{0%,85%{opacity:1}100%{opacity:0;visibility:hidden}}
   @keyframes bootBar{0%{width:0}100%{width:100%}}
   @keyframes bootIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   @keyframes bootHide{to{opacity:0}}
@@ -319,6 +321,7 @@
             <img class="boot-logo masc" src="img/logo-stacked.png" alt="express.EMPIRIA">
             <img class="boot-masc masc" src="img/mascot.png" alt="">
             <div class="boot-bar"><i></i></div>
+            <div class="boot-flash"></div>
           </div>
           <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
           <div class="view">
