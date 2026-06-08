@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>express.EMPIRIA Parťák — UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#192B37;--red:#D7282E;--red-soft:#FCEBEC;--sage:#AFC0BC;--sage-d:#5E726C;
+    --canvas:#F1F4F6;--ink:#192B37;--muted:#74838C;--line:#E6EBEE;--ok:#1E9E5A;
+    --font:'Inter',system-ui,sans-serif;--sh:0 16px 36px -22px rgba(25,43,55,.5);--sh-sm:0 8px 20px -14px rgba(25,43,55,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
+  body{background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .masc{filter:brightness(0) invert(1)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
+  a{color:var(--red);text-decoration:none;font-weight:700}
+
+  .top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .top .bd{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .top .bd path{fill:none;stroke:rgba(255,255,255,.13);stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
+  .top .in{max-width:960px;margin:0 auto;padding:22px 28px 60px;position:relative;z-index:2}
+  .navbar{display:flex;justify-content:space-between;align-items:center;padding:0 0 46px}
+  .lock{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:20px}.lock .ex{color:#fff}.lock img{height:.82em}
+  .navbar .links{display:flex;gap:24px;font-size:14px;font-weight:600;color:#AEBAC1}.navbar .links a{color:#AEBAC1}.navbar .links a:hover{color:#fff}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:7px 14px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:20px}
+  .top h1{font-size:clamp(34px,5.4vw,58px);font-weight:900;letter-spacing:-2px;line-height:1.02}
+  .top h1 .r{color:var(--red)}
+  .top .sub{color:#B6C1C8;font-size:18px;margin-top:18px;max-width:620px;line-height:1.6}
+  .meta{display:flex;gap:34px;margin-top:30px;flex-wrap:wrap}
+  .meta div small{display:block;font-size:11px;color:#8E9BA2;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+  .meta div b{font-size:14.5px;color:#fff}
+
+  section{padding:54px 0}
+  .lead-in{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+  h2{font-size:clamp(26px,3.4vw,38px);font-weight:900;letter-spacing:-1.2px;line-height:1.1}
+  .p{font-size:17px;line-height:1.7;color:#3C4F58;margin-top:16px;max-width:680px}
+  .p b{color:var(--ink)}
+  .quote{font-size:23px;font-weight:800;letter-spacing:-.5px;line-height:1.35;color:var(--ink);border-left:4px solid var(--red);padding:6px 0 6px 22px;margin:26px 0;max-width:680px}
+
+  .full{width:100%;border-radius:20px;box-shadow:var(--sh);margin-top:8px}
+  .imgcap{font-size:13px;color:var(--muted);margin-top:10px}
+
+  /* flywheel */
+  .fly{background:var(--navy);border-radius:26px;padding:40px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
+  .fly .bd{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .fly .bd path{fill:none;stroke:rgba(255,255,255,.12);stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
+  .fly h3{font-size:22px;font-weight:900;letter-spacing:-.6px;position:relative;z-index:2}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px;position:relative;z-index:2}
+  .step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:18px 14px}
+  .step .n{width:30px;height:30px;border-radius:9px;background:var(--red);color:#fff;font-weight:900;display:grid;place-items:center;font-size:14px;margin-bottom:11px}
+  .step b{font-size:13.5px;display:block;line-height:1.3}
+  .step small{font-size:11.5px;color:#9DAAB1}
+
+  .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:10px}
+  .fc{background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--sh-sm)}
+  .fc img{width:100%;height:150px;object-fit:cover}
+  .fc .ft{padding:18px 20px 22px}
+  .fc .ft .ic{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--red-soft);color:var(--red);font-size:18px;margin-bottom:10px}
+  .fc h3{font-size:17px;font-weight:800;letter-spacing:-.3px}
+  .fc p{font-size:14px;color:#5A6A72;line-height:1.55;margin-top:6px}
+
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;margin-top:8px}
+  .b{border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;border-radius:14px;padding:15px 26px;text-decoration:none;display:inline-block}
+  .b.red{background:var(--red);color:#fff;box-shadow:0 14px 28px -12px rgba(215,40,46,.5)}
+  .b.o{background:#fff;border:1px solid var(--line);color:var(--ink);box-shadow:var(--sh-sm)}
+
+  .divider{height:1px;background:var(--line);max-width:680px}
+
+  footer{background:var(--navy);color:#9DAAB1;text-align:center;padding:40px 20px;font-size:13px;line-height:1.8;margin-top:20px}
+  footer a{color:#fff}.footer-lock{justify-content:center}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr}.feat{grid-template-columns:1fr}.navbar .links{display:none}.meta{gap:20px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="bd"><svg viewBox="0 0 960 380" preserveAspectRatio="none"><path d="M-40,300 C220,120 430,300 640,170 C800,70 900,210 1040,150"/></svg></div>
+  <div class="in">
+    <div class="navbar">
+      <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
+      <div class="links"><a href="index.html">Prototyp</a><a href="screens.html">Artboards</a><a href="brand.html">Brand kit</a></div>
+    </div>
+    <span class="eyebrow">🔧 UX / UI case study · koncept</span>
+    <h1>Remeslo má<br>svojho <span class="r">parťáka</span></h1>
+    <p class="sub">Ako by mohla vyzerať appka, ktorá obsadí najdrahší moment montérovho dňa — a z veľkoobchodu spraví platformu.</p>
+    <div class="meta">
+      <div><small>Rola</small><b>Koncept · UX · UI</b></div>
+      <div><small>Klient</small><b>empiria.sk (koncept)</b></div>
+      <div><small>Platforma</small><b>iOS / Android</b></div>
+      <div><small>Identita</small><b>express.EMPIRIA</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="lead-in">Problém</div>
+    <h2>Montér stojí na stavbe — a niečo mu chýba</h2>
+    <p class="p">Inštalatér rozoberie 12-ročný kotol, chýba mu fitka alebo čerpadlo, klient stojí za chrbtom. Dnešná realita: telefonát na pobočku, „máte to skladom?", obracanie auta, strata hodiny. Najdrahší moment dňa je ten, keď <b>nevie, čo to je, a potrebuje to teraz.</b></p>
+    <img class="full" src="img/store-aisle.jpg" alt="Express predajňa">
+    <div class="imgcap">Samoobslužná predajňa express.EMPIRIA — tisíce dielov, ale nájsť ten správny pod tlakom je problém.</div>
+  </section>
+
+  <section>
+    <div class="lead-in">Insight</div>
+    <h2>Empiria je spojka — ale chýba jej posledný článok</h2>
+    <p class="p">Empiria sa sama definuje ako <b>prepojenie medzi výrobcom, realizačkou a investorom</b>. Web a eshop riešia objednávku. Lenže rozhodnutie nepadá za počítačom — padá <b>na stavbe, v ruke montéra</b>. A presne tam Empiria dnes nie je.</p>
+    <div class="quote">„Appka nestojí na ďalšom eshope. Stojí na jednom momente: som na stavbe, niečo mi chýba, a chcem to teraz."</div>
+  </section>
+
+  <section>
+    <div class="lead-in">Stratégia</div>
+    <h2>Flywheel, ktorý ženie predaj materiálu</h2>
+    <p class="p" style="margin-bottom:28px">Kľúčový ťah: appka nie je len nástroj pre montéra — je to <b>kolobeh</b>. Marketplace „nájdi montážnika ↔ leady" prepojí investora a montéra a každé otočenie zvýši predaj materiálu.</p>
+    <div class="fly">
+      <div class="bd"><svg viewBox="0 0 880 260" preserveAspectRatio="none"><path d="M-30,70 C200,210 420,30 640,150 C760,210 840,120 920,170"/></svg></div>
+      <h3>Ako sa kruh točí</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><b>Empiria pošle lead</b><small>investor hľadá montéra</small></div>
+        <div class="step"><div class="n">2</div><b>Montér má prácu</b><small>prijme zákazku</small></div>
+        <div class="step"><div class="n">3</div><b>Nakúpi materiál</b><small>u Empirie</small></div>
+        <div class="step"><div class="n">4</div><b>Vyšší level</b><small>obrat = vernostka</small></div>
+        <div class="step"><div class="n">5</div><b>Prednostné leady</b><small>a kruh sa točí ↻</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="lead-in">Riešenie</div>
+    <h2>Päť vecí, čo montérovi šetria deň</h2>
+    <div class="feat">
+      <div class="fc"><img src="img/heatpump.jpg" alt=""><div class="ft"><div class="ic">📷</div><h3>Skenuj &amp; nájdi</h3><p>Foto štítku kotla → appka rozpozná model a vyhodí kompatibilnú náhradu. Koniec hádania.</p></div></div>
+      <div class="fc"><img src="img/map-express.png" alt=""><div class="ft"><div class="ic">📍</div><h3>Živý sklad predajní</h3><p>Reálna mapa 17 predajní so semaforom dostupnosti. Rezervuj a vyzdvihni do 15 minút.</p></div></div>
+      <div class="fc"><img src="img/store-interior.jpg" alt=""><div class="ft"><div class="ic">📨</div><h3>Zákazky z Empiria siete</h3><p>Investori, čo si vybrali materiál, hľadajú montéra. Vyšší level = leady ako prvý.</p></div></div>
+      <div class="fc"><img src="img/bathroom.jpg" alt=""><div class="ft"><div class="ic">🛁</div><h3>Druhá strana: Kúpeľne</h3><p>Investor si navrhne kúpeľňu, vyskúša v AR a nájde overeného montéra — lead sa vráti do Parťáka.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="lead-in">Identita</div>
+    <h2>Postavené na reálnom brande</h2>
+    <p class="p">Appka žije pod divíziou <b>express.EMPIRIA</b> — navy, EMPIRIA červená, maskot-inštalatér a motív prerušovanej čiary. Žiadne generické fotky ani vymyslené farby: všetko z firemného archívu. Detaily v <a href="brand.html">Brand &amp; UI kite</a>.</p>
+    <img class="full" src="img/divisions.png" alt="divízie" style="background:#fff;padding:14px;max-width:560px;display:block">
+  </section>
+
+  <section style="text-align:center;padding-top:20px">
+    <h2 style="margin-bottom:8px">Pozri si to naživo</h2>
+    <p class="p" style="margin:0 auto 24px">Klikací prototyp oboch appiek aj všetky obrazovky ako artboards.</p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="b red" href="index.html">▶ Spustiť prototyp</a>
+      <a class="b o" href="screens.html">Všetky artboards</a>
+      <a class="b o" href="brand.html">Brand kit</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span class="lock footer-lock" style="font-size:16px;display:inline-flex"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt=""></span><br>
+  UX / UI case study · koncept &nbsp;·&nbsp; <a href="index.html">Prototyp</a> · <a href="screens.html">Artboards</a> · <a href="brand.html">Brand kit</a>
+</footer>
+
+</body>
+</html>

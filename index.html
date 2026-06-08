@@ -54,9 +54,10 @@
   .hero-grid{max-width:1180px;margin:0 auto;padding:30px 28px 60px;display:grid;grid-template-columns:1.04fr .96fr;gap:44px;align-items:center;position:relative;z-index:2}
   .nav-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:14px 0 40px}
   .nav-top .lock{font-size:21px}
-  .nav-top .links{display:flex;gap:26px;font-size:14px;font-weight:600;color:#AEBAC1}
+  .nav-top .links{display:flex;gap:24px;font-size:14px;font-weight:600;color:#AEBAC1;align-items:center}
   .nav-top .links span{cursor:pointer}
-  .nav-top .links span:hover{color:#fff}
+  .nav-top .links span:hover,.nav-top .links a:hover{color:#fff}
+  .nav-top .links a{color:#AEBAC1;text-decoration:none}
 
   .eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16);padding:8px 15px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:22px}
   .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(215,40,46,.6);animation:pulse 2.2s infinite}
@@ -391,7 +392,7 @@
   <div class="hero-grid">
     <div class="nav-top">
       <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
-      <div class="links"><span onclick="document.getElementById('feat').scrollIntoView()">Funkcie</span><span onclick="document.getElementById('divs').scrollIntoView()">Divízie</span><span onclick="document.getElementById('demo').scrollIntoView()">Prototyp</span></div>
+      <div class="links"><span onclick="document.getElementById('feat').scrollIntoView()">Funkcie</span><span onclick="document.getElementById('divs').scrollIntoView()">Divízie</span><a href="case.html">Case study</a><a href="brand.html">Brand kit</a></div>
     </div>
 
     <div style="position:relative">
@@ -819,7 +820,8 @@
 
 <footer>
   <span class="lock dark"><span class="ex">express.</span><img src="img/logo-red.png" alt="EMPIRIA"></span> &nbsp;Parťák — koncept appky<br>
-  reálna brand identita · navy #192B37 + EMPIRIA červená + maskot &nbsp;·&nbsp; <a href="screens.html">→ pozri všetky artboards</a>
+  reálna brand identita · navy #192B37 + EMPIRIA červená + maskot<br>
+  <a href="case.html">Case study</a> &nbsp;·&nbsp; <a href="screens.html">Artboards</a> &nbsp;·&nbsp; <a href="brand.html">Brand kit</a>
 </footer>
 
 <script>
