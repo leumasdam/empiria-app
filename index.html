@@ -268,6 +268,60 @@
   }
   ::view-transition-old(root),::view-transition-new(root){animation-duration:.42s}
 
+  /* ===== new app screens ===== */
+  .kv{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .kv:last-child{border:0}.kv span{color:var(--muted)}.kv b{font-weight:700}
+  .twobtn{display:flex;gap:9px;margin-top:14px}
+  .mbtn{flex:1;border:0;padding:14px;border-radius:13px;font-weight:800;font-size:14px;font-family:inherit;cursor:pointer}
+  .mbtn.red{background:var(--red);color:#fff}.mbtn.o{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+  .mbtn.navy{background:var(--navy);color:#fff}
+  /* profile / vernostka */
+  .prof-hero{background:var(--navy);margin:-34px -16px 0;padding:46px 18px 30px;position:relative;overflow:hidden;color:#fff;text-align:center;border-radius:0 0 26px 26px}
+  .prof-hero .bigdash path{stroke:rgba(255,255,255,.13)}
+  .prof-hero .pav{width:74px;height:74px;border-radius:20px;object-fit:cover;border:3px solid rgba(255,255,255,.22);margin:0 auto 10px;display:block;position:relative;z-index:2}
+  .prof-hero .pname{font-size:18px;font-weight:800;position:relative;z-index:2}
+  .prof-hero .pfirm{font-size:12px;color:#9DAAB1;position:relative;z-index:2}
+  .lvlbig{display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:14px;box-shadow:var(--sh-sm);margin:-16px 0 0;position:relative;z-index:4}
+  .lvlring{width:60px;height:60px;border-radius:50%;flex:none;display:grid;place-items:center;position:relative;background:conic-gradient(var(--red) 78%,#E6EBEE 0)}
+  .lvlring::before{content:"";position:absolute;inset:5px;border-radius:50%;background:#fff}
+  .lvlring b{position:relative;font-size:15px;font-weight:900}
+  .lvlbig .li{flex:1}.lvlbig .li b{font-size:14px;display:block}.lvlbig .li small{font-size:11.5px;color:var(--muted)}
+  .pbar2{height:6px;border-radius:4px;background:#EEF2F4;margin-top:7px;overflow:hidden}
+  .pbar2 i{display:block;height:100%;width:78%;background:var(--red);border-radius:4px}
+  .benefit{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .benefit:last-child{border:0}
+  .benefit .be{width:34px;height:34px;border-radius:10px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:16px;flex:none}
+  .benefit .bt b{font-size:13px;display:block}.benefit .bt small{font-size:11px;color:var(--muted)}
+  .benefit .bv{margin-left:auto;font-size:11.5px;font-weight:800;color:var(--navy)}
+  /* product detail */
+  .prod-hero{height:198px;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--sh)}
+  .prod-hero img{width:100%;height:100%;object-fit:cover}
+  .prod-brand{font-size:10.5px;font-weight:800;letter-spacing:.4px;color:var(--muted);margin-top:12px}
+  .spec{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .spec:last-child{border:0}.spec span{color:var(--muted)}.spec b{font-weight:700}
+  .buybar{display:flex;align-items:center;gap:11px;margin-top:14px}
+  .buybar .pp{font-size:21px;font-weight:900;letter-spacing:-.5px}.buybar .pp small{font-size:11px;color:var(--muted);font-weight:600}
+  /* configurator */
+  .cfg-step{display:flex;gap:7px;margin-bottom:16px}
+  .cfg-step .cs{flex:1;height:5px;border-radius:3px;background:#E6EBEE}.cfg-step .cs.on{background:var(--red)}
+  .cfg-q{font-size:17px;font-weight:800;margin:2px 0 14px}
+  .opt{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:14px;padding:13px;background:#fff;margin-bottom:10px;cursor:pointer}
+  .opt.sel{border-color:var(--red);background:var(--red-soft)}
+  .opt .oe{font-size:22px}.opt b{font-size:14px;display:block}.opt small{font-size:11.5px;color:var(--muted)}
+  .opt .rad{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);margin-left:auto;flex:none}
+  .opt.sel .rad{border-color:var(--red);background:var(--red)}
+  .cfg-result{background:var(--navy);border-radius:18px;padding:16px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
+  .cfg-result .bigdash path{stroke:rgba(255,255,255,.14)}
+  .cfg-result .crt{font-size:11px;color:#9DAAB1;font-weight:700;position:relative;z-index:2}
+  .cfg-result .crn{font-size:18px;font-weight:900;margin:3px 0 8px;position:relative;z-index:2}
+  /* quote document */
+  .quote-doc{background:#fff;border-radius:16px;box-shadow:var(--sh);overflow:hidden}
+  .quote-doc .qh{background:var(--navy);color:#fff;padding:15px;display:flex;align-items:center;justify-content:space-between}
+  .quote-doc .qh .qn{font-size:13px;font-weight:800}.quote-doc .qh small{font-size:10.5px;color:#9DAAB1;display:block;margin-top:2px}
+  .quote-doc .qb{padding:13px 16px}
+  .qrow{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .qrow.tot{border:0;font-size:16px;font-weight:900;padding-top:12px}
+
   /* ===== boot / splash animation (Bistro-style zoom reveal) ===== */
   .boot{position:absolute;inset:0;z-index:30;background:var(--navy);border-radius:39px;overflow:hidden;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -330,7 +384,7 @@
             <div class="scr active" data-s="home">
               <div class="apphead">
                 <div class="ah-row">
-                  <img class="pf" src="img/staff.jpg" alt="">
+                  <img class="pf" src="img/staff.jpg" alt="" onclick="go('profile')" style="cursor:pointer">
                   <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div>
                   <div class="bell">🔔<span class="bdg">2</span></div>
                 </div>
@@ -349,6 +403,10 @@
                   <div class="catc" onclick="go('stock')"><img class="ct" src="img/bathroom.jpg" alt=""><div class="cl"><b>Sanita</b><small>1 870</small></div></div>
                 </div>
 
+                <div class="promo" onclick="go('config')" style="min-height:84px;margin-top:4px">
+                  <div class="pt"><div class="tg">🔥 KONFIGURÁTOR TČ</div><b>Navrhni tepelné čerpadlo na pár klikov</b><button class="pb" onclick="go('config')">Spustiť →</button></div>
+                </div>
+
                 <div class="advisor">
                   <img src="img/staff.jpg" alt="">
                   <div class="ai"><b>Tomáš · tvoj predajca</b><small>express.EMPIRIA Žilina</small></div>
@@ -356,12 +414,12 @@
                 </div>
 
                 <div class="sect">Naskladom pri tebe <a onclick="go('stock')">Viac →</a></div>
-                <div class="prow" onclick="go('stock')">
+                <div class="prow" onclick="go('product')">
                   <img class="pi" src="img/heatpump.jpg" alt="">
                   <div class="pinfo"><b>Čerpadlo Grundfos 15/60</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div>
                   <div class="goa">→</div>
                 </div>
-                <div class="prow" onclick="go('stock')">
+                <div class="prow" onclick="go('product')">
                   <img class="pi" src="img/store-aisle.jpg" alt="">
                   <div class="pinfo"><b>Expanzná nádoba 8L</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">24,90 € <small>bez DPH</small></div></div>
                   <div class="goa">→</div>
@@ -423,17 +481,17 @@
                   <div class="pt"><div class="tg">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:14px;margin:5px 0 0">Vidíš leady ako prvý</b></div>
                 </div>
                 <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
-                <div class="prow">
+                <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/heatpump.jpg" alt="">
                   <div class="pinfo"><b>Výmena tepelného čerpadla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:5px"><span class="pill ok">✓ Sedí na teba</span> <b style="font-size:11px">~3 400 €</b></div></div>
                   <div class="goa">→</div>
                 </div>
-                <div class="prow">
+                <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/bathroom.jpg" alt="">
                   <div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:5px"><span class="pill warn">Súrne</span> <b style="font-size:11px">~5 200 €</b></div></div>
                   <div class="goa">→</div>
                 </div>
-                <div class="prow">
+                <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/plumber.jpg" alt="">
                   <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub">📍 Martin · 19 km · včera</div><div style="margin-top:5px"><b style="font-size:11px">~280 €</b></div></div>
                   <div class="goa">→</div>
@@ -458,7 +516,108 @@
                 </div>
                 <div class="sect">Vyzdvihnutie</div>
                 <div class="timechips"><div class="t">Dnes 14:00</div><div class="t on">Zajtra 8:00</div><div class="t">Pi 10:00</div></div>
-                <button class="quotebtn">📄 Cenová ponuka pre investora</button>
+                <button class="quotebtn" onclick="go('quote')">📄 Cenová ponuka pre investora</button>
+              </div>
+            </div>
+
+            <!-- ===== PROFILE / VERNOSTKA ===== -->
+            <div class="scr" data-s="profile">
+              <div class="prof-hero">
+                <div class="bigdash"><svg viewBox="0 0 300 150" preserveAspectRatio="none"><path d="M-10,30 C90,82 200,-6 320,46"/></svg></div>
+                <img class="pav" src="img/staff.jpg" alt="">
+                <div class="pname">Marek Kováč</div>
+                <div class="pfirm">ELEKTROVOD s.r.o. · Žilina</div>
+              </div>
+              <div class="pad">
+                <div class="lvlbig">
+                  <div class="lvlring"><b>L4</b></div>
+                  <div class="li"><b>Skúsený majster</b><small>2 340 b. · do L5 chýba 160 ⚡</small><div class="pbar2"><i></i></div></div>
+                </div>
+                <div class="sect">Tvoje výhody</div>
+                <div class="card">
+                  <div class="benefit"><div class="be">💶</div><div class="bt"><b>Lepšie ceny</b><small>−8 % na celý sortiment</small></div><span class="bv">aktívne</span></div>
+                  <div class="benefit"><div class="be">📨</div><div class="bt"><b>Prednostné leady</b><small>vidíš zákazky ako prvý</small></div><span class="bv">aktívne</span></div>
+                  <div class="benefit"><div class="be">🚚</div><div class="bt"><b>Doprava zdarma</b><small>odomkneš na L5</small></div><span class="bv">160 b.</span></div>
+                </div>
+                <div class="sect">Posledná aktivita</div>
+                <div class="card">
+                  <div class="kv"><span>Objednávka #EMP-4821</span><b>+45 b.</b></div>
+                  <div class="kv"><span>Dokončená zákazka · Bytča</span><b>+120 b.</b></div>
+                  <div class="kv"><span>Recenzia od investora ★</span><b>+30 b.</b></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== PRODUCT DETAIL ===== -->
+            <div class="scr" data-s="product">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Detail produktu</h2></div>
+                <div class="prod-hero"><img src="img/heatpump.jpg" alt=""><span class="pill ok" style="position:absolute;top:11px;left:11px"><span class="dot ok"></span>5 ks · Express Žilina</span></div>
+                <div class="prod-brand">GRUNDFOS</div>
+                <h2 style="font-size:19px;font-weight:850;margin:2px 0 5px">Obehové čerpadlo 15/60</h2>
+                <p class="lede" style="font-size:13px;margin-bottom:8px">Úsporné obehové čerpadlo pre vykurovacie systémy. Pasuje 1:1 ako náhrada originálu.</p>
+                <div class="card">
+                  <div class="spec"><span>Pripojenie</span><b>G 1"</b></div>
+                  <div class="spec"><span>Max. prietok</span><b>3,5 m³/h</b></div>
+                  <div class="spec"><span>Príkon</span><b>3–45 W</b></div>
+                  <div class="spec"><span>Záruka</span><b>3 roky</b></div>
+                </div>
+                <div class="buybar">
+                  <div class="pp">86,40 € <small>bez DPH</small></div>
+                  <button class="mbtn red" onclick="go('stock')">Nájsť skladom →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== LEAD DETAIL ===== -->
+            <div class="scr" data-s="lead">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('leady')">←</div><h2>Detail zákazky</h2></div>
+                <div class="pbanner"><img src="img/heatpump.jpg" alt=""><div class="pbt"><b>Výmena tepelného čerpadla</b><small>📍 Bytča · 8 km od teba</small></div></div>
+                <div class="card">
+                  <div class="kv"><span>Investor</span><b>p. Novák (overený)</b></div>
+                  <div class="kv"><span>Požadovaný termín</span><b>do 20.6.</b></div>
+                  <div class="kv"><span>Odhad rozpočtu</span><b>~3 400 €</b></div>
+                  <div class="kv"><span>Materiál</span><b style="color:var(--red)">cez Empiria ✓</b></div>
+                </div>
+                <p class="lede" style="font-size:12.5px;margin:12px 2px 0">Investor si u nás vybral tepelné čerpadlo a hľadá montéra. Po prijatí sa materiál rovno objedná na tvoju pobočku.</p>
+                <div class="twobtn"><button class="mbtn o">Odmietnuť</button><button class="mbtn red" style="flex:1.4" onclick="go('proj')">Prijať zákazku</button></div>
+              </div>
+            </div>
+
+            <!-- ===== KONFIGURÁTOR TČ ===== -->
+            <div class="scr" data-s="config">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Konfigurátor TČ</h2></div>
+                <div class="cfg-step"><div class="cs on"></div><div class="cs on"></div><div class="cs"></div></div>
+                <div class="cfg-q">Aká je vykurovacia plocha domu?</div>
+                <div class="opt"><div class="oe">🏠</div><div><b>do 120 m²</b><small>menší rodinný dom</small></div><div class="rad"></div></div>
+                <div class="opt sel"><div class="oe">🏡</div><div><b>120–200 m²</b><small>bežný rodinný dom</small></div><div class="rad"></div></div>
+                <div class="opt"><div class="oe">🏘️</div><div><b>nad 200 m²</b><small>väčší objekt</small></div><div class="rad"></div></div>
+                <div class="cfg-result" style="margin-top:8px">
+                  <div class="bigdash"><svg viewBox="0 0 270 120" preserveAspectRatio="none"><path d="M-10,30 C70,80 150,-6 290,40"/></svg></div>
+                  <div class="crt">ODPORÚČAME</div>
+                  <div class="crn">Thermia Mega 12 kW + zostava</div>
+                  <button class="mbtn red" style="width:100%" onclick="go('proj')">Pridať zostavu do stavby →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== CENOVÁ PONUKA ===== -->
+            <div class="scr" data-s="quote">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('proj')">←</div><h2>Cenová ponuka</h2></div>
+                <div class="quote-doc">
+                  <div class="qh"><span class="lock" style="font-size:15px"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt=""></span><div style="text-align:right"><div class="qn">Ponuka #2026-0148</div><small>Rodinný dom · Bytča</small></div></div>
+                  <div class="qb">
+                    <div class="qrow"><span>Tepelné čerpadlo Thermia 12 kW</span><b>3 190 €</b></div>
+                    <div class="qrow"><span>Obehové čerpadlo Grundfos</span><b>86 €</b></div>
+                    <div class="qrow"><span>Expanzná nádoba 8L + materiál</span><b>240 €</b></div>
+                    <div class="qrow"><span>Montáž a uvedenie</span><b>980 €</b></div>
+                    <div class="qrow tot"><span>Spolu s DPH</span><b>5 396 €</b></div>
+                  </div>
+                </div>
+                <div class="twobtn"><button class="mbtn o">Upraviť</button><button class="mbtn red" style="flex:1.4">📤 Odoslať investorovi</button></div>
               </div>
             </div>
 
