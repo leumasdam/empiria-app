@@ -43,8 +43,8 @@
   .bigdash{position:absolute;inset:0;pointer-events:none;overflow:hidden}
   .bigdash svg{width:100%;height:100%;display:block}
   .bigdash path{fill:none;stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
-  .hero-dash{z-index:1;left:40%;right:-6%;top:-8%;bottom:-8%}
-  .hero-dash path{stroke:rgba(255,255,255,.16)}
+  .hero-dash{z-index:1}
+  .hero-dash path{stroke:rgba(255,255,255,.17)}
   .why-dash path{stroke:rgba(25,43,55,.16)}
 
   /* ---------- HERO ---------- */
@@ -245,6 +245,7 @@
   .divc .dn{font-weight:900;font-size:22px;letter-spacing:-.5px;margin-top:6px}
   .divc .tagme{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:7px}
   .divc .dd{font-size:13px;color:rgba(255,255,255,.82);line-height:1.5;margin-top:10px}
+  .divc .dmasc{position:absolute;right:12px;bottom:8px;width:80px;opacity:.95;z-index:1;filter:brightness(0) invert(1)}
   .divc.ku .dl,.divc.ku .dd{color:rgba(25,43,55,.7)}.divc.ku .dn{color:var(--navy)}
 
   .why{padding:30px 0 90px}
@@ -271,7 +272,7 @@
 <body>
 
 <header class="hero">
-  <div class="bigdash hero-dash"><svg viewBox="0 0 760 720" preserveAspectRatio="xMidYMid slice"><path d="M120,110 C420,-40 700,150 700,390 C700,590 430,700 170,615 C-10,558 35,300 205,235"/></svg></div>
+  <div class="bigdash hero-dash"><svg viewBox="0 0 1200 640" preserveAspectRatio="none"><path d="M-40,150 C300,104 560,190 840,144 C1020,115 1160,170 1280,146"/></svg></div>
   <div class="hero-grid">
     <div class="nav-top">
       <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
@@ -471,7 +472,7 @@
   <p class="sub">Appka žije pod <b>express.EMPIRIA</b> — samoobslužnou divíziou pre montérov.</p>
   <div class="divrow">
     <div class="divc vo"><div><div class="dl">veľkoobchod.</div><div class="dn">EMPIRIA</div></div><div class="dd">Projekty, investori, veľké dodávky materiálu.</div></div>
-    <div class="divc ex"><div class="tagme">TU ŽIJE APPKA</div><div><div class="dl">express.</div><div class="dn">EMPIRIA</div></div><div class="dd">Samoobslužné predajne. Montér, sklad, rýchlosť.</div></div>
+    <div class="divc ex"><div class="tagme">TU ŽIJE APPKA</div><img class="dmasc" src="img/mascot.png" alt=""><div><div class="dl">express.</div><div class="dn">EMPIRIA</div></div><div class="dd" style="max-width:60%">Samoobslužné predajne. Montér, sklad, rýchlosť.</div></div>
     <div class="divc ku"><div><div class="dl">kúpeľne.</div><div class="dn">EMPIRIA</div></div><div class="dd">Štúdiá, návrh kúpeľne, koncový zákazník.</div></div>
   </div>
 </section>
