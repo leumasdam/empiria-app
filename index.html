@@ -307,6 +307,12 @@
               </div>
               <div class="go">→</div>
             </div>
+
+            <div class="sect">Nové zákazky pre teba <a onclick="go('leady')" style="cursor:pointer">Viac →</a></div>
+            <div class="promo" style="min-height:96px" onclick="go('leady')">
+              <img class="pimg" src="img/heating.jpg" alt="">
+              <div class="pt"><div class="tag">📨 3 NOVÉ LEADY</div><b style="font-size:15px;margin:5px 0 10px">Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
+            </div>
           </div>
 
           <!-- ===== SCAN ===== -->
@@ -351,6 +357,34 @@
             <button class="reserve" style="margin-top:4px" onclick="go('proj')">📦 Rezervovať v Express Žilina</button>
           </div>
 
+          <!-- ===== LEADY (montér side of marketplace) ===== -->
+          <div class="scr" data-s="leady">
+            <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Zákazky pre teba</h2></div>
+            <div class="promo" style="min-height:96px;margin-bottom:16px">
+              <img class="pimg" src="img/worker2.jpg" alt="">
+              <div class="pt"><div class="tag">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:15px;margin:5px 0 0">Vidíš leady ako prvý</b></div>
+            </div>
+            <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div><div class="c">Kúpeľne</div></div>
+            <div class="prow">
+              <img class="pi" src="img/boiler.jpg" alt="">
+              <div class="pinfo"><b>Výmena plynového kotla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:6px"><span class="pill ok">✓ Sedí na teba</span> <span style="font-size:11.5px;color:var(--muted);font-weight:700">~1 400 €</span></div></div>
+              <div class="go">→</div>
+            </div>
+            <div class="prow">
+              <img class="pi" src="img/heating.jpg" alt="">
+              <div class="pinfo"><b>Rozvody kúrenia — novostavba</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:6px"><span class="pill warn">Súrne</span> <span style="font-size:11.5px;color:var(--muted);font-weight:700">~3 200 €</span></div></div>
+              <div class="go">→</div>
+            </div>
+            <div class="prow">
+              <img class="pi" src="img/worker3.jpg" alt="">
+              <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub">📍 Martin · 19 km · včera</div><div style="margin-top:6px"><span style="font-size:11.5px;color:var(--muted);font-weight:700">~280 €</span></div></div>
+              <div class="go">→</div>
+            </div>
+            <div class="card" style="margin-top:4px;background:var(--red-soft);box-shadow:none;text-align:center">
+              <small style="color:var(--ink2);font-size:12px;font-weight:600;line-height:1.5">Leady z Empiria siete — investori, čo si u nás vybrali materiál a hľadajú, kto im ho namontuje.</small>
+            </div>
+          </div>
+
           <!-- ===== PROJECT ===== -->
           <div class="scr" data-s="proj">
             <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Rodinný dom · Bytča</h2></div>
@@ -375,8 +409,8 @@
           <button class="on" data-n="home" onclick="go('home')"><span class="ni">🏠</span>Domov</button>
           <button data-n="stock" onclick="go('stock')"><span class="ni">📍</span>Sklad</button>
           <button class="scanfab" onclick="go('scan')">📷</button>
+          <button data-n="leady" onclick="go('leady')"><span class="ni">📨</span>Zákazky</button>
           <button data-n="proj" onclick="go('proj')"><span class="ni">🗂️</span>Stavby</button>
-          <button data-n="prof" onclick="go('home')"><span class="ni">👤</span>Profil</button>
         </div>
       </div>
     </div>

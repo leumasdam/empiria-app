@@ -8,328 +8,350 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red:#D71920;          /* Empiria brand red */
-    --red-k:#ED1D25;        /* Kúpeľne red */
-    --slate:#1B323E;        /* dark slate */
-    --slate2:#42575C;       /* secondary slate */
-    --muted:#6B7C84;
-    --line:#E6EBEE;
-    --bg:#F4F6F8;
-    --kbg:#F5F9FA;          /* kúpeľne light bg */
-    --ok:#16A34A;--warn:#F59E0B;--bad:#EF4444;
+    --canvas:#F3F6F8;--card:#FFFFFF;--ink:#1B2E38;--ink2:#2C424E;--muted:#7C8A93;--muted2:#A4B0B7;
+    --red:#D71920;--red-dk:#B3141B;--red-soft:#FDEDED;--navy:#1B323E;--mint:#E8F5EE;--mint-d:#1E9E5A;
+    --line:#E8ECEF;--ok:#1E9E5A;--warn:#E0A53B;--bad:#E5635B;
     --font:'Inter',system-ui,sans-serif;
+    --sh:0 14px 34px -20px rgba(27,46,56,.45);--sh-sm:0 8px 20px -14px rgba(27,46,56,.4);
   }
   *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
-  body{background:#10171C;color:#fff;padding:60px 40px 100px;-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.045) 1px,transparent 0);background-size:26px 26px}
+  body{background:#E3E9ED;color:var(--ink);padding:56px 40px 100px;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 1px 1px,rgba(27,46,56,.06) 1px,transparent 0);background-size:26px 26px}
 
-  /* board header */
-  .board-h{max-width:1500px;margin:0 auto 50px}
-  .board-h .tag{display:inline-flex;align-items:center;gap:8px;background:var(--red);padding:7px 14px;border-radius:30px;font-size:12px;font-weight:800;letter-spacing:.4px}
-  .board-h h1{font-size:42px;font-weight:900;letter-spacing:-1.2px;margin:18px 0 8px}
-  .board-h p{color:#9FB0BA;font-size:16px;max-width:640px;line-height:1.55}
+  .board-h{max-width:1600px;margin:0 auto 44px}
+  .board-h .tag{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:7px 15px;border-radius:30px;font-size:12px;font-weight:800;letter-spacing:.4px}
+  .board-h h1{font-size:42px;font-weight:900;letter-spacing:-1.4px;margin:18px 0 12px}
+  .board-h p{color:#4B5C64;font-size:16px;max-width:760px;line-height:1.6}
+  .board-h .flow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .board-h .flow span{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--ink2);box-shadow:var(--sh-sm)}
+  .board-h .flow b{color:var(--red);font-weight:800}
 
-  .group{max-width:1500px;margin:0 auto 70px}
-  .group>.gh{display:flex;align-items:center;gap:14px;margin:0 0 26px;padding-bottom:16px;border-bottom:1px solid #25323b}
-  .group>.gh .badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:19px}
-  .group>.gh h2{font-size:24px;font-weight:800;letter-spacing:-.5px}
-  .group>.gh small{display:block;color:#8497A1;font-weight:500;font-size:13.5px;margin-top:2px}
+  .group{max-width:1600px;margin:0 auto 60px}
+  .group>.gh{display:flex;align-items:center;gap:14px;margin:0 0 8px}
+  .group>.gh .badge{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:21px;color:#fff;box-shadow:var(--sh-sm)}
+  .group>.gh h2{font-size:23px;font-weight:800;letter-spacing:-.5px}
+  .group>.gh small{display:block;color:var(--muted);font-weight:600;font-size:13.5px;margin-top:2px}
+  .group>.story{color:#4B5C64;font-size:14.5px;line-height:1.6;max-width:860px;margin:0 0 26px;padding:14px 18px;background:#fff;border-radius:14px;border-left:4px solid var(--red);box-shadow:var(--sh-sm)}
+  .group>.story b{color:var(--ink)}
 
-  .row{display:flex;gap:34px;flex-wrap:wrap}
+  .row{display:flex;gap:30px;flex-wrap:wrap}
+  .frame{display:flex;flex-direction:column;gap:11px;width:300px}
+  .flabel{font-size:12.5px;font-weight:700;color:#5C6A72;display:flex;align-items:center;gap:8px}
+  .flabel b{color:var(--ink);font-weight:800}
+  .flabel .new{background:var(--red);color:#fff;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:6px;letter-spacing:.4px}
+  .device{width:300px;height:640px;border-radius:34px;overflow:hidden;position:relative;background:#c2cdd3;padding:8px;box-shadow:0 28px 56px -28px rgba(27,46,56,.55);border:1px solid #d4dde2}
+  .caption{font-size:12.5px;color:#56676F;line-height:1.5;padding:0 2px}
+  .caption b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px;font-size:13px}
 
-  /* frame + label (Figma artboard style) */
-  .frame{display:flex;flex-direction:column;gap:12px}
-  .frame>.flabel{font-size:12.5px;font-weight:700;color:#7E919C;letter-spacing:.2px;padding-left:4px}
-  .frame>.flabel b{color:#fff;font-weight:800}
-  .device{width:300px;height:650px;border-radius:30px;overflow:hidden;position:relative;
-    box-shadow:0 30px 60px -24px rgba(0,0,0,.7);border:1px solid #2a3640}
+  .s{width:100%;height:100%;background:var(--canvas);border-radius:28px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:13px 18px 4px;font-size:11.5px;font-weight:700;flex:none}
+  .body{flex:1;overflow:hidden;padding:6px 15px}
 
-  /* generic screen */
-  .s{width:100%;height:100%;display:flex;flex-direction:column;color:var(--slate);position:relative}
-  .sb{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 4px;font-size:12px;font-weight:700;flex:none}
-  .body{flex:1;overflow:hidden;padding:8px 18px}
-  .light{background:var(--bg)}
-  .kdef{background:var(--kbg)}
-
-  h3{font-size:21px;font-weight:850;letter-spacing:-.5px}
-  .lede{font-size:13.5px;color:var(--muted);line-height:1.55;font-weight:500}
-  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 8px 20px -16px rgba(27,50,62,.4)}
+  h3{font-size:20px;font-weight:850;letter-spacing:-.5px}
+  .lede{font-size:13px;color:var(--muted);line-height:1.5;font-weight:500}
+  .card{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--sh-sm)}
   .card+.card{margin-top:10px}
-  .sect{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:16px 2px 9px}
-  .btn{border:0;width:100%;padding:14px;border-radius:13px;font-weight:800;font-size:14.5px;cursor:default;font-family:inherit}
-  .btn.red{background:var(--red);color:#fff;box-shadow:0 12px 24px -12px rgba(215,25,32,.7)}
-  .btn.dark{background:var(--slate);color:#fff}
-  .btn.outline{background:#fff;border:1.5px solid var(--line);color:var(--slate)}
-  .pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:5px 9px;border-radius:20px}
-  .pill.ok{background:#E7F7EE;color:var(--ok)}.pill.warn{background:#FEF3DD;color:#B97500}.pill.bad{background:#FDE8E8;color:var(--bad)}
-  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .sect{font-size:14px;font-weight:800;letter-spacing:-.3px;margin:16px 2px 11px;display:flex;justify-content:space-between;align-items:center}
+  .sect a{font-size:11.5px;color:var(--red);font-weight:700}
+  .btn{border:0;width:100%;padding:14px;border-radius:13px;font-weight:800;font-size:14px;font-family:inherit;cursor:default}
+  .btn.red{background:var(--red);color:#fff;box-shadow:0 12px 24px -12px rgba(215,25,32,.55)}
+  .btn.dark{background:var(--navy);color:#fff}
+  .btn.outline{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:20px}
+  .pill.ok{background:var(--mint);color:var(--mint-d)}.pill.warn{background:#FCF1DC;color:#B97B16}.pill.bad{background:#FCE9E8;color:var(--bad)}
+  .pill.red{background:var(--red-soft);color:var(--red)}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
   .dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+  .star{color:#F2A93B;font-weight:800}
 
-  /* progress dots */
-  .dots{display:flex;gap:6px;justify-content:center;margin:0 0 4px}
-  .dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+  .dots{display:flex;gap:6px;justify-content:center;margin:2px 0}
+  .dots i{width:7px;height:7px;border-radius:50%;background:#D4DDE2}
   .dots i.on{width:22px;border-radius:5px;background:var(--red)}
-  .dots.k i.on{background:var(--red-k)}
 
   /* splash */
-  .splash{background:var(--red);color:#fff;align-items:center;justify-content:center;text-align:center;gap:0}
-  .splash .lg{width:84px;height:84px;border-radius:24px;background:#fff;color:var(--red);display:grid;place-items:center;font-size:42px;font-weight:900;margin-bottom:24px;box-shadow:0 20px 40px -12px rgba(0,0,0,.35)}
-  .splash h2{font-size:34px;font-weight:900;letter-spacing:-1px}
-  .splash p{font-size:14px;opacity:.85;margin-top:8px;font-weight:500;letter-spacing:.3px}
-  .splash .ld{position:absolute;bottom:46px;width:120px;height:4px;border-radius:3px;background:rgba(255,255,255,.25);overflow:hidden}
+  .splash{background:var(--red);align-items:center;justify-content:center;text-align:center;color:#fff}
+  .splash .lg{width:80px;height:80px;border-radius:22px;background:#fff;color:var(--red);display:grid;place-items:center;font-size:40px;font-weight:900;margin-bottom:22px;box-shadow:0 18px 36px -12px rgba(0,0,0,.3)}
+  .splash h2{font-size:32px;font-weight:900;letter-spacing:-1px}
+  .splash p{font-size:13px;opacity:.85;margin-top:8px;font-weight:500;letter-spacing:.4px}
+  .splash .ld{position:absolute;bottom:44px;width:110px;height:4px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}
   .splash .ld::after{content:"";position:absolute;left:0;top:0;height:100%;width:55%;background:#fff;border-radius:3px}
 
-  /* hero illustration block for onboarding */
-  .hero-ill{height:230px;border-radius:20px;display:grid;place-items:center;font-size:90px;margin-bottom:18px;position:relative;overflow:hidden}
-  .hero-ill.r1{background:linear-gradient(150deg,#FFE9EA,#FFD2D4)}
-  .hero-ill.r2{background:linear-gradient(150deg,#E7EEF1,#D4E0E5)}
-  .hero-ill .ring{position:absolute;border-radius:50%;border:2px dashed rgba(215,25,32,.25)}
-
-  /* role choice */
-  .choice{display:flex;align-items:center;gap:13px;border:2px solid var(--line);border-radius:15px;padding:14px;background:#fff;margin-bottom:11px}
-  .choice.sel{border-color:var(--red);background:#FFF5F5}
-  .choice .ci{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:23px;flex:none;background:#F2F5F7}
-  .choice.sel .ci{background:var(--red);}
-  .choice b{font-size:15px;display:block}
-  .choice small{font-size:12px;color:var(--muted)}
+  .hero-ph{height:200px;border-radius:18px;object-fit:cover;width:100%;margin-bottom:16px}
+  .choice{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:15px;padding:13px;background:#fff;margin-bottom:10px}
+  .choice.sel{border-color:var(--red);background:var(--red-soft)}
+  .choice .ci{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;flex:none;background:var(--canvas)}
+  .choice.sel .ci{background:var(--red);filter:grayscale(0)}
+  .choice b{font-size:14px;display:block}.choice small{font-size:11.5px;color:var(--muted)}
   .choice .rad{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);margin-left:auto;flex:none;display:grid;place-items:center}
   .choice.sel .rad{border-color:var(--red);background:var(--red);color:#fff;font-size:12px}
 
-  /* input */
-  .field{margin-bottom:14px}
-  .field label{font-size:12px;font-weight:700;color:var(--slate2);display:block;margin-bottom:6px}
-  .input{border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between;background:#fff}
-  .input.filled{border-color:var(--slate);}
-  .input .ph{color:#A9B6BD;font-weight:500}
+  .field{margin-bottom:13px}
+  .field label{font-size:12px;font-weight:700;color:var(--ink2);display:block;margin-bottom:6px}
+  .input{border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between;background:#fff}
+  .input.f{border-color:var(--navy)}.input .ph{color:var(--muted2);font-weight:500}
 
-  /* branch list */
-  .branch{display:flex;align-items:center;gap:11px;padding:12px 4px;border-bottom:1px solid var(--line)}
+  .branch{display:flex;align-items:center;gap:11px;padding:11px 4px;border-bottom:1px solid var(--line)}
   .branch:last-child{border:0}
-  .branch .pin{width:38px;height:38px;border-radius:11px;background:#FFF0F0;color:var(--red);display:grid;place-items:center;font-size:18px;flex:none}
+  .branch .pin{width:38px;height:38px;border-radius:11px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:17px;flex:none}
   .branch.sel .pin{background:var(--red);color:#fff}
-  .branch b{font-size:14px;display:block}
-  .branch small{font-size:12px;color:var(--muted)}
-  .branch .km{margin-left:auto;font-size:12px;font-weight:700;color:var(--slate2)}
+  .branch b{font-size:13.5px;display:block}.branch small{font-size:11.5px;color:var(--muted)}
+  .branch .km{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink2)}
 
-  /* toggles */
-  .tg{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
-  .tg:last-of-type{border:0}
-  .tg .te{font-size:20px}
-  .tg b{font-size:13.5px;display:block}
-  .tg small{font-size:11.5px;color:var(--muted)}
+  .tg{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .tg:last-of-type{border:0}.tg .te{font-size:19px}
+  .tg b{font-size:13px;display:block}.tg small{font-size:11px;color:var(--muted)}
   .sw{width:42px;height:25px;border-radius:20px;background:var(--red);margin-left:auto;position:relative;flex:none}
   .sw::after{content:"";position:absolute;width:19px;height:19px;border-radius:50%;background:#fff;top:3px;right:3px}
   .sw.off{background:#D4DBE0}.sw.off::after{right:auto;left:3px}
 
-  /* top app bar */
-  .appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 14px}
-  .appbar .av{width:38px;height:38px;border-radius:11px;background:var(--slate);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
-  .appbar .greet b{font-size:18px;font-weight:850;letter-spacing:-.3px}
-  .appbar .greet small{font-size:12px;color:var(--muted)}
+  /* home */
+  .h-top{display:flex;align-items:center;gap:11px;padding:4px 2px 12px}
+  .h-top .pf{width:44px;height:44px;border-radius:13px;object-fit:cover;flex:none;box-shadow:var(--sh-sm)}
+  .h-top .hi{flex:1}.h-top .hi small{font-size:11.5px;color:var(--muted);font-weight:600}
+  .h-top .hi b{font-size:15px;font-weight:800;display:block}
+  .h-top .loc{font-size:11px;color:var(--red);font-weight:700}
+  .bell{width:42px;height:42px;border-radius:13px;background:#fff;display:grid;place-items:center;font-size:16px;position:relative;flex:none;box-shadow:var(--sh-sm)}
+  .bell .bdg{position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;border-radius:9px;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;display:grid;place-items:center;border:2px solid var(--canvas)}
+  .bighead{font-size:23px;font-weight:900;letter-spacing:-.7px;line-height:1.1;margin:4px 2px 12px}
+  .search{display:flex;gap:9px;margin-bottom:15px}
+  .search .sf{flex:1;background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:9px;box-shadow:var(--sh-sm);font-size:13px;color:var(--muted2);font-weight:500}
+  .search .filt{width:46px;height:46px;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:16px;flex:none}
+  .promo{background:var(--navy);border-radius:18px;padding:16px;position:relative;overflow:hidden;display:flex;align-items:center;color:#fff;min-height:110px;box-shadow:var(--sh)}
+  .promo .pimg{position:absolute;right:0;top:0;bottom:0;width:42%;object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%)}
+  .promo .pt{position:relative;z-index:1;max-width:64%}
+  .promo .pt .tg2{font-size:10.5px;font-weight:800;color:#FF8A8F;letter-spacing:.3px}
+  .promo .pt b{font-size:15.5px;font-weight:800;display:block;margin:5px 0 11px;line-height:1.2}
+  .promo .pt .pb{background:var(--red);color:#fff;border:0;font-family:inherit;font-weight:800;font-size:12px;padding:9px 15px;border-radius:10px}
+  .cats{display:flex;gap:9px}
+  .catc{flex:1;background:#fff;border-radius:16px;padding:9px 8px 11px;text-align:center;box-shadow:var(--sh-sm)}
+  .catc .ct{width:100%;height:54px;border-radius:11px;object-fit:cover;margin-bottom:7px}
+  .catc b{font-size:11px;font-weight:700;display:block}.catc small{font-size:9px;color:var(--muted)}
+  .prow{background:#fff;border-radius:16px;padding:10px;display:flex;align-items:center;gap:11px;margin-bottom:10px;box-shadow:var(--sh-sm)}
+  .prow .pi{width:58px;height:58px;border-radius:13px;object-fit:cover;flex:none}
+  .prow .pinfo{flex:1;min-width:0}.prow .pinfo b{font-size:13.5px;display:block;letter-spacing:-.2px}
+  .prow .pinfo .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  .prow .pinfo .price{font-size:13.5px;font-weight:800;margin-top:4px}.prow .pinfo .price small{font-size:10px;color:var(--muted);font-weight:600}
+  .prow .goa{width:36px;height:36px;border-radius:11px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:16px;flex:none}
 
-  /* quick grid */
-  .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .qt{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
-  .qt .qi{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;margin-bottom:9px;background:#FFF0F0;color:var(--red)}
-  .qt b{font-size:13.5px;display:block}
-  .qt small{font-size:11px;color:var(--muted)}
+  .chips{display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap}
+  .chips .c{background:#fff;border-radius:10px;padding:8px 13px;font-size:12px;font-weight:700;color:var(--muted);box-shadow:var(--sh-sm)}
+  .chips .c.on{background:var(--red);color:#fff}
+
+  /* scan */
+  .topline{display:flex;align-items:center;gap:11px;margin:6px 0 14px}
+  .back{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:15px;box-shadow:var(--sh-sm);flex:none}
+  .topline h2{font-size:18px;letter-spacing:-.5px;font-weight:800}
+  .scanbox{height:250px;border-radius:20px;position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:var(--sh)}
+  .scanbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .scanbox::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35))}
+  .reticle{width:160px;height:108px;border-radius:14px;position:relative;z-index:2}
+  .reticle span{position:absolute;width:26px;height:26px;border:3px solid #fff}
+  .reticle span:nth-child(1){top:0;left:0;border-right:0;border-bottom:0;border-radius:9px 0 0 0}
+  .reticle span:nth-child(2){top:0;right:0;border-left:0;border-bottom:0;border-radius:0 9px 0 0}
+  .reticle span:nth-child(3){bottom:0;left:0;border-right:0;border-top:0;border-radius:0 0 0 9px}
+  .reticle span:nth-child(4){bottom:0;right:0;border-left:0;border-top:0;border-radius:0 0 9px 0}
+  .scan-cap{position:absolute;bottom:14px;font-size:11px;color:#fff;z-index:3;background:rgba(27,46,56,.6);padding:7px 13px;border-radius:18px;font-weight:600}
+  .match{display:flex;gap:12px;align-items:center}
+  .match .mi{width:50px;height:50px;border-radius:13px;object-fit:cover;flex:none}
+  .match b{font-size:14px}.match small{color:var(--muted);font-size:11.5px;display:block;margin-top:1px}
+  .pricerow{display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)}
+  .pricerow .p{font-size:20px;font-weight:900;letter-spacing:-.5px}.pricerow .p small{font-size:11px;color:var(--muted);font-weight:600}
+  .add{color:#fff;border:0;padding:12px 16px;border-radius:12px;font-weight:800;font-size:13px;background:var(--red)}
+
+  /* lead detail */
+  .lead-hero{height:130px;border-radius:18px;overflow:hidden;position:relative;margin-bottom:14px;box-shadow:var(--sh)}
+  .lead-hero img{width:100%;height:100%;object-fit:cover}
+  .lead-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(27,50,62,.85),rgba(27,50,62,.2))}
+  .lead-hero .lt{position:absolute;left:14px;bottom:12px;color:#fff;z-index:1}
+  .lead-hero .lt b{font-size:16px;font-weight:800}.lead-hero .lt small{font-size:11.5px;color:#d6dde1;display:block;margin-top:2px}
+  .kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .kv:last-child{border:0}.kv span{color:var(--muted)}.kv b{font-weight:700}
+  .twobtn{display:flex;gap:9px;margin-top:14px}
+  .twobtn .btn{padding:13px}
+
+  /* installer card */
+  .inst{background:#fff;border-radius:18px;padding:13px;box-shadow:var(--sh-sm);margin-bottom:11px}
+  .inst .ih{display:flex;gap:11px;align-items:center}
+  .inst .ih img{width:52px;height:52px;border-radius:14px;object-fit:cover;flex:none}
+  .inst .ih b{font-size:14px;display:block}.inst .ih small{font-size:11.5px;color:var(--muted)}
+  .verif{display:inline-flex;align-items:center;gap:4px;background:var(--mint);color:var(--mint-d);font-size:10px;font-weight:800;padding:3px 8px;border-radius:7px;margin-top:4px}
+  .inst .tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+  .inst .tags span{background:var(--canvas);font-size:10.5px;font-weight:700;color:var(--ink2);padding:5px 9px;border-radius:8px}
+  .inst .ibtn{width:100%;margin-top:11px;background:var(--red);color:#fff;border:0;padding:11px;border-radius:11px;font-weight:800;font-size:12.5px}
+
+  /* kúpeľne */
+  .kbar{display:flex;align-items:center;justify-content:space-between;padding:4px 2px 14px}
+  .klogo{font-weight:900;font-size:17px;color:var(--navy)}.klogo i{color:var(--red);font-style:normal}
+  .khero{height:170px;border-radius:18px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:15px;color:#fff;box-shadow:var(--sh)}
+  .khero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .khero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(27,50,62,.8))}
+  .khero .kt{position:relative;z-index:1}.khero .kt b{font-size:17px;font-weight:850}.khero .kt small{font-size:11.5px;color:#dbe2e6;display:block}
+  .brands{display:flex;gap:7px;flex-wrap:wrap;margin-top:2px}
+  .brandchip{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:11.5px;font-weight:800;color:var(--ink2);box-shadow:var(--sh-sm)}
+  .arview{height:300px;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--sh)}
+  .arview img{width:100%;height:100%;object-fit:cover}
+  .arview .obj{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);font-size:64px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.4))}
+  .arview .chip{position:absolute;top:12px;left:12px;background:rgba(27,46,56,.7);color:#fff;font-size:10.5px;font-weight:700;padding:6px 11px;border-radius:18px}
+  .arctrl{display:flex;gap:8px;margin-top:11px}
+  .arctrl .ac{flex:1;background:#fff;border-radius:12px;padding:10px;text-align:center;font-size:11px;font-weight:700;box-shadow:var(--sh-sm)}
+  .arctrl .ac .e{font-size:17px;display:block;margin-bottom:3px}
+  .timechips{display:flex;gap:7px;margin-top:2px}
+  .timechips .t{flex:1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px;font-size:11.5px;font-weight:700;box-shadow:var(--sh-sm)}
+  .timechips .t.on{background:var(--red);color:#fff;border-color:var(--red)}
+  .studio{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+  .studio:last-child{border:0}
+  .studio img{width:46px;height:46px;border-radius:12px;object-fit:cover;flex:none}
+  .studio b{font-size:13px;display:block}.studio small{font-size:11px;color:var(--muted)}
+  .vrtag{margin-left:auto;background:var(--navy);color:#fff;font-size:9.5px;font-weight:800;padding:4px 8px;border-radius:7px}
+
+  .price{font-size:19px;font-weight:850;letter-spacing:-.5px}.price small{font-size:10.5px;color:var(--muted);font-weight:600}
 
   /* bottom nav */
-  .nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:rgba(255,255,255,.95);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;backdrop-filter:blur(8px)}
-  .nav .n{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:700;color:var(--muted)}
-  .nav .n.on{color:var(--red)}
-  .nav .n .ni{font-size:18px}
-  .nav .fab{width:50px;height:50px;border-radius:16px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:22px;margin-top:-20px;box-shadow:0 12px 22px -8px rgba(215,25,32,.7)}
+  .nav{position:absolute;bottom:0;left:0;right:0;height:62px;background:rgba(255,255,255,.95);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;backdrop-filter:blur(8px)}
+  .nav .n{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:700;color:var(--muted2)}
+  .nav .n.on{color:var(--red)}.nav .n .ni{font-size:17px}
+  .nav .fab{width:48px;height:48px;border-radius:15px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:21px;margin-top:-20px;box-shadow:0 12px 22px -8px rgba(215,25,32,.6)}
 
-  /* kúpeľne specific */
-  .kbar{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 16px}
-  .kbar .klogo{font-weight:900;font-size:18px;letter-spacing:-.5px;color:var(--slate)}
-  .kbar .klogo i{color:var(--red-k);font-style:normal}
-  .khero{height:200px;border-radius:20px;background:linear-gradient(150deg,#EAF1F3,#D7E3E7);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;color:var(--slate)}
-  .khero .em{position:absolute;right:-6px;top:-12px;font-size:120px;opacity:.18}
-  .khero b{font-size:19px;font-weight:850;letter-spacing:-.4px}
-  .khero small{font-size:12.5px;color:var(--slate2)}
-  .collections{display:flex;gap:10px;overflow:hidden;margin-top:4px}
-  .coll{min-width:120px;border-radius:14px;height:130px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;font-weight:800;font-size:13.5px}
-  .coll.a{background:linear-gradient(160deg,#5B6B72,#32373C)}
-  .coll.b{background:linear-gradient(160deg,#B98C6E,#8C6346)}
-  .brands{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-  .brandchip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--slate2)}
+  .footnote{max-width:1600px;margin:34px auto 0;color:#4B5C64;font-size:13.5px;line-height:1.65}
+  .footnote code{background:#fff;padding:2px 8px;border-radius:6px;font-size:12px;box-shadow:var(--sh-sm)}
+  .footnote b{color:var(--ink)}
 
-  .arview{height:340px;border-radius:20px;background:linear-gradient(180deg,#cdd8dc,#aeb9bd);position:relative;overflow:hidden}
-  .arview .floor{position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(180deg,#e6dcd0,#cdbfae)}
-  .arview .obj{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);font-size:80px}
-  .arview .grid-ar{position:absolute;bottom:0;left:0;right:0;height:45%;background-image:linear-gradient(rgba(255,255,255,.4) 1px,transparent 0),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 0);background-size:34px 22px;transform:perspective(220px) rotateX(55deg);transform-origin:bottom}
-  .arview .chip{position:absolute;top:14px;left:14px;background:rgba(27,50,62,.85);color:#fff;font-size:11px;font-weight:700;padding:7px 11px;border-radius:20px}
-  .arctrl{display:flex;gap:8px;margin-top:12px}
-  .arctrl .ac{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:11.5px;font-weight:700}
-  .arctrl .ac .e{font-size:18px;display:block;margin-bottom:3px}
-
-  .prod{display:flex;gap:12px;align-items:center}
-  .prod .pimg{width:64px;height:64px;border-radius:14px;background:#EAF1F3;display:grid;place-items:center;font-size:30px;flex:none}
-  .prod b{font-size:14.5px}
-  .prod small{font-size:12px;color:var(--muted);display:block}
-  .price{font-size:20px;font-weight:850;letter-spacing:-.5px}
-  .price small{font-size:11px;color:var(--muted);font-weight:600}
-
-  .studio{display:flex;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
-  .studio:last-child{border:0}
-  .studio .si{width:42px;height:42px;border-radius:12px;background:#EAF1F3;display:grid;place-items:center;font-size:19px;flex:none}
-  .studio b{font-size:13.5px;display:block}
-  .studio small{font-size:11.5px;color:var(--muted)}
-  .vrtag{margin-left:auto;background:#EEF6F8;color:var(--slate);font-size:10px;font-weight:800;padding:5px 8px;border-radius:8px}
-
-  .footnote{max-width:1500px;margin:30px auto 0;color:#6E818C;font-size:13px;line-height:1.6}
-  .footnote code{background:#1d262d;padding:2px 7px;border-radius:6px;color:#cdd8dc;font-size:12px}
+  @media(max-width:700px){body{padding:30px 16px 60px}}
 </style>
 </head>
 <body>
 
 <div class="board-h">
-  <span class="tag">● EMPIRIA · APP SCREENS</span>
-  <h1>Onboarding montéra + Kúpeľňová appka</h1>
-  <p>Samostatné obrazovky pripravené na import do Figmy. Rebrand na reálne firemné farby: červená <b style="color:#FF5258">#D71920</b>, bridlica <b>#1B323E</b>, font Inter. Každý rám = jeden screen.</p>
+  <span class="tag">● EMPIRIA · APP SCREENS · v2 light</span>
+  <h1>Dve appky, jeden flywheel</h1>
+  <p>Empiria sedí medzi <b>výrobcom → realizačkou → investorom</b>. Tieto dve appky obsadia ten stred. <b>Parťák</b> dáva montérovi sklad a zákazky; <b>Kúpeľne</b> dáva investorovi návrh a overeného montéra. Marketplace „nájdi montážnika ↔ leady" ich spája do kolobehu, ktorý ženie predaj materiálu.</p>
+  <div class="flow">
+    <span>1 · Empiria pošle <b>lead</b> montérovi</span>
+    <span>2 · Montér má <b>prácu</b></span>
+    <span>3 · Nakúpi <b>materiál</b> u Empirie</span>
+    <span>4 · Obrat ho posunie na <b>vyšší level</b></span>
+    <span>5 · Vyšší level = <b>prednostné leady</b> ↻</span>
+  </div>
 </div>
 
-<!-- =================== APP 1: PARŤÁK ONBOARDING =================== -->
+<!-- =================== APP 1: PARŤÁK =================== -->
 <div class="group">
-  <div class="gh">
-    <div class="badge" style="background:var(--red)">🔧</div>
-    <div><h2>App 1 — Empiria Parťák · Onboarding montéra</h2><small>6 krokov · od splashu po hotový profil · B2B overenie cez IČO</small></div>
-  </div>
+  <div class="gh"><div class="badge" style="background:var(--red)">🔧</div><div><h2>App 1 — Empiria Parťák · pre montéra</h2><small>onboarding · sklad · skenovanie · zákazky z Empiria siete</small></div></div>
+  <div class="story">B2B appka pre inštalatéra. Onboarding ho overí cez <b>IČO</b> (odomkne veľkoobchodné ceny), naviaže na domovskú pobočku a potom mu denne servíruje <b>sklad pri ňom</b> aj <b>leady</b> — investorov, čo si u Empirie vybrali materiál a hľadajú, kto im ho namontuje.</div>
   <div class="row">
 
-    <!-- 1 splash -->
     <div class="frame"><div class="flabel"><b>01</b> · Splash</div>
-      <div class="device"><div class="s splash">
-        <div class="lg">E</div>
-        <h2>Parťák</h2>
-        <p>od Empiria · od roku 1991</p>
-        <div class="ld"></div>
-      </div></div>
+      <div class="device"><div class="s splash"><div class="lg">E</div><h2>Parťák</h2><p>od Empiria · od roku 1991</p><div class="ld"></div></div></div>
+      <div class="caption"><b>Štart</b>Logo, claim, načítava profil montéra.</div>
     </div>
 
-    <!-- 2 welcome -->
-    <div class="frame"><div class="flabel"><b>02</b> · Vitaj / value prop</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div class="hero-ill r1"><span>📷</span>
-            <div class="ring" style="width:160px;height:160px"></div>
-            <div class="ring" style="width:230px;height:230px"></div>
-          </div>
-          <div class="dots"><i class="on"></i><i></i><i></i></div>
-          <h3 style="margin-top:14px">Súčiastka v ruke skôr,<br>než otočíš auto</h3>
-          <p class="lede" style="margin-top:8px">Naskenuj kotol, nájdi kompatibilný diel a zisti, ktorá pobočka ho má práve teraz skladom.</p>
-        </div>
-        <div style="padding:0 18px 22px"><button class="btn red">Pokračovať</button>
-          <div style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--muted);font-weight:600">Už mám účet · Prihlásiť sa</div>
-        </div>
-      </div></div>
+    <div class="frame"><div class="flabel"><b>02</b> · Vitaj</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <img class="hero-ph" src="img/worker2.jpg" alt="">
+        <div class="dots"><i class="on"></i><i></i><i></i></div>
+        <h3 style="margin-top:14px">Súčiastka v ruke skôr,<br>než otočíš auto</h3>
+        <p class="lede" style="margin-top:8px">Naskenuj kotol, nájdi náhradu a zisti, kde ju majú skladom.</p>
+        <button class="btn red" style="margin-top:18px">Pokračovať</button>
+      </div></div></div>
+      <div class="caption"><b>Value prop (1/3)</b>Jediný silný benefit + reálna fotka, nie wall of text.</div>
     </div>
 
-    <!-- 3 role -->
     <div class="frame"><div class="flabel"><b>03</b> · Kto si? (rola)</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div class="dots"><i></i><i class="on"></i><i></i></div>
-          <h3 style="margin:14px 0 4px">Čo robíš?</h3>
-          <p class="lede" style="margin-bottom:16px">Prispôsobíme ti appku aj ceny.</p>
-          <div class="choice sel"><div class="ci">🔧</div><div><b>Montér / inštalatér</b><small>diely, sklad, hlasové objednávky</small></div><div class="rad">✓</div></div>
-          <div class="choice"><div class="ci">🏗️</div><div><b>Realizačná firma</b><small>projekty, tím, ponuky</small></div><div class="rad"></div></div>
-          <div class="choice"><div class="ci">🏠</div><div><b>Investor / klient</b><small>sledovanie stavby a ponúk</small></div><div class="rad"></div></div>
-        </div>
-        <div style="padding:0 18px 22px"><button class="btn red">Pokračovať</button></div>
-      </div></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="dots"><i></i><i class="on"></i><i></i></div>
+        <h3 style="margin:14px 0 4px">Čo robíš?</h3><p class="lede" style="margin-bottom:14px">Prispôsobíme appku aj ceny.</p>
+        <div class="choice sel"><div class="ci">🔧</div><div><b>Montér / inštalatér</b><small>diely, sklad, zákazky</small></div><div class="rad">✓</div></div>
+        <div class="choice"><div class="ci">🏗️</div><div><b>Realizačná firma</b><small>projekty, tím, ponuky</small></div><div class="rad"></div></div>
+        <div class="choice"><div class="ci">🏠</div><div><b>Investor / klient</b><small>sledovanie stavby</small></div><div class="rad"></div></div>
+      </div></div></div>
+      <div class="caption"><b>Výber roly</b>Tri persony Empirie. Rola určí obsah aj cenovú hladinu.</div>
     </div>
 
-    <!-- 4 IČO -->
-    <div class="frame"><div class="flabel"><b>04</b> · Overenie firmy (IČO)</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div class="dots"><i></i><i class="on"></i><i></i></div>
-          <h3 style="margin:14px 0 4px">Over si firmu</h3>
-          <p class="lede" style="margin-bottom:16px">Sme B2B — odomkneme ti veľkoobchodné ceny.</p>
-          <div class="field"><label>IČO</label><div class="input filled"><span>36&nbsp;789&nbsp;456</span><span style="color:var(--red);font-weight:800">Načítať ↻</span></div></div>
-          <div class="card" style="background:#F2FAF5;border-color:#CDEBD9">
-            <span class="pill ok"><span class="dot ok"></span>Nájdené v registri</span>
-            <div style="margin-top:10px"><b style="font-size:15px">Marek Kováč – ELEKTROVOD s.r.o.</b>
-            <div style="font-size:12.5px;color:var(--muted);margin-top:3px">Žilina · DIČ 2022xxxxxx · aktívna</div></div>
-          </div>
+    <div class="frame"><div class="flabel"><b>04</b> · Overenie firmy</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="dots"><i></i><i class="on"></i><i></i></div>
+        <h3 style="margin:14px 0 4px">Over si firmu</h3><p class="lede" style="margin-bottom:14px">Sme B2B — odomkneme ti veľkoobchod.</p>
+        <div class="field"><label>IČO</label><div class="input f"><span>36&nbsp;789&nbsp;456</span><span style="color:var(--red);font-weight:800">Načítať ↻</span></div></div>
+        <div class="card" style="background:var(--mint);box-shadow:none">
+          <span class="pill ok"><span class="dot ok"></span>Nájdené v registri</span>
+          <div style="margin-top:9px"><b style="font-size:14px">ELEKTROVOD s.r.o.</b><div style="font-size:11.5px;color:var(--muted);margin-top:2px">Žilina · aktívna</div></div>
         </div>
-        <div style="padding:0 18px 22px"><button class="btn red">To je moja firma →</button></div>
-      </div></div>
+        <button class="btn red" style="margin-top:14px">To je moja firma →</button>
+      </div></div></div>
+      <div class="caption"><b>B2B brána (NEW logika)</b>Načíta firmu z registra cez IČO. Bez overenia žiadne veľkoobchodné ceny.</div>
     </div>
 
-    <!-- 5 branch -->
     <div class="frame"><div class="flabel"><b>05</b> · Domovská pobočka</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div class="dots"><i></i><i></i><i class="on"></i></div>
-          <h3 style="margin:14px 0 4px">Tvoja pobočka</h3>
-          <p class="lede" style="margin-bottom:14px">Odtiaľ ti budeme ukazovať sklad ako prvé.</p>
-          <div class="card" style="padding:6px 14px">
-            <div class="branch sel"><div class="pin">📍</div><div><b>Express Žilina</b><small>Vysokoškolákov 8</small></div><span class="km">2,1 km</span></div>
-            <div class="branch"><div class="pin">📍</div><div><b>VO Žilina-Centrum</b><small>Kragujevská 12</small></div><span class="km">6,8 km</span></div>
-            <div class="branch"><div class="pin">📍</div><div><b>VO Martin</b><small>Robotnícka 4</small></div><span class="km">19 km</span></div>
-          </div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="dots"><i></i><i></i><i class="on"></i></div>
+        <h3 style="margin:14px 0 4px">Tvoja pobočka</h3><p class="lede" style="margin-bottom:13px">Odtiaľ ukazujeme sklad ako prvé.</p>
+        <div class="card" style="padding:4px 14px">
+          <div class="branch sel"><div class="pin">📍</div><div><b>Express Žilina</b><small>Vysokoškolákov 8</small></div><span class="km">2,1 km</span></div>
+          <div class="branch"><div class="pin">📍</div><div><b>VO Žilina-Centrum</b><small>Kragujevská 12</small></div><span class="km">6,8 km</span></div>
+          <div class="branch"><div class="pin">📍</div><div><b>VO Martin</b><small>Robotnícka 4</small></div><span class="km">19 km</span></div>
         </div>
-        <div style="padding:0 18px 22px"><button class="btn red">Vybrať pobočku</button></div>
-      </div></div>
+        <button class="btn red" style="margin-top:14px">Vybrať pobočku</button>
+      </div></div></div>
+      <div class="caption"><b>Domovská pobočka</b>Geolokácia → najbližšie Express predajne. Default pre celý sklad.</div>
     </div>
 
-    <!-- 6 notifications -->
-    <div class="frame"><div class="flabel"><b>06</b> · Notifikácie + hotovo</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div class="hero-ill r2" style="height:150px"><span>🔔</span></div>
-          <h3 style="margin:4px 0 4px">Posledná vec</h3>
-          <p class="lede" style="margin-bottom:10px">Dáme ti vedieť, keď je diel naskladom alebo objednávka pripravená.</p>
-          <div class="card">
-            <div class="tg"><span class="te">📦</span><div><b>Diel naskladom</b><small>keď naskladníme čo hľadáš</small></div><div class="sw"></div></div>
-            <div class="tg"><span class="te">🚚</span><div><b>Objednávka pripravená</b><small>vyzdvihnutie na pobočke</small></div><div class="sw"></div></div>
-            <div class="tg"><span class="te">⚡</span><div><b>Akcie pre tvoj level</b><small>vernostné ceny</small></div><div class="sw off"></div></div>
-          </div>
+    <div class="frame"><div class="flabel"><b>06</b> · Notifikácie</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <h3 style="margin:6px 0 4px">Posledná vec</h3><p class="lede" style="margin-bottom:12px">Dáme ti vedieť, keď je niečo dôležité.</p>
+        <div class="card">
+          <div class="tg"><span class="te">📦</span><div><b>Diel naskladom</b><small>keď naskladníme čo hľadáš</small></div><div class="sw"></div></div>
+          <div class="tg"><span class="te">📨</span><div><b>Nová zákazka (lead)</b><small>z Empiria siete pri tebe</small></div><div class="sw"></div></div>
+          <div class="tg"><span class="te">⚡</span><div><b>Akcie pre tvoj level</b><small>vernostné ceny</small></div><div class="sw off"></div></div>
         </div>
-        <div style="padding:0 18px 22px"><button class="btn red">Vstúpiť do appky 🚀</button></div>
-      </div></div>
+        <button class="btn red" style="margin-top:16px">Vstúpiť do appky 🚀</button>
+      </div></div></div>
+      <div class="caption"><b>Push súhlas</b>Tri typy — pozri „nová zákazka (lead)", to je hák marketplace.</div>
     </div>
 
-    <!-- 7 home (rebranded) -->
-    <div class="frame"><div class="flabel"><b>07</b> · Domov (po onboardingu)</div>
-      <div class="device"><div class="s light">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body" style="padding-bottom:70px">
-          <div class="appbar">
-            <div class="greet"><b>Čauko, Marek 👋</b><small>3 stavby · 1 objednávka na ceste</small></div>
-            <div class="av">MK</div>
-          </div>
-          <div class="card" style="background:var(--slate);border:0;color:#fff;display:flex;align-items:center;gap:12px">
-            <div style="width:46px;height:46px;border-radius:50%;background:conic-gradient(var(--red) 78%,rgba(255,255,255,.15) 0);display:grid;place-items:center;position:relative">
-              <div style="position:absolute;inset:5px;border-radius:50%;background:var(--slate)"></div>
-              <b style="position:relative;font-size:13px">L4</b></div>
-            <div><b style="font-size:14px">Skúsený majster</b><div style="font-size:11.5px;color:#AEBEC6">do L5 chýba 160 ⚡</div></div>
-          </div>
-          <div class="sect">Rýchle akcie</div>
-          <div class="quick">
-            <div class="qt"><div class="qi">📷</div><b>Skenuj &amp; nájdi</b><small>kotol · diel</small></div>
-            <div class="qt"><div class="qi">📍</div><b>Sklad pri tebe</b><small>živá dostupnosť</small></div>
-            <div class="qt"><div class="qi">🗂️</div><b>Moje stavby</b><small>3 aktívne</small></div>
-            <div class="qt"><div class="qi">🎙️</div><b>Objednať hlasom</b><small>„3m medenej"</small></div>
-          </div>
+    <div class="frame"><div class="flabel"><b>07</b> · Domov</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:62px">
+        <div class="h-top"><img class="pf" src="img/worker2.jpg" alt=""><div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b><span class="loc">📍 Express Žilina</span></div><div class="bell">🔔<span class="bdg">2</span></div></div>
+        <div class="bighead">Čo dnes potrebuješ?</div>
+        <div class="search"><div class="sf">🔍 Hľadať diel, kotol…</div><div class="filt">⚙️</div></div>
+        <div class="cats">
+          <div class="catc"><img class="ct" src="img/boiler.jpg" alt=""><b>Kúrenie</b><small>2 340</small></div>
+          <div class="catc"><img class="ct" src="img/worker3.jpg" alt=""><b>Voda</b><small>5 120</small></div>
+          <div class="catc"><img class="ct" src="img/heating.jpg" alt=""><b>Sanita</b><small>1 870</small></div>
         </div>
-        <div class="nav">
-          <div class="n on"><span class="ni">🏠</span>Domov</div>
-          <div class="n"><span class="ni">📍</span>Sklad</div>
-          <div class="fab">📷</div>
-          <div class="n"><span class="ni">🗂️</span>Stavby</div>
-          <div class="n"><span class="ni">👤</span>Profil</div>
-        </div>
+        <div class="sect" style="margin-top:14px">Naskladom pri tebe</div>
+        <div class="prow"><img class="pi" src="img/copper.jpg" alt=""><div class="pinfo"><b>Čerpadlo Grundfos</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div><div class="goa">→</div></div>
+      </div>
+      <div class="nav"><div class="n on"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">📍</span>Sklad</div><div class="fab">📷</div><div class="n"><span class="ni">📨</span>Zákazky</div><div class="n"><span class="ni">🗂️</span>Stavby</div></div>
       </div></div>
+      <div class="caption"><b>Hlavná obrazovka</b>Hľadanie, kategórie (foto), sklad pri tebe. Service-app layout.</div>
+    </div>
+
+    <div class="frame"><div class="flabel"><b>08</b> · Zákazky / Leady <span class="new">NEW</span></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:62px">
+        <div class="topline"><div class="back">←</div><h2>Zákazky pre teba</h2></div>
+        <div class="promo" style="min-height:84px;margin-bottom:13px"><img class="pimg" src="img/worker2.jpg" alt=""><div class="pt"><div class="tg2">⚡ LEVEL 4 · MAJSTER</div><b style="font-size:14px;margin:5px 0 0">Vidíš leady ako prvý</b></div></div>
+        <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
+        <div class="prow"><img class="pi" src="img/boiler.jpg" alt=""><div class="pinfo"><b>Výmena kotla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:5px"><span class="pill ok">✓ Sedí na teba</span> <b style="font-size:11px">~1 400 €</b></div></div><div class="goa">→</div></div>
+        <div class="prow"><img class="pi" src="img/heating.jpg" alt=""><div class="pinfo"><b>Rozvody — novostavba</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:5px"><span class="pill warn">Súrne</span> <b style="font-size:11px">~3 200 €</b></div></div><div class="goa">→</div></div>
+      </div>
+      <div class="nav"><div class="n"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">📍</span>Sklad</div><div class="fab">📷</div><div class="n on"><span class="ni">📨</span>Zákazky</div><div class="n"><span class="ni">🗂️</span>Stavby</div></div>
+      </div></div>
+      <div class="caption"><b>Marketplace — strana montéra</b>Leady z Empiria siete, filtrované podľa odboru. Level 4 = prednosť pred ostatnými. Toto je tá „mrkva".</div>
+    </div>
+
+    <div class="frame"><div class="flabel"><b>09</b> · Detail zákazky <span class="new">NEW</span></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="topline"><div class="back">←</div><h2>Detail zákazky</h2></div>
+        <div class="lead-hero"><img src="img/boiler.jpg" alt=""><div class="lt"><b>Výmena plynového kotla</b><small>📍 Bytča · 8 km od teba</small></div></div>
+        <div class="card">
+          <div class="kv"><span>Investor</span><b>p. N. (overený)</b></div>
+          <div class="kv"><span>Požadovaný termín</span><b>do 20.6.</b></div>
+          <div class="kv"><span>Odhad rozpočtu</span><b>~1 400 €</b></div>
+          <div class="kv"><span>Materiál</span><b style="color:var(--red)">cez Empiria ✓</b></div>
+        </div>
+        <div class="twobtn"><button class="btn outline" style="flex:1">Odmietnuť</button><button class="btn red" style="flex:1.4">Prijať zákazku</button></div>
+      </div></div></div>
+      <div class="caption"><b>Detail + akcia</b>Investor si už vybral materiál u Empirie — montér len prijme prácu. Prijatie spustí objednávku materiálu = predaj.</div>
     </div>
 
   </div>
@@ -337,123 +359,106 @@
 
 <!-- =================== APP 2: KÚPEĽNE =================== -->
 <div class="group">
-  <div class="gh">
-    <div class="badge" style="background:var(--red-k)">🛁</div>
-    <div><h2>App 2 — Empiria Kúpeľne · pre koncového zákazníka</h2><small>prémiový šat · AR „skús si kúpeľňu doma" · rezervácia konzultácie v štúdiu (15 štúdií + VR)</small></div>
-  </div>
+  <div class="gh"><div class="badge" style="background:var(--navy)">🛁</div><div><h2>App 2 — Empiria Kúpeľne · pre investora</h2><small>návrh kúpeľne · AR · rezervácia v štúdiu · nájdi overeného montéra</small></div></div>
+  <div class="story">Appka pre koncového zákazníka. Navrhne si kúpeľňu, vyskúša v <b>AR</b>, doladí v jednom z 15 <b>štúdií</b> — a na konci nájde <b>overeného Empiria montéra</b>, ktorý mu to namontuje. Tým sa lead dostane späť do Parťáka. Kruh sa uzatvára.</div>
   <div class="row">
 
-    <!-- K1 intro -->
     <div class="frame"><div class="flabel"><b>K1</b> · Intro</div>
-      <div class="device"><div class="s" style="background:var(--slate);color:#fff;align-items:center;justify-content:center;text-align:center">
-        <div style="font-size:64px;margin-bottom:18px">🛁</div>
-        <div style="font-weight:900;font-size:30px;letter-spacing:-.6px">Empiria<i style="color:var(--red-k);font-style:normal"> Kúpeľne</i></div>
-        <p style="font-size:14px;color:#AEBEC6;margin:10px 30px 0;line-height:1.5">Navrhni si kúpeľňu, vyskúšaj ju v AR a doladíme ju v štúdiu.</p>
-        <div style="position:absolute;bottom:40px;left:30px;right:30px">
-          <button class="btn" style="background:var(--red-k);color:#fff">Začať návrh</button>
-        </div>
+      <div class="device"><div class="s" style="background:var(--navy);color:#fff;align-items:center;justify-content:center;text-align:center">
+        <div style="font-size:60px;margin-bottom:16px">🛁</div>
+        <div style="font-weight:900;font-size:28px;letter-spacing:-.6px">Empiria<i style="color:#FF6168;font-style:normal"> Kúpeľne</i></div>
+        <p style="font-size:13px;color:#aebac1;margin:10px 28px 0;line-height:1.5">Navrhni si kúpeľňu, vyskúšaj ju v AR, doladíme ju v štúdiu.</p>
+        <div style="position:absolute;bottom:36px;left:28px;right:28px"><button class="btn red">Začať návrh</button></div>
       </div></div>
+      <div class="caption"><b>Vstup investora</b>Navy hero (kontrast k svetlej appke), jeden jasný CTA.</div>
     </div>
 
-    <!-- K2 home -->
     <div class="frame"><div class="flabel"><b>K2</b> · Domov / showroom</div>
-      <div class="device"><div class="s kdef">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body" style="padding-bottom:70px">
-          <div class="kbar"><div class="klogo">empiria<i>.</i></div><div class="av" style="background:#EAF1F3;color:var(--slate)">🔍</div></div>
-          <div class="khero"><span class="em">🚿</span><div><b>Letná kolekcia 2026</b><small>minimalistická čierna séria</small></div></div>
-          <div class="sect">Kolekcie</div>
-          <div class="collections">
-            <div class="coll a"><span style="font-size:24px;margin-bottom:auto">🖤</span>Matná čierna</div>
-            <div class="coll b"><span style="font-size:24px;margin-bottom:auto">🥉</span>Kartáčovaný bronz</div>
-          </div>
-          <div class="sect">Značky u nás</div>
-          <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
-        </div>
-        <div class="nav">
-          <div class="n on" style="color:var(--red-k)"><span class="ni">🏠</span>Domov</div>
-          <div class="n"><span class="ni">🧩</span>Návrh</div>
-          <div class="fab" style="background:var(--red-k);box-shadow:0 12px 22px -8px rgba(237,29,37,.7)">📲</div>
-          <div class="n"><span class="ni">❤️</span>Uložené</div>
-          <div class="n"><span class="ni">📅</span>Štúdio</div>
-        </div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:62px">
+        <div class="kbar"><div class="klogo">empiria<i>.</i></div><div class="bell">🔍</div></div>
+        <div class="khero"><img src="img/heating.jpg" alt=""><div class="kt"><b>Letná kolekcia 2026</b><small>minimalistická séria</small></div></div>
+        <div class="sect" style="margin-top:14px">Značky u nás</div>
+        <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
+        <div class="sect">Inšpirácia</div>
+        <div class="prow"><img class="pi" src="img/worker3.jpg" alt=""><div class="pinfo"><b>Čierna matná séria</b><div class="sub">23 produktov</div></div><div class="goa">→</div></div>
+      </div>
+      <div class="nav"><div class="n on"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">🧩</span>Návrh</div><div class="fab">📲</div><div class="n"><span class="ni">🔧</span>Montér</div><div class="n"><span class="ni">📅</span>Štúdio</div></div>
       </div></div>
+      <div class="caption"><b>Showroom</b>Kolekcie + reálne značky, ktoré Empiria naozaj vedie. V navigácii pribudol <b>Montér</b>.</div>
     </div>
 
-    <!-- K3 AR -->
-    <div class="frame"><div class="flabel"><b>K3</b> · AR – skús si kúpeľňu</div>
-      <div class="device"><div class="s kdef">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <h3 style="margin:4px 0 12px">Umiestni do priestoru</h3>
-          <div class="arview">
-            <div class="floor"></div><div class="grid-ar"></div>
-            <div class="chip">📐 Nájdená podlaha · ťukni a umiestni</div>
-            <div class="obj">🚽</div>
-          </div>
-          <div class="arctrl">
-            <div class="ac"><span class="e">🔄</span>Otočiť</div>
-            <div class="ac"><span class="e">🎨</span>Farba</div>
-            <div class="ac"><span class="e">📷</span>Foto</div>
-          </div>
-          <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:10px">
-            <div class="prod" style="flex:1"><div class="pimg" style="width:46px;height:46px;font-size:22px">🚽</div><div><b style="font-size:13.5px">Duravit ME by Starck</b><small>závesné WC</small></div></div>
-            <span class="price" style="font-size:16px">312 €</span>
-          </div>
-        </div>
-      </div></div>
+    <div class="frame"><div class="flabel"><b>K3</b> · AR — skús kúpeľňu</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="topline"><div class="back">←</div><h2>Umiestni do priestoru</h2></div>
+        <div class="arview"><img src="img/heating.jpg" alt=""><div class="chip">📐 Nájdená stena · ťukni</div><div class="obj">🚽</div></div>
+        <div class="arctrl"><div class="ac"><span class="e">🔄</span>Otočiť</div><div class="ac"><span class="e">🎨</span>Farba</div><div class="ac"><span class="e">📷</span>Foto</div></div>
+        <div class="card" style="margin-top:11px;display:flex;align-items:center;gap:10px"><img src="img/worker3.jpg" style="width:42px;height:42px;border-radius:11px;object-fit:cover" alt=""><div style="flex:1"><b style="font-size:13px">Duravit ME by Starck</b><br><small style="color:var(--muted);font-size:11px">závesné WC</small></div><span class="price" style="font-size:15px">312 €</span></div>
+      </div></div></div>
+      <div class="caption"><b>AR náhľad</b>Zariadenie v reálnom priestore cez kameru. Znižuje neistotu pri kúpe.</div>
     </div>
 
-    <!-- K4 product -->
     <div class="frame"><div class="flabel"><b>K4</b> · Detail produktu</div>
-      <div class="device"><div class="s kdef">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <div style="height:200px;border-radius:18px;background:linear-gradient(160deg,#EAF1F3,#D2DEE2);display:grid;place-items:center;font-size:90px;position:relative">🚿
-            <span class="pill ok" style="position:absolute;top:12px;left:12px">Skladom v štúdiu</span></div>
-          <div style="margin-top:14px"><small style="color:var(--muted);font-weight:700;font-size:11px;letter-spacing:.4px">GROHE</small>
-            <h3 style="margin:2px 0">Grohe Rainshower 310</h3>
-            <p class="lede" style="margin-top:6px">Stropná dažďová hlavica, kartáčovaný nikel, 2 prúdy.</p></div>
-          <div class="arctrl" style="margin-top:14px">
-            <div class="ac" style="border-color:var(--slate)"><span class="e">📲</span>Skús v AR</div>
-            <div class="ac"><span class="e">❤️</span>Uložiť</div>
-          </div>
-        </div>
-        <div style="padding:0 18px 20px;display:flex;align-items:center;gap:12px">
-          <div class="price">489 €</div>
-          <button class="btn" style="background:var(--red-k);color:#fff;flex:1">Pridať do návrhu</button>
-        </div>
-      </div></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div style="height:180px;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--sh)"><img src="img/worker3.jpg" style="width:100%;height:100%;object-fit:cover" alt=""><span class="pill ok" style="position:absolute;top:11px;left:11px">Skladom v štúdiu</span></div>
+        <div style="margin-top:13px"><small style="color:var(--muted);font-weight:700;font-size:10.5px;letter-spacing:.4px">GROHE</small><h3 style="margin:2px 0">Rainshower 310</h3><p class="lede" style="margin-top:5px">Stropná dažďová hlavica, kartáčovaný nikel.</p></div>
+        <div class="arctrl" style="margin-top:13px"><div class="ac" style="border:1.5px solid var(--navy)"><span class="e">📲</span>Skús v AR</div><div class="ac"><span class="e">❤️</span>Uložiť</div></div>
+        <div style="display:flex;align-items:center;gap:11px;margin-top:13px"><div class="price">489 €</div><button class="btn red" style="flex:1;width:auto">Pridať do návrhu</button></div>
+      </div></div></div>
+      <div class="caption"><b>Produkt</b>Foto, skús v AR, pridať do návrhu. Návrh sa potom berie do štúdia.</div>
     </div>
 
-    <!-- K5 booking -->
-    <div class="frame"><div class="flabel"><b>K5</b> · Rezervácia konzultácie</div>
-      <div class="device"><div class="s kdef">
-        <div class="sb"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="body">
-          <h3 style="margin:4px 0 4px">Doladíme v štúdiu</h3>
-          <p class="lede" style="margin-bottom:14px">Vezmi svoj návrh do najbližšieho z 15 štúdií — naživo aj vo VR.</p>
-          <div class="card" style="padding:6px 14px">
-            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Žilina</b><small>dnes 9–18 · VR kútik</small></div><span class="vrtag">VR</span></div>
-            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Martin</b><small>dnes 9–17</small></div><span class="km" style="margin-left:auto;font-size:12px;font-weight:700;color:var(--slate2)">19 km</span></div>
-            <div class="studio"><div class="si">🏬</div><div><b>Štúdio Trenčín</b><small>zatvorené · zajtra 9:00</small></div></div>
-          </div>
-          <div class="sect">Voľný termín</div>
-          <div style="display:flex;gap:8px">
-            <div class="ac" style="flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Št 10:00</div>
-            <div class="ac" style="flex:1;background:var(--slate);color:#fff;border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Št 14:30</div>
-            <div class="ac" style="flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center;font-size:12px;font-weight:700">Pi 11:00</div>
-          </div>
+    <div class="frame"><div class="flabel"><b>K5</b> · Rezervácia v štúdiu</div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="topline"><div class="back">←</div><h2>Doladíme v štúdiu</h2></div>
+        <p class="lede" style="margin:-6px 0 13px">Vezmi návrh do jedného z 15 štúdií — naživo aj vo VR.</p>
+        <div class="card" style="padding:4px 14px">
+          <div class="studio"><img src="img/boiler.jpg" alt=""><div><b>Štúdio Žilina</b><small>dnes 9–18</small></div><span class="vrtag">VR</span></div>
+          <div class="studio"><img src="img/heating.jpg" alt=""><div><b>Štúdio Martin</b><small>dnes 9–17</small></div><span class="km" style="margin-left:auto;font-size:11px;font-weight:700;color:var(--ink2)">19 km</span></div>
         </div>
-        <div style="padding:0 18px 20px"><button class="btn" style="background:var(--red-k);color:#fff">Rezervovať konzultáciu</button></div>
+        <div class="sect">Voľný termín</div>
+        <div class="timechips"><div class="t">Št 10:00</div><div class="t on">Št 14:30</div><div class="t">Pi 11:00</div></div>
+        <button class="btn red" style="margin-top:16px">Rezervovať konzultáciu</button>
+      </div></div></div>
+      <div class="caption"><b>Konzultácia</b>Most do kamennej siete. VR kútik = ich reálna výhoda.</div>
+    </div>
+
+    <div class="frame"><div class="flabel"><b>K6</b> · Nájdi montážnika <span class="new">NEW</span></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:62px">
+        <div class="topline"><div class="back">←</div><h2>Nájdi montážnika</h2></div>
+        <div class="search"><div class="sf">🔍 Špecializácia, mesto…</div><div class="filt">⚙️</div></div>
+        <div class="chips"><div class="c on">Všetci</div><div class="c">Kúrenie</div><div class="c">Kúpeľne</div></div>
+        <div class="inst">
+          <div class="ih"><img src="img/worker2.jpg" alt=""><div><b>Marek Kováč</b><small>ELEKTROVOD s.r.o. · 4 km</small><br><span class="verif">✓ Overený Empiria partner</span></div><div style="margin-left:auto;text-align:right"><div class="star">★ 4,9</div><small style="font-size:10px;color:var(--muted)">32 prác</small></div></div>
+          <div class="tags"><span>Kúrenie</span><span>Voda</span><span>Kotly</span></div>
+          <button class="ibtn">Vyžiadať cenovú ponuku</button>
+        </div>
+      </div>
+      <div class="nav"><div class="n"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">🧩</span>Návrh</div><div class="fab">📲</div><div class="n on"><span class="ni">🔧</span>Montér</div><div class="n"><span class="ni">📅</span>Štúdio</div></div>
       </div></div>
+      <div class="caption"><b>Marketplace — strana investora</b>Overení partneri v okolí s hodnotením. „Vyžiadať ponuku" pošle <b>lead späť do Parťáka</b> (screen 08).</div>
+    </div>
+
+    <div class="frame"><div class="flabel"><b>K7</b> · Profil montéra <span class="new">NEW</span></div>
+      <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
+        <div class="lead-hero" style="height:120px"><img src="img/worker2.jpg" alt=""><div class="lt"><b>Marek Kováč</b><small>ELEKTROVOD s.r.o. · Žilina</small></div></div>
+        <div style="display:flex;gap:8px;margin-bottom:12px"><span class="verif" style="font-size:11px">✓ Overený Empiria partner</span><span class="pill red">⚡ Level 4</span><span class="pill warn">★ 4,9</span></div>
+        <div class="card" style="margin-bottom:10px">
+          <div class="kv"><span>Realizácií</span><b>32</b></div>
+          <div class="kv"><span>Špecializácia</span><b>Kúrenie · Voda</b></div>
+          <div class="kv"><span>Reakcia</span><b>do 2 h</b></div>
+        </div>
+        <div class="sect" style="margin:4px 2px 9px">Realizácie</div>
+        <div style="display:flex;gap:8px"><img src="img/boiler.jpg" style="width:33%;height:60px;border-radius:11px;object-fit:cover"><img src="img/heating.jpg" style="width:33%;height:60px;border-radius:11px;object-fit:cover"><img src="img/copper.jpg" style="width:33%;height:60px;border-radius:11px;object-fit:cover"></div>
+        <button class="btn red" style="margin-top:14px">Vyžiadať cenovú ponuku</button>
+      </div></div></div>
+      <div class="caption"><b>Profil partnera</b>Hodnotenie, realizácie, portfólio (foto). Status „Overený partner" je naviazaný na obrat materiálu — odmena za vernosť.</div>
     </div>
 
   </div>
 </div>
 
 <div class="footnote">
-  <b style="color:#fff">Ako to dostať do Figmy</b> — pozri sprievodcu nižšie v chate. Skratka: plugin <code>html.to.design</code> naimportuje tento súbor ako editovateľné vrstvy. Každý <code>.device</code> rám = jeden screen.
+  <b>Export do Figmy</b> — plugin <code>html.to.design</code> → vlož URL <code>leumasdam.github.io/empiria-app/screens.html</code> → Import. Každý <code>.device</code> rám = jeden screen. &nbsp;·&nbsp; <b>NEW</b> rámy (08, 09, K6, K7) sú marketplace feature obojstranne.
 </div>
 
 </body>
