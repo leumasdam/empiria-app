@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>express.EMPIRIA — Brand &amp; UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#192B37;--red:#D7282E;--red-soft:#FCEBEC;--sage:#AFC0BC;--sage-d:#5E726C;
+    --canvas:#F1F4F6;--ink:#192B37;--muted:#74838C;--line:#E6EBEE;--ok:#1E9E5A;--warn:#E0A53B;
+    --font:'Inter',system-ui,sans-serif;--sh:0 16px 36px -22px rgba(25,43,55,.5);--sh-sm:0 8px 20px -14px rgba(25,43,55,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
+  body{background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .masc{filter:brightness(0) invert(1)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+  a{color:var(--red);text-decoration:none;font-weight:700}
+
+  .top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .top .bd{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .top .bd path{fill:none;stroke:rgba(255,255,255,.15);stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
+  .top .in{max-width:1100px;margin:0 auto;padding:22px 28px 56px;position:relative;z-index:2}
+  .navbar{display:flex;justify-content:space-between;align-items:center;padding:0 0 44px}
+  .lock{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:20px}
+  .lock .ex{color:#fff}.lock img{height:.82em}
+  .navbar .links{display:flex;gap:24px;font-size:14px;font-weight:600;color:#AEBAC1}
+  .navbar .links a{color:#AEBAC1}.navbar .links a:hover{color:#fff}
+  .top h1{font-size:clamp(34px,5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1}
+  .top h1 .r{color:var(--red)}
+  .top p{color:#B6C1C8;font-size:17px;margin-top:16px;max-width:560px;line-height:1.6}
+
+  section{padding:56px 0}
+  .sh{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .st{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:26px}
+
+  /* logos */
+  .logos{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .logobox{background:#fff;border-radius:20px;padding:34px;display:flex;align-items:center;justify-content:center;min-height:150px;box-shadow:var(--sh-sm);position:relative}
+  .logobox.dark{background:var(--navy)}
+  .logobox img{max-width:70%;max-height:90px}
+  .logobox .tag{position:absolute;top:12px;left:14px;font-size:11px;font-weight:700;color:var(--muted)}
+  .logobox.dark .tag{color:#8E9BA2}
+
+  /* colors */
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .col{border-radius:18px;overflow:hidden;box-shadow:var(--sh-sm);background:#fff}
+  .col .sw{height:96px}.col .ci{padding:13px 15px}
+  .col b{font-size:14px;display:block}.col small{font-size:12px;color:var(--muted);font-family:ui-monospace,monospace}
+
+  /* type */
+  .typ{background:#fff;border-radius:20px;padding:30px;box-shadow:var(--sh-sm)}
+  .typ .r1{font-size:46px;font-weight:900;letter-spacing:-1.6px}
+  .typ .r2{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-top:14px}
+  .typ .r3{font-size:16px;font-weight:600;margin-top:14px;color:#3C4F58}
+  .typ .r4{font-size:13px;color:var(--muted);margin-top:10px}
+  .typ .meta{margin-top:20px;font-size:13px;color:var(--muted)}
+
+  /* mascot + dash */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .panel{background:#fff;border-radius:20px;padding:30px;box-shadow:var(--sh-sm)}
+  .panel.dark{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .panel h3{font-size:17px;font-weight:800;margin-bottom:6px}
+  .panel.dark h3{color:#fff}
+  .panel p{font-size:13.5px;color:var(--muted);line-height:1.55}.panel.dark p{color:#B6C1C8}
+  .mascrow{display:flex;gap:24px;align-items:flex-end;justify-content:center;margin:14px 0}
+  .mascrow img{height:120px}
+  .dashdemo{height:120px;position:relative;border-radius:14px;background:var(--navy);overflow:hidden;margin-top:6px}
+  .dashdemo svg{width:100%;height:100%}.dashdemo path{fill:none;stroke:rgba(255,255,255,.4);stroke-width:3.5;stroke-dasharray:9 15;stroke-linecap:round}
+
+  /* components */
+  .comp{background:#fff;border-radius:20px;padding:28px;box-shadow:var(--sh-sm);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .b{border:0;cursor:default;font-family:inherit;font-weight:800;font-size:14px;border-radius:13px;padding:13px 20px}
+  .b.red{background:var(--red);color:#fff;box-shadow:0 12px 24px -12px rgba(215,40,46,.5)}
+  .b.navy{background:var(--navy);color:#fff}.b.o{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:6px 11px;border-radius:20px}
+  .pill.ok{background:#E7F6EE;color:var(--ok)}.pill.warn{background:#FCF1DC;color:#B97B16}.pill.red{background:var(--red-soft);color:var(--red)}
+  .chip{background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:12.5px;font-weight:700}
+  .chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+  /* photos */
+  .photos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .photos img{width:100%;height:130px;object-fit:cover;border-radius:14px;box-shadow:var(--sh-sm)}
+
+  footer{background:var(--navy);color:#9DAAB1;text-align:center;padding:40px 20px;font-size:13px;line-height:1.8}
+  footer a{color:#fff}
+  @media(max-width:820px){.logos,.cols,.two,.photos{grid-template-columns:1fr 1fr}.navbar .links{display:none}}
+  @media(max-width:520px){.cols,.photos{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="bd"><svg viewBox="0 0 1200 360" preserveAspectRatio="none"><path d="M-40,90 C300,260 560,40 840,150 C1020,215 1160,90 1280,170"/></svg></div>
+  <div class="in">
+    <div class="navbar">
+      <span class="lock"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt="EMPIRIA"></span>
+      <div class="links"><a href="index.html">Prototyp</a><a href="screens.html">Artboards</a><a href="case.html">Case study</a></div>
+    </div>
+    <h1>Brand &amp; <span class="r">UI Kit</span></h1>
+    <p>Vizuálny systém appky Parťák — postavený na reálnej identite express.EMPIRIA z firemného archívu. Farby, logá, maskot, typografia a komponenty na jednom mieste.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="sh">01 — Logo</div>
+    <div class="st">Logotyp a divízie</div>
+    <div class="logos">
+      <div class="logobox"><span class="tag">stacked · na svetlom</span><img src="img/logo-stacked.png" alt=""></div>
+      <div class="logobox dark"><span class="tag">stacked · na navy (invert)</span><img class="masc" src="img/logo-stacked.png" alt=""></div>
+      <div class="logobox"><span class="tag">horizontálne · červené</span><img src="img/logo-red.png" alt=""></div>
+      <div class="logobox dark"><span class="tag">horizontálne · biele</span><img src="img/logo-white.png" alt=""></div>
+    </div>
+    <div style="margin-top:18px"><img src="img/divisions.png" alt="divízie" style="width:100%;max-width:560px;border-radius:14px;box-shadow:var(--sh-sm);background:#fff;padding:10px"></div>
+    <p style="color:var(--muted);font-size:14px;margin-top:14px;line-height:1.6">Tri divízie, tri farby: <b style="color:var(--red)">veľkoobchod</b> (červená), <b style="color:var(--navy)">express</b> (navy — domov appky), <b style="color:var(--sage-d)">kúpeľne</b> (šalviová). Charakteristický znak: prerezané „A".</p>
+  </section>
+
+  <section>
+    <div class="sh">02 — Farby</div>
+    <div class="st">Paleta</div>
+    <div class="cols">
+      <div class="col"><div class="sw" style="background:#192B37"></div><div class="ci"><b>Navy</b><small>#192B37</small></div></div>
+      <div class="col"><div class="sw" style="background:#D7282E"></div><div class="ci"><b>EMPIRIA červená</b><small>#D7282E</small></div></div>
+      <div class="col"><div class="sw" style="background:#AFC0BC"></div><div class="ci"><b>Šalviová (kúpeľne)</b><small>#AFC0BC</small></div></div>
+      <div class="col"><div class="sw" style="background:#F1F4F6;border-bottom:1px solid var(--line)"></div><div class="ci"><b>Canvas</b><small>#F1F4F6</small></div></div>
+      <div class="col"><div class="sw" style="background:#FCEBEC"></div><div class="ci"><b>Červená soft</b><small>#FCEBEC</small></div></div>
+      <div class="col"><div class="sw" style="background:#1E9E5A"></div><div class="ci"><b>OK zelená</b><small>#1E9E5A</small></div></div>
+      <div class="col"><div class="sw" style="background:#E0A53B"></div><div class="ci"><b>Warn</b><small>#E0A53B</small></div></div>
+      <div class="col"><div class="sw" style="background:#74838C"></div><div class="ci"><b>Muted text</b><small>#74838C</small></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh">03 — Typografia</div>
+    <div class="st">Inter</div>
+    <div class="typ">
+      <div class="r1">Remeslo má svojho parťáka.</div>
+      <div class="r2">Súčiastka v ruke skôr, než otočíš auto</div>
+      <div class="r3">Naskenuj kotol, nájdi kompatibilný diel a zisti, ktorá z predajní ho má práve teraz skladom.</div>
+      <div class="r4">Popisový text · muted · 13 px</div>
+      <div class="meta">Display 900 · Heading 800 · Body 600/500 · Inter (firemný Empiria.ttf je vyhradený pre logotyp)</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh">04 — Maskot &amp; motív</div>
+    <div class="st">Inštalatér a prerušovaná čiara</div>
+    <div class="two">
+      <div class="panel dark">
+        <h3>Maskot</h3>
+        <p>Inštalatér express.EMPIRIA — sprievodca appkou. Na navy ploche biely, na svetlej čierny obrys.</p>
+        <div class="mascrow"><img class="masc" src="img/mascot.png" alt=""></div>
+      </div>
+      <div class="panel">
+        <h3>Prerušovaná čiara</h3>
+        <p>Brand motív „cesty / spojenia". Používa sa veľkoplošne na pozadí — za telefónom, za fotkou — nikdy nie cez text.</p>
+        <div class="dashdemo"><svg viewBox="0 0 500 120" preserveAspectRatio="none"><path d="M-20,40 C120,110 260,-10 520,60"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh">05 — Komponenty</div>
+    <div class="st">UI prvky</div>
+    <div class="comp">
+      <button class="b red">Primárne CTA</button>
+      <button class="b navy">Sekundárne</button>
+      <button class="b o">Outline</button>
+      <span class="pill ok"><span style="width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block"></span>5 ks skladom</span>
+      <span class="pill warn">Súrne</span>
+      <span class="pill red">⚡ Level 4</span>
+      <span class="chip on">Všetky</span>
+      <span class="chip">Kúrenie</span>
+      <span class="chip">Voda</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh">06 — Fotografia</div>
+    <div class="st">Reálne fotky z prevádzok</div>
+    <div class="photos">
+      <img src="img/heatpump.jpg" alt=""><img src="img/store-aisle.jpg" alt=""><img src="img/staff.jpg" alt=""><img src="img/store-interior.jpg" alt="">
+      <img src="img/plumber.jpg" alt=""><img src="img/bathroom.jpg" alt=""><img src="img/map-express.png" alt=""><img src="img/building.jpg" alt="">
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-top:14px">Skutočné fotografie Empiria predajní, personálu a sortimentu — žiadne generické stocky.</p>
+  </section>
+
+</div>
+
+<footer>
+  <span class="lock" style="font-size:16px;justify-content:center"><span class="ex">express.</span><img class="masc" src="img/logo-white.png" alt=""></span><br>
+  Brand &amp; UI Kit · koncept &nbsp;·&nbsp; <a href="index.html">Prototyp</a> · <a href="screens.html">Artboards</a> · <a href="case.html">Case study</a>
+</footer>
+
+</body>
+</html>
