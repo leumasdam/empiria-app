@@ -1,16 +1,16 @@
-<svg viewBox="0 0 150 132" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1B323E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
-  <!-- steam -->
-  <path d="M60 26 c-6 -6 6 -11 0 -19"/>
-  <path d="M78 22 c-6 -6 6 -11 0 -19"/>
-  <!-- faucet -->
-  <path d="M34 60 V44 c0 -7 4 -10 11 -10 h10 c5 0 5 7 0 9"/>
-  <!-- top rim -->
-  <path d="M12 60 H138"/>
-  <!-- tub bowl -->
-  <path d="M18 60 c0 30 18 46 44 46 h12 c26 0 44 -16 44 -46"/>
-  <!-- water line -->
-  <path d="M34 74 q8 -7 15 0 t15 0 t15 0 t15 0" stroke-width="5"/>
-  <!-- feet -->
-  <path d="M46 106 v12"/>
-  <path d="M104 106 v12"/>
+<svg viewBox="0 0 152 138" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#ffffff" stroke="#16303C" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- steam -->
+    <path d="M60 28 c-7 -6 7 -12 0 -20" fill="none"/>
+    <path d="M80 24 c-7 -6 7 -12 0 -20" fill="none"/>
+    <!-- faucet -->
+    <path d="M34 60 V46 c0 -8 4 -12 12 -12 h10 c7 0 7 10 0 10 h-8 c-3 0 -4 2 -4 6 V60 Z"/>
+    <!-- bowl -->
+    <path d="M22 64 H130 C130 92 112 108 88 108 H64 C40 108 22 92 22 64 Z"/>
+    <!-- rim -->
+    <rect x="12" y="56" width="128" height="14" rx="7"/>
+    <!-- feet -->
+    <path d="M48 108 v12 h8 v-12 Z"/>
+    <path d="M96 108 v12 h8 v-12 Z"/>
+  </g>
 </svg>

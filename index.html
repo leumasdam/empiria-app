@@ -403,13 +403,13 @@
   .replay:hover{transform:translateY(-2px)}
 
   /* kúpeľne splash (pri prepnutí na Kúpeľne) */
-  .kboot{position:absolute;inset:0;z-index:25;background:#fff;border-radius:39px;overflow:hidden;display:none;flex-direction:column;align-items:center;justify-content:center}
+  .kboot{position:absolute;inset:0;z-index:25;background:var(--sage);border-radius:39px;overflow:hidden;display:none;flex-direction:column;align-items:center;justify-content:center}
   .kboot.play{display:flex;animation:kbootFade 1.9s cubic-bezier(.7,0,.84,.3) forwards}
   .kboot-logo{width:128px;margin-bottom:6px;animation:bootIn .4s .05s both, bootHide .3s .95s forwards}
-  .kboot-icon{width:96px;transform-origin:50% 50%;animation:kbootIcon 1.9s cubic-bezier(.66,0,.86,.25) forwards}
-  .kboot-bar{position:absolute;bottom:50px;width:110px;height:4px;border-radius:3px;background:#E6EBEE;overflow:hidden}
-  .kboot-bar i{display:block;height:100%;width:0;background:var(--sage-d);border-radius:3px;animation:bootBar 1s ease-out forwards}
-  .kboot-flash{position:absolute;inset:0;background:var(--sage);opacity:0;z-index:5;animation:kbootFlash 1.9s forwards}
+  .kboot-icon{width:100px;transform-origin:50% 50%;animation:kbootIcon 1.9s cubic-bezier(.66,0,.86,.25) forwards}
+  .kboot-bar{position:absolute;bottom:50px;width:110px;height:4px;border-radius:3px;background:rgba(255,255,255,.55);overflow:hidden}
+  .kboot-bar i{display:block;height:100%;width:0;background:var(--navy);border-radius:3px;animation:bootBar 1s ease-out forwards}
+  .kboot-flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:5;animation:kbootFlash 1.9s forwards}
   @keyframes kbootIcon{0%{transform:scale(.6);opacity:0}16%{opacity:1}52%{transform:scale(1.05);opacity:1}100%{transform:scale(13);opacity:0}}
   @keyframes kbootFlash{0%,60%{opacity:0}80%{opacity:1}100%{opacity:1}}
   @keyframes kbootFade{0%,82%{opacity:1}100%{opacity:0;visibility:hidden}}
