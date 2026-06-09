@@ -420,6 +420,18 @@
   body.embed .appsw{background:#eef1f3;border:1px solid #e2e7ea}
   body.embed .appsw button{color:#5E6B73}
   body.embed .appsw button.on{background:#fff;color:var(--navy)}
+
+  /* ===== shot mode (?shot=SCREEN) — len jeden telefón, na screenshot ===== */
+  body.shot{background:transparent}
+  body.shot header.hero{background:transparent}
+  body.shot header.hero::after{display:none}
+  body.shot .hero-grid{padding:0;margin:0;grid-template-columns:1fr;gap:0;max-width:none}
+  body.shot .hero-grid > *{display:none}
+  body.shot #demo{display:block}
+  body.shot .stage{display:block}
+  body.shot .appsw,body.shot .replay,body.shot .boot{display:none!important}
+  body.shot .phone{margin:0}
+  body.shot > .wrap, body.shot > footer{display:none}
 </style>
 </head>
 <body>
@@ -916,6 +928,7 @@
 
 <script>
   if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
+  (function(){const sp=new URLSearchParams(location.search);if(sp.has('shot')){document.body.classList.add('shot');const s=sp.get('shot');if(s.indexOf('k-')===0)document.querySelector('.screen').classList.add('kup');document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('active',e.dataset.s===s));}})();
   const bootHTML = document.getElementById('boot').outerHTML;
   function replaySplash(){
     const cur=document.getElementById('boot');
