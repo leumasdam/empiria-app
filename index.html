@@ -330,6 +330,17 @@
   .quote-doc .qb{padding:13px 16px}
   .qrow{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
   .qrow.tot{border:0;font-size:16px;font-weight:900;padding-top:12px}
+  /* success / notif / cart */
+  .success{text-align:center;padding-top:34px}
+  .success .ic{width:78px;height:78px;border-radius:50%;background:#E7F6EE;color:var(--ok);display:grid;place-items:center;font-size:38px;margin:0 auto 16px;animation:pop .4s cubic-bezier(.2,.9,.3,1.4)}
+  @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+  .success h2{font-size:22px;font-weight:850;letter-spacing:-.4px}
+  .success p{color:var(--muted);font-size:13.5px;margin-top:8px;line-height:1.5}
+  .notif-item{display:flex;gap:11px;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line)}
+  .notif-item:last-child{border:0}
+  .notif-item .ni2{width:38px;height:38px;border-radius:11px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-size:17px;flex:none}
+  .notif-item b{font-size:13.5px;display:block}.notif-item small{font-size:11.5px;color:var(--muted)}
+  .notif-item .dotr{width:8px;height:8px;border-radius:50%;background:var(--red);margin-left:auto;flex:none}
 
   /* ===== kúpeľne app (sage) ===== */
   .kbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
@@ -459,7 +470,7 @@
                 <div class="ah-row">
                   <img class="pf" src="img/staff.jpg" alt="" onclick="go('profile')" style="cursor:pointer">
                   <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div>
-                  <div class="bell">🔔<span class="bdg">2</span></div>
+                  <div class="bell" onclick="go('notif')" style="cursor:pointer">🔔<span class="bdg">2</span></div>
                 </div>
                 <div class="ah-title">Čo dnes<br>potrebuješ?</div>
                 <div class="search">
@@ -542,7 +553,7 @@
                   <div class="bi"><b>Veľkoobchod Žilina</b><small>Kragujevská 12</small><div style="margin-top:5px"><span class="pill warn"><span class="dot warn"></span>1 ks</span></div></div>
                   <span class="km">6,8 km</span>
                 </div>
-                <button class="reserve" onclick="go('proj')">📦 Rezervovať v Express Žilina</button>
+                <button class="reserve" onclick="go('cart')">📦 Rezervovať v Express Žilina</button>
               </div>
             </div>
 
@@ -755,7 +766,7 @@
                 <div class="inst" onclick="go('k-installer')">
                   <div class="ih"><img src="img/staff.jpg" alt=""><div><b>Marek Kováč</b><small>ELEKTROVOD · 4 km</small><br><span class="verif">✓ Overený Empiria partner</span></div><div style="margin-left:auto;text-align:right"><div class="star">★ 4,9</div><small style="font-size:10px;color:var(--muted)">32 prác</small></div></div>
                   <div class="itags"><span>Kúrenie</span><span>Voda</span><span>Kotly</span></div>
-                  <button class="mbtn red" style="width:100%;padding:11px;margin-top:10px">Vyžiadať cenovú ponuku</button>
+                  <button class="mbtn red" style="width:100%;padding:11px;margin-top:10px" onclick="event.stopPropagation();go('k-sent')">Vyžiadať cenovú ponuku</button>
                 </div>
               </div>
             </div>
@@ -773,7 +784,60 @@
                 </div>
                 <div class="sect">Realizácie</div>
                 <div style="display:flex;gap:7px"><img src="img/heatpump.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""><img src="img/store-interior.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""><img src="img/bathroom.jpg" style="width:33%;height:58px;border-radius:11px;object-fit:cover" alt=""></div>
-                <button class="mbtn red" style="width:100%;margin-top:13px">Vyžiadať cenovú ponuku</button>
+                <button class="mbtn red" style="width:100%;margin-top:13px" onclick="go('k-sent')">Vyžiadať cenovú ponuku</button>
+              </div>
+            </div>
+
+            <!-- ===== CART / REZERVÁCIA ===== -->
+            <div class="scr" data-s="cart">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('stock')">←</div><h2>Rezervácia</h2></div>
+                <div class="card" style="margin-bottom:11px">
+                  <div style="display:flex;gap:12px;align-items:center"><img src="img/heatpump.jpg" style="width:58px;height:58px;border-radius:13px;object-fit:cover" alt=""><div style="flex:1"><b style="font-size:13.5px">Čerpadlo Grundfos 15/60</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Express Žilina · 2,1 km</div><div style="font-size:13.5px;font-weight:800;margin-top:4px">86,40 € <small style="font-size:10px;color:var(--muted);font-weight:600">bez DPH</small></div></div></div>
+                </div>
+                <div class="card">
+                  <div class="kv"><span>Množstvo</span><b>1 ks</b></div>
+                  <div class="kv"><span>Vyzdvihnutie</span><b>Express Žilina</b></div>
+                  <div class="kv"><span>Pripravené</span><b style="color:var(--ok)">do 15 min</b></div>
+                  <div class="kv"><span>Spolu bez DPH</span><b>86,40 €</b></div>
+                </div>
+                <button class="reserve" onclick="go('confirm')">Potvrdiť rezerváciu</button>
+              </div>
+            </div>
+
+            <!-- ===== CONFIRM ===== -->
+            <div class="scr" data-s="confirm">
+              <div class="pad">
+                <div class="success"><div class="ic">✓</div><h2>Rezervované!</h2><p>#EMP-4827 · Express Žilina<br>Pripravené do 15 minút — príď s telefónom.</p></div>
+                <div class="card" style="margin-top:22px">
+                  <div class="kv"><span>Položka</span><b>Čerpadlo Grundfos</b></div>
+                  <div class="kv"><span>Vyzdvihnutie</span><b>Vysokoškolákov 8</b></div>
+                  <div class="kv"><span>Platnosť</span><b>dnes do 18:00</b></div>
+                </div>
+                <button class="reserve" style="background:var(--navy);box-shadow:none" onclick="go('home')">Späť na domov</button>
+                <button class="mbtn o" style="width:100%;margin-top:10px" onclick="go('proj')">Pridať do stavby</button>
+              </div>
+            </div>
+
+            <!-- ===== NOTIFIKÁCIE ===== -->
+            <div class="scr" data-s="notif">
+              <div class="pad" style="padding-top:6px">
+                <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Notifikácie</h2></div>
+                <div class="card">
+                  <div class="notif-item"><div class="ni2">📦</div><div><b>Diel naskladnený</b><small>Čerpadlo Grundfos je späť v Express Žilina</small></div><span class="dotr"></span></div>
+                  <div class="notif-item"><div class="ni2">📨</div><div><b>Nová zákazka pri tebe</b><small>Výmena kotla · Bytča · 8 km</small></div><span class="dotr"></span></div>
+                  <div class="notif-item"><div class="ni2">🚚</div><div><b>Objednávka pripravená</b><small>#EMP-4821 · vyzdvihnutie do 14:00</small></div></div>
+                  <div class="notif-item"><div class="ni2">⚡</div><div><b>160 bodov do L5</b><small>Ešte dve zákazky a odomkneš dopravu zdarma</small></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== KÚPEĽNE — DOPYT ODOSLANÝ ===== -->
+            <div class="scr" data-s="k-sent">
+              <div class="pad">
+                <div class="success"><div class="ic">✓</div><h2>Dopyt odoslaný</h2><p>Overený partner ti ozve do 2 hodín s cenovou ponukou.</p></div>
+                <div class="card" style="margin-top:22px;display:flex;align-items:center;gap:11px"><img src="img/staff.jpg" style="width:46px;height:46px;border-radius:13px;object-fit:cover" alt=""><div><b style="font-size:13.5px">Marek Kováč</b><br><small style="color:var(--muted);font-size:11.5px">ELEKTROVOD · ★ 4,9</small></div><span class="pill ok" style="margin-left:auto">odoslané</span></div>
+                <button class="mbtn navy" style="width:100%;margin-top:16px" onclick="go('k-home')">Späť na domov</button>
               </div>
             </div>
 
@@ -872,6 +936,11 @@
     };
     if(document.startViewTransition){document.startViewTransition(swap);}else{swap();}
   }
+  // ---- live toggles (filtre, segmenty, časy, voľby konfigurátora) ----
+  document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{const c=e.target.closest('.c');if(!c)return;g.querySelectorAll('.c').forEach(x=>x.classList.remove('on'));c.classList.add('on');}));
+  document.querySelectorAll('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');}));
+  document.querySelectorAll('.timechips').forEach(g=>g.addEventListener('click',e=>{const t=e.target.closest('.t');if(!t)return;g.querySelectorAll('.t').forEach(x=>x.classList.remove('on'));t.classList.add('on');}));
+  document.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{const p=o.parentElement;p.querySelectorAll('.opt').forEach(x=>{x.classList.remove('sel');const r=x.querySelector('.rad');if(r)r.textContent='';});o.classList.add('sel');const r=o.querySelector('.rad');if(r)r.textContent='✓';}));
 </script>
 </body>
 </html>
