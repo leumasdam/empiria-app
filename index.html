@@ -55,7 +55,7 @@
   .why-dash path{stroke:rgba(25,43,55,.16)}
 
   /* hero stock line — winding dashed route with city location pins */
-  .stockline{position:absolute;left:0;right:0;top:42px;height:260px;z-index:1;pointer-events:none}
+  .stockline{position:absolute;left:0;right:0;top:18px;height:480px;z-index:1;pointer-events:none}
   .stockline svg{width:100%;height:100%;display:block}
   .stockline svg path{fill:none;stroke:rgba(255,255,255,.26);stroke-width:2.5;stroke-dasharray:8 12;stroke-linecap:round}
   .sl-pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
@@ -463,12 +463,12 @@
 
 <header class="hero">
   <div class="stockline" id="stockline">
-    <svg viewBox="0 0 1200 260" preserveAspectRatio="none"><path id="sl-path" d="M-40,150 C140,55 270,50 390,125 C490,185 575,210 675,170 C795,122 890,62 1000,92 C1090,116 1165,180 1265,135"/></svg>
-    <div class="sl-pin ok" data-x="0.06"><span class="sl-label"><i class="d"></i>ZA</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
-    <div class="sl-pin ok" data-x="0.18"><span class="sl-label"><i class="d"></i>PN</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
-    <div class="sl-pin ok" data-x="0.31"><span class="sl-label"><i class="d"></i>BB</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
-    <div class="sl-pin bad" data-x="0.43"><span class="sl-label"><i class="d"></i>KE</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
-    <div class="sl-pin ok" data-x="0.95"><span class="sl-label"><i class="d"></i>BA</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
+    <svg viewBox="0 0 1200 480" preserveAspectRatio="none"><path id="sl-path" d="M-40,120 C90,152 175,128 270,150 C348,168 392,210 434,304 C480,400 526,424 606,424 C706,424 776,330 886,272 C1010,206 1078,122 1176,52 C1236,12 1300,2 1346,0"/></svg>
+    <div class="sl-pin ok" data-x="0.05"><span class="sl-label"><i class="d"></i>ZA</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
+    <div class="sl-pin ok" data-x="0.13"><span class="sl-label"><i class="d"></i>PN</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
+    <div class="sl-pin ok" data-x="0.21"><span class="sl-label"><i class="d"></i>BB</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
+    <div class="sl-pin bad" data-x="0.86"><span class="sl-label"><i class="d"></i>KE</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
+    <div class="sl-pin ok" data-x="0.94"><span class="sl-label"><i class="d"></i>BA</span><span class="sl-stem"></span><span class="sl-tip"></span></div>
   </div>
   <div class="hero-grid">
     <div class="nav-top">
@@ -1003,7 +1003,7 @@
   // ---- usadenie skladových pinov presne na vlnitú čiaru ----
   function layoutStockline(){
     const sl=document.getElementById('stockline'); const path=document.getElementById('sl-path'); if(!sl||!path) return;
-    const W=sl.clientWidth, H=sl.clientHeight, vbW=1200, vbH=260; const sx=W/vbW, sy=H/vbH;
+    const W=sl.clientWidth, H=sl.clientHeight, vbW=1200, vbH=480; const sx=W/vbW, sy=H/vbH;
     const L=path.getTotalLength();
     sl.querySelectorAll('.sl-pin').forEach(pin=>{
       const tx=parseFloat(pin.dataset.x)*vbW; let best=0, bd=1e9;
