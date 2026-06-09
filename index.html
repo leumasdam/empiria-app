@@ -395,6 +395,15 @@
     .boot{animation:none;opacity:0;visibility:hidden}
     .boot-masc,.boot-flash,.boot-bar i,.laser,.eyebrow .pulse,.scr.active{animation:none!important}
   }
+
+  /* ===== embed mode (?embed=1) — len telefón + prepínač, pre iframe v case study ===== */
+  body.embed{background:transparent}
+  body.embed header.hero{background:transparent}
+  body.embed header.hero::after{display:none}
+  body.embed .hero-grid{padding:8px 0;grid-template-columns:1fr;gap:0}
+  body.embed .hero-grid > *{display:none}
+  body.embed #demo{display:flex}
+  body.embed > .wrap, body.embed > footer{display:none}
 </style>
 </head>
 <body>
@@ -837,6 +846,7 @@
 </footer>
 
 <script>
+  if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
   const bootHTML = document.getElementById('boot').outerHTML;
   function replaySplash(){
     const cur=document.getElementById('boot');
