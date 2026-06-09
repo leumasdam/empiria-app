@@ -54,6 +54,15 @@
   .hero-dash path{stroke:rgba(255,255,255,.17)}
   .why-dash path{stroke:rgba(25,43,55,.16)}
 
+  /* hero stock line — dashed route with city stock pins */
+  .stockline{position:absolute;left:0;right:0;top:168px;height:46px;z-index:1;pointer-events:none}
+  .sl-line{position:absolute;top:50%;left:0;right:0;height:3px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,rgba(255,255,255,.32) 0 9px,transparent 9px 23px)}
+  .sl-pin{position:absolute;top:50%}
+  .sl-dot{position:absolute;left:0;top:0;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);border:2.5px solid #0E1A22}
+  .sl-dot.ok{background:#36C07A;box-shadow:0 0 0 4px rgba(54,192,122,.2)}
+  .sl-dot.bad{background:#E5635B;box-shadow:0 0 0 4px rgba(229,99,91,.2)}
+  .sl-tag{position:absolute;left:0;bottom:13px;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:800;letter-spacing:.4px;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:3px 8px;border-radius:7px;backdrop-filter:blur(4px)}
+
   /* ---------- HERO ---------- */
   header.hero{background:var(--navy);position:relative;overflow:hidden}
   header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(215,40,46,.22),transparent 68%)}
@@ -271,7 +280,7 @@
   footer .lock{font-size:16px}footer a{color:var(--red);text-decoration:none;font-weight:700}
 
   @media(max-width:920px){
-    .hero-grid{grid-template-columns:1fr}.stage{order:-1}.nav-top .links{display:none}
+    .hero-grid{grid-template-columns:1fr}.stage{order:-1}.nav-top .links{display:none}.stockline{display:none}
     .grid,.divrow{grid-template-columns:1fr}.why-inner{grid-template-columns:1fr}.why-img{min-height:200px}
     .stats{flex-wrap:wrap;gap:20px}.hero-masc{display:none}
   }
@@ -449,7 +458,14 @@
 <body>
 
 <header class="hero">
-  <div class="bigdash hero-dash"><svg viewBox="0 0 1200 640" preserveAspectRatio="none"><path d="M-40,150 C300,104 560,190 840,144 C1020,115 1160,170 1280,146"/></svg></div>
+  <div class="stockline">
+    <div class="sl-line"></div>
+    <div class="sl-pin" style="left:8%"><span class="sl-tag">ZA</span><span class="sl-dot ok"></span></div>
+    <div class="sl-pin" style="left:18%"><span class="sl-tag">PN</span><span class="sl-dot ok"></span></div>
+    <div class="sl-pin" style="left:29%"><span class="sl-tag">BB</span><span class="sl-dot ok"></span></div>
+    <div class="sl-pin" style="left:41%"><span class="sl-tag">KE</span><span class="sl-dot bad"></span></div>
+    <div class="sl-pin" style="left:95%"><span class="sl-tag">BA</span><span class="sl-dot ok"></span></div>
+  </div>
   <div class="hero-grid">
     <div class="nav-top">
       <img class="lock-img" src="img/logo-express.png" alt="express.EMPIRIA">
