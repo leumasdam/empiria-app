@@ -402,6 +402,18 @@
   .replay{margin-top:18px;background:#fff;border:1px solid var(--line);color:var(--ink);font-family:inherit;font-weight:700;font-size:13px;padding:10px 18px;border-radius:12px;cursor:pointer;box-shadow:var(--sh-sm);transition:transform .15s}
   .replay:hover{transform:translateY(-2px)}
 
+  /* kúpeľne splash (pri prepnutí na Kúpeľne) */
+  .kboot{position:absolute;inset:0;z-index:25;background:#fff;border-radius:39px;overflow:hidden;display:none;flex-direction:column;align-items:center;justify-content:center}
+  .kboot.play{display:flex;animation:kbootFade 1.9s cubic-bezier(.7,0,.84,.3) forwards}
+  .kboot-logo{width:128px;margin-bottom:6px;animation:bootIn .4s .05s both, bootHide .3s .95s forwards}
+  .kboot-icon{width:96px;transform-origin:50% 50%;animation:kbootIcon 1.9s cubic-bezier(.66,0,.86,.25) forwards}
+  .kboot-bar{position:absolute;bottom:50px;width:110px;height:4px;border-radius:3px;background:#E6EBEE;overflow:hidden}
+  .kboot-bar i{display:block;height:100%;width:0;background:var(--sage-d);border-radius:3px;animation:bootBar 1s ease-out forwards}
+  .kboot-flash{position:absolute;inset:0;background:var(--sage);opacity:0;z-index:5;animation:kbootFlash 1.9s forwards}
+  @keyframes kbootIcon{0%{transform:scale(.6);opacity:0}16%{opacity:1}52%{transform:scale(1.05);opacity:1}100%{transform:scale(13);opacity:0}}
+  @keyframes kbootFlash{0%,60%{opacity:0}80%{opacity:1}100%{opacity:1}}
+  @keyframes kbootFade{0%,82%{opacity:1}100%{opacity:0;visibility:hidden}}
+
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
     .boot{animation:none;opacity:0;visibility:hidden}
@@ -472,6 +484,12 @@
             <img class="boot-masc masc" src="img/mascot.png" alt="">
             <div class="boot-bar"><i></i></div>
             <div class="boot-flash"></div>
+          </div>
+          <div class="kboot" id="kboot">
+            <img class="kboot-logo" src="img/logo-kupelne-vert.png" alt="kúpeľne.EMPIRIA">
+            <img class="kboot-icon" src="img/kupelne-icon.svg" alt="">
+            <div class="kboot-bar"><i></i></div>
+            <div class="kboot-flash"></div>
           </div>
           <div class="statusbar"><span>9:41</span><span>📶 🔋 100%</span></div>
           <div class="view">
@@ -930,16 +948,24 @@
   if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed');
   (function(){const sp=new URLSearchParams(location.search);if(sp.has('shot')){document.body.classList.add('shot');const s=sp.get('shot');if(s.indexOf('k-')===0)document.querySelector('.screen').classList.add('kup');document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('active',e.dataset.s===s));}})();
   const bootHTML = document.getElementById('boot').outerHTML;
+  const kbootHTML = document.getElementById('kboot').outerHTML;
   function replaySplash(){
     const cur=document.getElementById('boot');
     const tmp=document.createElement('div'); tmp.innerHTML=bootHTML;
     cur.replaceWith(tmp.firstElementChild);
+  }
+  function replayKboot(){
+    const cur=document.getElementById('kboot');
+    const tmp=document.createElement('div'); tmp.innerHTML=kbootHTML;
+    const n=tmp.firstElementChild; n.classList.add('play');
+    cur.replaceWith(n);
   }
   function setApp(app){
     const sc=document.querySelector('.screen');
     sc.classList.toggle('kup', app==='kupelne');
     document.querySelectorAll('.appsw button').forEach(b=>b.classList.toggle('on', b.dataset.app===app));
     go(app==='kupelne'?'k-home':'home');
+    if(app==='kupelne') replayKboot();
   }
   function go(s){
     const swap=()=>{

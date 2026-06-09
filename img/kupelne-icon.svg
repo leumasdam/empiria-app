@@ -1,0 +1,16 @@
+<svg viewBox="0 0 150 132" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1B323E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- steam -->
+  <path d="M60 26 c-6 -6 6 -11 0 -19"/>
+  <path d="M78 22 c-6 -6 6 -11 0 -19"/>
+  <!-- faucet -->
+  <path d="M34 60 V44 c0 -7 4 -10 11 -10 h10 c5 0 5 7 0 9"/>
+  <!-- top rim -->
+  <path d="M12 60 H138"/>
+  <!-- tub bowl -->
+  <path d="M18 60 c0 30 18 46 44 46 h12 c26 0 44 -16 44 -46"/>
+  <!-- water line -->
+  <path d="M34 74 q8 -7 15 0 t15 0 t15 0 t15 0" stroke-width="5"/>
+  <!-- feet -->
+  <path d="M46 106 v12"/>
+  <path d="M104 106 v12"/>
+</svg>

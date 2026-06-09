@@ -88,6 +88,17 @@
   .splash .flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:4;pointer-events:none;animation:flashLoop 3.4s linear infinite}
   @keyframes flashLoop{0%,78%{opacity:0}87%{opacity:1}96%{opacity:1}100%{opacity:0}}
   @media (prefers-reduced-motion: reduce){ .splash .sm{animation:none;transform:none;opacity:1} .splash .flash{animation:none;opacity:0} }
+  /* kúpeľne splash intro (zoom-reveal ako express) */
+  .ku-splash{align-items:center;justify-content:center;text-align:center;padding:0 26px;position:relative;overflow:hidden;background:#fff}
+  .ku-splash .ksp-logo{width:124px;display:block;margin:0 auto;position:relative;z-index:2}
+  .ku-splash .ksp-icon{width:92px;display:block;margin:22px auto 0;transform-origin:50% 50%;animation:kspLoop 3.4s cubic-bezier(.66,0,.86,.25) infinite;position:relative;z-index:2}
+  .ku-splash .ksp-tag{font-size:13px;color:var(--sage-d);margin:16px 6px 0;line-height:1.5;font-weight:500;position:relative;z-index:2}
+  .ku-splash .ld2{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:3px;background:#E6EBEE;overflow:hidden;z-index:2}
+  .ku-splash .ld2::after{content:"";position:absolute;left:0;top:0;height:100%;width:55%;background:var(--sage-d);border-radius:3px}
+  .ku-splash .ksp-flash{position:absolute;inset:0;background:var(--sage);opacity:0;z-index:4;pointer-events:none;animation:kspFlash 3.4s linear infinite}
+  @keyframes kspLoop{0%,8%{transform:scale(.6);opacity:0}22%{transform:scale(1);opacity:1}60%{transform:scale(1.06);opacity:1}88%,100%{transform:scale(11);opacity:0}}
+  @keyframes kspFlash{0%,80%{opacity:0}89%{opacity:1}96%{opacity:1}100%{opacity:0}}
+  @media (prefers-reduced-motion: reduce){ .ku-splash .ksp-icon{animation:none;transform:none;opacity:1} .ku-splash .ksp-flash{display:none} }
   /* embed mode (?embed=1) — skry horný titulok a pätu, nechaj len rámy s popismi */
   html.embed body{padding:28px 22px}
   html.embed .board-h{display:none}
@@ -407,10 +418,12 @@
   <div class="row">
 
     <div class="frame"><div class="flabel"><b>K1</b> · Intro</div>
-      <div class="device"><div class="s" style="background:#fff;color:var(--navy);align-items:center;justify-content:center;text-align:center;padding:0 24px">
-        <img src="img/logo-kupelne-vert.png" alt="kúpeľne.EMPIRIA" style="width:152px;display:block;margin:0 auto">
-        <p style="font-size:13px;color:var(--sage-d);margin:20px 18px 0;line-height:1.5;font-weight:500">Navrhni si kúpeľňu, vyskúšaj ju v AR, doladíme ju v štúdiu.</p>
-        <div style="position:absolute;bottom:36px;left:28px;right:28px"><button class="btn navy">Začať návrh</button></div>
+      <div class="device"><div class="s ku-splash">
+        <img class="ksp-logo" src="img/logo-kupelne-vert.png" alt="kúpeľne.EMPIRIA">
+        <img class="ksp-icon" src="img/kupelne-icon.svg" alt="">
+        <p class="ksp-tag">Navrhni si kúpeľňu, vyskúšaj ju v AR, doladíme ju v štúdiu.</p>
+        <div class="ld2"></div>
+        <div class="ksp-flash"></div>
       </div></div>
       <div class="caption"><b>Vstup investora</b>Šalviová identita divízie kúpeľne, jeden jasný CTA.</div>
     </div>
