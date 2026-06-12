@@ -127,6 +127,9 @@
   .ic{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .ic.icbig{width:24px;height:24px}
   .ic.icsm{width:16px;height:16px;display:inline-block;vertical-align:-3px;margin-right:4px}
+  .be .ic,.ni2 .ic,.kbell .ic,.fi .ic,.filt .ic{margin:auto}
+  .be,.ni2,.kbell{display:grid;place-items:center}
+  .ac .e{display:grid;place-items:center}
   .nav button .ni{display:grid;place-items:center;height:20px}
   .qac span{display:grid;place-items:center;height:22px;margin-bottom:6px;color:var(--ink)}
   .ah-row .bell{color:var(--ink)}
@@ -537,8 +540,8 @@
 
     <div class="stage" id="demo">
       <div class="appsw">
-        <button class="on" data-app="partak" onclick="setApp('partak')">🔧 Parťák · montér</button>
-        <button data-app="kupelne" onclick="setApp('kupelne')">🛁 Kúpeľne · zákazník</button>
+        <button class="on" data-app="partak" onclick="setApp('partak')"><svg class="ic icsm"><use href="#i-tool"/></svg> Parťák · montér</button>
+        <button data-app="kupelne" onclick="setApp('kupelne')"><svg class="ic icsm"><use href="#i-home"/></svg> Kúpeľne · zákazník</button>
       </div>
       <div class="phone">
         <div class="notch"></div>
@@ -620,7 +623,7 @@
 
                 <div class="sect">Nové zákazky <a onclick="go('leady')">Viac →</a></div>
                 <div class="promo" onclick="go('leady')">
-                  <div class="pt"><div class="tg">📨 3 NOVÉ LEADY</div><b>Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
+                  <div class="pt"><div class="tg"><svg class="ic icsm"><use href="#i-brief"/></svg> 3 NOVÉ LEADY</div><b>Investori hľadajú montéra v okolí</b><button class="pb" onclick="go('leady')">Pozrieť →</button></div>
                 </div>
               </div>
             </div>
@@ -651,7 +654,7 @@
             <div class="scr" data-s="stock">
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Skladom pri tebe</h2></div>
-                <div class="map-hero"><img src="img/map-express.png" alt=""><div class="mtag">📍 Čerpadlo Grundfos · 17 predajní</div></div>
+                <div class="map-hero"><img src="img/map-express.png" alt=""><div class="mtag"><svg class="ic icsm"><use href="#i-pin"/></svg> Čerpadlo Grundfos · 17 predajní</div></div>
                 <div class="branch">
                   <img class="pi" src="img/store-interior.jpg" alt="">
                   <div class="bi"><b>Express Žilina</b><small>Vysokoškolákov 8</small><div style="margin-top:5px"><span class="pill ok"><span class="dot ok"></span>5 ks</span></div></div>
@@ -662,7 +665,7 @@
                   <div class="bi"><b>Veľkoobchod Žilina</b><small>Kragujevská 12</small><div style="margin-top:5px"><span class="pill warn"><span class="dot warn"></span>1 ks</span></div></div>
                   <span class="km">6,8 km</span>
                 </div>
-                <button class="reserve" onclick="go('cart')">📦 Rezervovať v Express Žilina</button>
+                <button class="reserve" onclick="go('cart')"><svg class="ic icsm"><use href="#i-brief"/></svg> Rezervovať v Express Žilina</button>
               </div>
             </div>
 
@@ -676,17 +679,17 @@
                 <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
                 <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/heatpump.jpg" alt="">
-                  <div class="pinfo"><b>Výmena tepelného čerpadla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:5px"><span class="pill ok">✓ Sedí na teba</span> <b style="font-size:11px">~3 400 €</b></div></div>
+                  <div class="pinfo"><b>Výmena tepelného čerpadla</b><div class="sub"><svg class="ic icsm"><use href="#i-pin"/></svg> Bytča · 8 km · pred 2 h</div><div style="margin-top:5px"><span class="pill ok">✓ Sedí na teba</span> <b style="font-size:11px">~3 400 €</b></div></div>
                   <div class="goa">→</div>
                 </div>
                 <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/bathroom.jpg" alt="">
-                  <div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:5px"><span class="pill warn">Súrne</span> <b style="font-size:11px">~5 200 €</b></div></div>
+                  <div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub"><svg class="ic icsm"><use href="#i-pin"/></svg> Žilina · 3 km · pred 5 h</div><div style="margin-top:5px"><span class="pill warn">Súrne</span> <b style="font-size:11px">~5 200 €</b></div></div>
                   <div class="goa">→</div>
                 </div>
                 <div class="prow" onclick="go('lead')">
                   <img class="pi" src="img/plumber.jpg" alt="">
-                  <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub">📍 Martin · 19 km · včera</div><div style="margin-top:5px"><b style="font-size:11px">~280 €</b></div></div>
+                  <div class="pinfo"><b>Výmena batérií v byte</b><div class="sub"><svg class="ic icsm"><use href="#i-pin"/></svg> Martin · 19 km · včera</div><div style="margin-top:5px"><b style="font-size:11px">~280 €</b></div></div>
                   <div class="goa">→</div>
                 </div>
               </div>
@@ -729,8 +732,8 @@
                 <div class="sect">Tvoje výhody</div>
                 <div class="card">
                   <div class="benefit"><div class="be">💶</div><div class="bt"><b>Lepšie ceny</b><small>−8 % na celý sortiment</small></div><span class="bv">aktívne</span></div>
-                  <div class="benefit"><div class="be">📨</div><div class="bt"><b>Prednostné leady</b><small>vidíš zákazky ako prvý</small></div><span class="bv">aktívne</span></div>
-                  <div class="benefit"><div class="be">🚚</div><div class="bt"><b>Doprava zdarma</b><small>odomkneš na L5</small></div><span class="bv">160 b.</span></div>
+                  <div class="benefit"><div class="be"><svg class="ic"><use href="#i-brief"/></svg></div><div class="bt"><b>Prednostné leady</b><small>vidíš zákazky ako prvý</small></div><span class="bv">aktívne</span></div>
+                  <div class="benefit"><div class="be"><svg class="ic"><use href="#i-cube"/></svg></div><div class="bt"><b>Doprava zdarma</b><small>odomkneš na L5</small></div><span class="bv">160 b.</span></div>
                 </div>
                 <div class="sect">Posledná aktivita</div>
                 <div class="card">
@@ -766,7 +769,7 @@
             <div class="scr" data-s="lead">
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('leady')">←</div><h2>Detail zákazky</h2></div>
-                <div class="pbanner"><img src="img/heatpump.jpg" alt=""><div class="pbt"><b>Výmena tepelného čerpadla</b><small>📍 Bytča · 8 km od teba</small></div></div>
+                <div class="pbanner"><img src="img/heatpump.jpg" alt=""><div class="pbt"><b>Výmena tepelného čerpadla</b><small><svg class="ic icsm"><use href="#i-pin"/></svg> Bytča · 8 km od teba</small></div></div>
                 <div class="card">
                   <div class="kv"><span>Investor</span><b>p. Novák (overený)</b></div>
                   <div class="kv"><span>Požadovaný termín</span><b>do 20.6.</b></div>
@@ -818,13 +821,13 @@
             <!-- k-home -->
             <div class="scr" data-s="k-home">
               <div class="pad" style="padding-top:10px">
-                <div class="kbar"><img src="img/logo-kupelne.png" alt="kúpeľne.EMPIRIA" style="height:21px;display:block"><div class="kbell">🔍</div></div>
+                <div class="kbar"><img src="img/logo-kupelne.png" alt="kúpeľne.EMPIRIA" style="height:21px;display:block"><div class="kbell"><svg class="ic"><use href="#i-search"/></svg></div></div>
                 <div class="khero"><img src="img/bathroom.jpg" alt=""><div class="kt"><span class="ktag">NOVÉ</span><br><b>Letná kolekcia 2026</b><small>minimalistická séria</small></div></div>
                 <div class="sect">Značky u nás</div>
                 <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
                 <div class="sect">Inšpirácia <a onclick="go('k-product')">Viac →</a></div>
                 <div class="prow" onclick="go('k-product')"><img class="pi" src="img/bathroom.jpg" alt=""><div class="pinfo"><b>Grohe Rainshower 310</b><div class="sub">dažďová hlavica</div><div class="price">489 €</div></div><div class="goa">→</div></div>
-                <div class="promo" onclick="go('k-find')" style="min-height:84px"><div class="pt"><div class="tg" style="color:#CDE0DB">🔧 NÁJDI MONTÁŽNIKA</div><b>Overení Empiria partneri v okolí</b><button class="pb" onclick="go('k-find')">Pozrieť →</button></div></div>
+                <div class="promo" onclick="go('k-find')" style="min-height:84px"><div class="pt"><div class="tg" style="color:#CDE0DB"><svg class="ic icsm"><use href="#i-tool"/></svg> NÁJDI MONTÁŽNIKA</div><b>Overení Empiria partneri v okolí</b><button class="pb" onclick="go('k-find')">Pozrieť →</button></div></div>
               </div>
             </div>
 
@@ -833,7 +836,7 @@
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Skús si kúpeľňu</h2></div>
                 <div class="arview"><img src="img/bathroom.jpg" alt=""><div class="arc">📐 Nájdená stena · ťukni a umiestni</div><div class="arobj">🚿</div></div>
-                <div class="arctrl"><div class="ac"><span class="e">🔄</span>Otočiť</div><div class="ac"><span class="e">🎨</span>Farba</div><div class="ac"><span class="e">📷</span>Foto</div></div>
+                <div class="arctrl"><div class="ac"><span class="e">🔄</span>Otočiť</div><div class="ac"><span class="e">🎨</span>Farba</div><div class="ac"><span class="e"><svg class="ic"><use href="#i-cam"/></svg></span>Foto</div></div>
                 <div class="card" style="margin-top:12px;display:flex;align-items:center;gap:10px"><div style="width:42px;height:42px;border-radius:11px;background:var(--canvas);display:grid;place-items:center;font-size:20px">🚿</div><div style="flex:1"><b style="font-size:13px">Grohe Rainshower 310</b><br><small style="color:var(--muted);font-size:11px">dažďová hlavica</small></div><span style="font-size:15px;font-weight:850">489 €</span></div>
               </div>
             </div>
@@ -846,7 +849,7 @@
                 <div class="prod-brand">GROHE</div>
                 <h2 style="font-size:19px;font-weight:850;margin:2px 0 5px">Rainshower 310</h2>
                 <p class="lede" style="font-size:13px;margin-bottom:8px">Stropná dažďová hlavica, kartáčovaný nikel, 2 prúdy.</p>
-                <div class="arctrl"><div class="ac" style="border:1.5px solid var(--navy)" onclick="go('k-ar')"><span class="e">📲</span>Skús v AR</div><div class="ac"><span class="e">❤️</span>Uložiť</div></div>
+                <div class="arctrl"><div class="ac" style="border:1.5px solid var(--navy)" onclick="go('k-ar')"><span class="e"><svg class="ic"><use href="#i-cube"/></svg></span>Skús v AR</div><div class="ac"><span class="e">❤️</span>Uložiť</div></div>
                 <div class="buybar"><div class="pp">489 €</div><button class="mbtn navy" onclick="go('k-booking')">Do návrhu →</button></div>
               </div>
             </div>
@@ -870,7 +873,7 @@
             <div class="scr" data-s="k-find">
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('k-home')">←</div><h2>Nájdi montážnika</h2></div>
-                <div class="search" style="margin:0 0 12px"><div class="sf">🔍 Špecializácia, mesto…</div><div class="filt" style="background:var(--navy)">⚙️</div></div>
+                <div class="search" style="margin:0 0 12px"><div class="sf"><svg class="ic icsm"><use href="#i-search"/></svg> Špecializácia, mesto…</div><div class="filt" style="background:var(--navy)"><svg class="ic"><use href="#i-filter"/></svg></div></div>
                 <div class="chips"><div class="c on">Všetci</div><div class="c">Kúrenie</div><div class="c">Kúpeľne</div></div>
                 <div class="inst" onclick="go('k-installer')">
                   <div class="ih"><img src="img/staff.jpg" alt=""><div><b>Marek Kováč</b><small>ELEKTROVOD · 4 km</small><br><span class="verif">✓ Overený Empiria partner</span></div><div style="margin-left:auto;text-align:right"><div class="star">★ 4,9</div><small style="font-size:10px;color:var(--muted)">32 prác</small></div></div>
@@ -933,9 +936,9 @@
               <div class="pad" style="padding-top:6px">
                 <div class="topline"><div class="back" onclick="go('home')">←</div><h2>Notifikácie</h2></div>
                 <div class="card">
-                  <div class="notif-item"><div class="ni2">📦</div><div><b>Diel naskladnený</b><small>Čerpadlo Grundfos je späť v Express Žilina</small></div><span class="dotr"></span></div>
-                  <div class="notif-item"><div class="ni2">📨</div><div><b>Nová zákazka pri tebe</b><small>Výmena kotla · Bytča · 8 km</small></div><span class="dotr"></span></div>
-                  <div class="notif-item"><div class="ni2">🚚</div><div><b>Objednávka pripravená</b><small>#EMP-4821 · vyzdvihnutie do 14:00</small></div></div>
+                  <div class="notif-item"><div class="ni2"><svg class="ic"><use href="#i-cube"/></svg></div><div><b>Diel naskladnený</b><small>Čerpadlo Grundfos je späť v Express Žilina</small></div><span class="dotr"></span></div>
+                  <div class="notif-item"><div class="ni2"><svg class="ic"><use href="#i-brief"/></svg></div><div><b>Nová zákazka pri tebe</b><small>Výmena kotla · Bytča · 8 km</small></div><span class="dotr"></span></div>
+                  <div class="notif-item"><div class="ni2"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Objednávka pripravená</b><small>#EMP-4821 · vyzdvihnutie do 14:00</small></div></div>
                   <div class="notif-item"><div class="ni2">⚡</div><div><b>160 bodov do L5</b><small>Ešte dve zákazky a odomkneš dopravu zdarma</small></div></div>
                 </div>
               </div>
@@ -977,10 +980,10 @@
   <h2>Päť vecí, čo montérovi <span class="r">šetria deň</span></h2>
   <p class="sub">Appka nestojí na ďalšom eshope. Stojí na jednom momente: <b style="color:var(--ink)">som na stavbe, niečo mi chýba, a chcem to teraz.</b></p>
   <div class="grid">
-    <div class="fcard"><div class="fi">📷</div><h3>Skenuj &amp; nájdi</h3><p>Foto štítku kotla alebo starej súčiastky → appka rozpozná model a vyhodí kompatibilnú náhradu. Koniec hádania, či to pasuje.</p></div>
-    <div class="fcard alt"><div class="fi">📍</div><h3>Živý sklad predajní</h3><p>Reálna mapa 17 predajní so semaforom dostupnosti podľa vzdialenosti. Rezervuj a vyzdvihni v Express predajni do 15 minút.</p></div>
-    <div class="fcard"><div class="fi">🗂️</div><h3>Stavby ako projekty</h3><p>Každá zákazka má súpis materiálu, fotky a stav. Jedným klikom z neho spravíš cenovú ponuku pre investora.</p></div>
-    <div class="fcard alt"><div class="fi">📨</div><h3>Zákazky z Empiria siete</h3><p>Investori, čo si u nás vybrali materiál, hľadajú montéra. Vyšší level = vidíš leady ako prvý.</p></div>
+    <div class="fcard"><div class="fi"><svg class="ic icbig"><use href="#i-cam"/></svg></div><h3>Skenuj &amp; nájdi</h3><p>Foto štítku kotla alebo starej súčiastky → appka rozpozná model a vyhodí kompatibilnú náhradu. Koniec hádania, či to pasuje.</p></div>
+    <div class="fcard alt"><div class="fi"><svg class="ic icbig"><use href="#i-pin"/></svg></div><h3>Živý sklad predajní</h3><p>Reálna mapa 17 predajní so semaforom dostupnosti podľa vzdialenosti. Rezervuj a vyzdvihni v Express predajni do 15 minút.</p></div>
+    <div class="fcard"><div class="fi"><svg class="ic icbig"><use href="#i-build"/></svg></div><h3>Stavby ako projekty</h3><p>Každá zákazka má súpis materiálu, fotky a stav. Jedným klikom z neho spravíš cenovú ponuku pre investora.</p></div>
+    <div class="fcard alt"><div class="fi"><svg class="ic icbig"><use href="#i-brief"/></svg></div><h3>Zákazky z Empiria siete</h3><p>Investori, čo si u nás vybrali materiál, hľadajú montéra. Vyšší level = vidíš leady ako prvý.</p></div>
     <div class="fcard"><div class="fi">🔥</div><h3>Konfigurátor TČ</h3><p>Zadáš parametre domu → appka navrhne tepelné čerpadlo a vygeneruje kompletný zoznam dielov.</p></div>
     <div class="fcard alt"><div class="fi">⚡</div><h3>Skúsenosti (vernostka)</h3><p><i>Empiria</i> = skúsenosť. Montér zbiera body a levely, lepšie ceny a prednostný sklad.</p></div>
   </div>
