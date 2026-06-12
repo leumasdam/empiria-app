@@ -136,6 +136,9 @@
   .ah-row .hi{flex:1}.ah-row .hi small{font-size:11px;color:var(--muted);font-weight:600}.ah-row .hi b{font-size:15px;color:var(--ink);display:block}
   .ah-row .bell{width:40px;height:40px;border-radius:12px;background:var(--canvas);border:1px solid var(--line);display:grid;place-items:center;font-size:15px;flex:none;color:var(--ink)}
   .ah-title{position:relative;z-index:2;color:var(--ink);font-size:20px;font-weight:900;letter-spacing:-.5px;margin-top:13px;line-height:1.1}
+  .ic{width:17px;height:17px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .ic.icbig{width:22px;height:22px}.ic.icsm{width:14px;height:14px;display:inline-block;vertical-align:-2.5px;margin-right:3px}
+  .nav .ni,.qac span,.bell,.kbell{display:grid;place-items:center}
   .ctxline{display:flex;align-items:center;gap:6px;margin-top:10px;background:var(--canvas);border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:11px;font-weight:600;color:var(--ink);position:relative;z-index:2}
   .ctxline span{margin-left:auto;color:var(--red);font-weight:800}
   .heroact{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px;box-shadow:var(--sh-sm)}
@@ -277,6 +280,25 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-5.1-7-11a7 7 0 1 1 14 0c0 5.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8"/><path d="M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8"/><path d="M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16"/><path d="M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M7 12h10"/></symbol>
+<symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></symbol>
+<symbol id="i-build" viewBox="0 0 24 24"><rect x="4.5" y="3" width="15" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/><path d="M10.5 21v-3h3v3"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+<symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></symbol>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 8.7L12 13l8.7-4.3"/><path d="M12 22V13"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10.5 20a1.8 1.8 0 0 0 3 0"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h9M19.5 7H20M4 17h.5M11 17h9"/><circle cx="16" cy="7" r="2.3"/><circle cx="8" cy="17" r="2.3"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2l1.6-2h6.8L17 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M21 6H8a5 5 0 0 0-5 5"/><path d="M7 22l-4-4 4-4"/><path d="M3 18h13a5 5 0 0 0 5-5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8 8 0 0 1-8.5 8 8.4 8.4 0 0 1-3.5-.7L3 20l1.3-5A8 8 0 1 1 21 11.5z"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+</defs></svg>
+
 
 <div class="board-h">
   <span class="tag">● express.EMPIRIA · APP SCREENS · v3</span>
@@ -371,20 +393,20 @@
     <div class="frame"><div class="flabel"><b>07</b> · Domov</div>
       <div class="device"><div class="s"><div class="sb w"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:58px;padding-top:0">
         <div class="apphead">
-          <div class="ah-row"><img class="pf" src="img/staff.jpg" alt=""><div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div><div class="bell">🔔</div></div>
-          <div class="ctxline">📍 Express Žilina · do 17:00 <span>2,1 km →</span></div>
+          <div class="ah-row"><img class="pf" src="img/staff.jpg" alt=""><div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div><div class="bell"><svg class="ic"><use href="#i-bell"/></svg></div></div>
+          <div class="ctxline"><svg class="ic icsm"><use href="#i-pin"/></svg> Express Žilina · do 17:00 <span>2,1 km →</span></div>
         </div>
         <div class="heroact">
-          <div class="ha-cam">📷</div>
+          <div class="ha-cam"><svg class="ic icbig"><use href="#i-cam"/></svg></div>
           <div class="ha-tx"><b>Naskenuj diel alebo kód</b><small>rozpoznáme produkt a nájdeme sklad</small></div>
           <div class="ha-go">→</div>
         </div>
-        <div class="search" style="margin-top:9px"><div class="sf">🔍 …alebo hľadaj ručne</div><div class="filt">⚙️</div></div>
+        <div class="search" style="margin-top:9px"><div class="sf"><svg class="ic icsm"><use href="#i-search"/></svg> …alebo hľadaj ručne</div><div class="filt"><svg class="ic"><use href="#i-filter"/></svg></div></div>
         <div class="qa">
-          <div class="qac"><span>🏬</span><b>Živý sklad</b></div>
-          <div class="qac"><span>🔁</span><b>Objednať</b></div>
-          <div class="qac"><span>🏗️</span><b>Stavby</b></div>
-          <div class="qac"><span>📨</span><b>Zákazky<i class="qbdg">3</i></b></div>
+          <div class="qac"><span><svg class="ic"><use href="#i-pin"/></svg></span><b>Živý sklad</b></div>
+          <div class="qac"><span><svg class="ic"><use href="#i-repeat"/></svg></span><b>Objednať</b></div>
+          <div class="qac"><span><svg class="ic"><use href="#i-build"/></svg></span><b>Stavby</b></div>
+          <div class="qac"><span><svg class="ic"><use href="#i-brief"/></svg></span><b>Zákazky<i class="qbdg">3</i></b></div>
         </div>
         <div class="sect">Naskladnené pri tebe</div>
         <div class="prow"><img class="pi" src="img/boiler.jpg" alt=""><div class="pinfo"><b>Čerpadlo Grundfos</b><div class="sub"><span class="stk ok">● 6 ks skladom</span> · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div><div class="goa">→</div></div>
@@ -395,7 +417,7 @@
           <div class="catc"><img class="ct" src="img/bathroom.jpg" alt=""><div class="cl"><b>Sanita</b><small>1 870</small></div></div>
         </div>
       </div>
-      <div class="nav"><div class="n on"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">📍</span>Sklad</div><div class="fab">📷</div><div class="n"><span class="ni">📨</span>Zákazky</div><div class="n"><span class="ni">🗂️</span>Stavby</div></div>
+      <div class="nav"><div class="n on"><span class="ni"><svg class="ic"><use href="#i-home"/></svg></span>Domov</div><div class="n"><span class="ni"><svg class="ic"><use href="#i-pin"/></svg></span>Sklad</div><div class="fab"><svg class="ic icbig"><use href="#i-scan"/></svg></div><div class="n"><span class="ni"><svg class="ic"><use href="#i-brief"/></svg></span>Zákazky</div><div class="n"><span class="ni"><svg class="ic"><use href="#i-build"/></svg></span>Stavby</div></div>
       </div></div>
       <div class="caption"><b>Domov</b>Sken ako hero akcia, kontext pobočky v headri, quick actions a živý sklad so stock badge — postavené okolo jobu „chýba mi diel, teraz".</div>
     </div>
@@ -409,8 +431,8 @@
           <img class="pmasc masc" src="img/mascot.png" alt="">
         </div>
         <div class="chips"><div class="c on">Všetky</div><div class="c">Kúrenie</div><div class="c">Voda</div></div>
-        <div class="prow"><img class="pi" src="img/boiler.jpg" alt=""><div class="pinfo"><b>Výmena čerpadla</b><div class="sub">📍 Bytča · 8 km · pred 2 h</div><div style="margin-top:4px"><span class="pill ok">✓ Sedí na teba</span></div></div><div class="goa">→</div></div>
-        <div class="prow"><img class="pi" src="img/bathroom.jpg" alt=""><div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub">📍 Žilina · 3 km · pred 5 h</div><div style="margin-top:4px"><span class="pill warn">Súrne</span></div></div><div class="goa">→</div></div>
+        <div class="prow"><img class="pi" src="img/boiler.jpg" alt=""><div class="pinfo"><b>Výmena čerpadla</b><div class="sub"><svg class="ic icsm"><use href="#i-pin"/></svg> Bytča · 8 km · pred 2 h</div><div style="margin-top:4px"><span class="pill ok">✓ Sedí na teba</span></div></div><div class="goa">→</div></div>
+        <div class="prow"><img class="pi" src="img/bathroom.jpg" alt=""><div class="pinfo"><b>Kompletná kúpeľňa</b><div class="sub"><svg class="ic icsm"><use href="#i-pin"/></svg> Žilina · 3 km · pred 5 h</div><div style="margin-top:4px"><span class="pill warn">Súrne</span></div></div><div class="goa">→</div></div>
       </div></div></div>
       <div class="caption"><b>Marketplace — strana montéra</b>Leady z Empiria siete, filtrované. Level 4 = prednosť. Maskot na svojom mieste (roh, neprekrýva text).</div>
     </div>
@@ -418,7 +440,7 @@
     <div class="frame"><div class="flabel"><b>09</b> · Detail zákazky <span class="new">NEW</span></div>
       <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body">
         <div class="topline"><div class="back">←</div><h2>Detail zákazky</h2></div>
-        <div class="lead-hero"><img src="img/heatpump.jpg" alt=""><div class="lt"><b>Výmena tepelného čerpadla</b><small>📍 Bytča · 8 km od teba</small></div></div>
+        <div class="lead-hero"><img src="img/heatpump.jpg" alt=""><div class="lt"><b>Výmena tepelného čerpadla</b><small><svg class="ic icsm"><use href="#i-pin"/></svg> Bytča · 8 km od teba</small></div></div>
         <div class="card">
           <div class="kv"><span>Investor</span><b>p. N. (overený)</b></div>
           <div class="kv"><span>Termín</span><b>do 20.6.</b></div>
@@ -457,7 +479,7 @@
         <div class="sect" style="margin-top:14px">Značky u nás</div>
         <div class="brands"><span class="brandchip">GROHE</span><span class="brandchip">Duravit</span><span class="brandchip">Kermi</span><span class="brandchip">KLUDI</span><span class="brandchip">Hansa</span></div>
       </div>
-      <div class="nav"><div class="n on" style="color:var(--sage-d)"><span class="ni">🏠</span>Domov</div><div class="n"><span class="ni">🧩</span>Návrh</div><div class="fab" style="background:var(--navy)">📲</div><div class="n"><span class="ni">🔧</span>Montér</div><div class="n"><span class="ni">📅</span>Štúdio</div></div>
+      <div class="nav"><div class="n on" style="color:var(--sage-d)"><span class="ni"><svg class="ic"><use href="#i-home"/></svg></span>Domov</div><div class="n"><span class="ni"><svg class="ic"><use href="#i-pen"/></svg></span>Návrh</div><div class="fab" style="background:var(--navy)"><svg class="ic icbig"><use href="#i-cube"/></svg></div><div class="n"><span class="ni"><svg class="ic"><use href="#i-tool"/></svg></span>Montér</div><div class="n"><span class="ni"><svg class="ic"><use href="#i-cal"/></svg></span>Štúdio</div></div>
       </div></div>
       <div class="caption"><b>Showroom</b>Reálna kúpeľňa + značky, ktoré Empiria vedie. V navigácii pribudol <b>Montér</b>.</div>
     </div>
@@ -500,7 +522,7 @@
     <div class="frame"><div class="flabel"><b>K6</b> · Nájdi montážnika <span class="new">NEW</span></div>
       <div class="device"><div class="s"><div class="sb"><span>9:41</span><span>📶🔋</span></div><div class="body" style="padding-bottom:58px">
         <div class="topline"><div class="back">←</div><h2>Nájdi montážnika</h2></div>
-        <div class="search" style="margin:0 0 12px"><div class="sf">🔍 Špecializácia, mesto…</div><div class="filt" style="background:var(--navy)">⚙️</div></div>
+        <div class="search" style="margin:0 0 12px"><div class="sf"><svg class="ic icsm"><use href="#i-search"/></svg> Špecializácia, mesto…</div><div class="filt" style="background:var(--navy)"><svg class="ic"><use href="#i-filter"/></svg></div></div>
         <div class="chips"><div class="c on">Všetci</div><div class="c">Kúrenie</div><div class="c">Kúpeľne</div></div>
         <div class="inst">
           <div class="ih"><img src="img/staff.jpg" alt=""><div><b>Marek Kováč</b><small>ELEKTROVOD · 4 km</small><br><span class="verif">✓ Overený Empiria partner</span></div><div style="margin-left:auto;text-align:right"><div class="star">★ 4,9</div><small style="font-size:10px;color:var(--muted)">32 prác</small></div></div>
