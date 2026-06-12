@@ -123,6 +123,23 @@
   .ah-title{position:relative;z-index:2;color:var(--ink);font-size:22px;font-weight:900;letter-spacing:-.6px;margin-top:16px;line-height:1.1}
   .ah-masc{position:absolute;right:8px;bottom:-6px;width:96px;opacity:.92;z-index:1}
 
+  /* kontextovy riadok v headri */
+  .ctxline{display:flex;align-items:center;gap:6px;margin-top:12px;background:var(--canvas);border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;position:relative;z-index:2}
+  .ctxline span{margin-left:auto;color:var(--red);font-weight:800}
+  /* HERO AKCIA — sken */
+  .heroact{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:14px;box-shadow:var(--sh-sm);cursor:pointer}
+  .heroact .ha-cam{width:52px;height:52px;border-radius:15px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:22px;flex:none;box-shadow:0 10px 20px -10px rgba(215,40,46,.55)}
+  .heroact .ha-tx{flex:1}.heroact .ha-tx b{font-size:14.5px;display:block;letter-spacing:-.2px}.heroact .ha-tx small{font-size:11.5px;color:var(--muted)}
+  .heroact .ha-go{width:34px;height:34px;border-radius:11px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-weight:800;flex:none}
+  /* QUICK ACTIONS */
+  .qa{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+  .qac{background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px 6px;text-align:center;cursor:pointer}
+  .qac span{font-size:19px;display:block;margin-bottom:6px}
+  .qac b{font-size:10.5px;font-weight:700;color:var(--ink);position:relative;display:inline-block}
+  .qac .qbdg{position:absolute;top:-26px;right:-12px;min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:800;font-style:normal;display:grid;place-items:center}
+  /* skladove badge */
+  .stk{font-weight:800;font-size:10.5px}
+  .stk.ok{color:var(--ok)}.stk.low{color:var(--warn)}
   .search{display:flex;gap:9px;margin:14px 0 6px;position:relative;z-index:2}
   .search .sf{flex:1;background:var(--canvas);border:1px solid var(--line);border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);font-weight:500}
   .search .filt{width:46px;height:46px;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:16px;flex:none}
@@ -522,18 +539,45 @@
                   <div class="hi"><small>Dobré ráno,</small><b>Marek Kováč</b></div>
                   <div class="bell" onclick="go('notif')" style="cursor:pointer">🔔<span class="bdg">2</span></div>
                 </div>
-                <div class="ah-title">Čo dnes<br>potrebuješ?</div>
-                <div class="search">
-                  <div class="sf">🔍 Hľadať diel, kotol, rúrku…</div>
-                  <div class="filt">⚙️</div>
-                </div>
+                <div class="ctxline" onclick="go('onb-branch')">📍 Express Žilina · otvorené do 17:00 <span>2,1 km →</span></div>
               </div>
 
               <div class="pad">
+                <!-- HERO AKCIA: hlavny job montera -->
+                <div class="heroact" onclick="go('scan')">
+                  <div class="ha-cam">📷</div>
+                  <div class="ha-tx"><b>Naskenuj diel alebo kód</b><small>rozpoznáme produkt a nájdeme sklad</small></div>
+                  <div class="ha-go">→</div>
+                </div>
+                <div class="search" style="margin:10px 0 0">
+                  <div class="sf">🔍 …alebo hľadaj ručne</div>
+                  <div class="filt">⚙️</div>
+                </div>
+
+                <!-- QUICK ACTIONS -->
+                <div class="qa">
+                  <div class="qac" onclick="go('stock')"><span>🏬</span><b>Živý sklad</b></div>
+                  <div class="qac" onclick="go('product')"><span>🔁</span><b>Objednať znova</b></div>
+                  <div class="qac" onclick="go('stavby')"><span>🏗️</span><b>Moje stavby</b></div>
+                  <div class="qac" onclick="go('leady')"><span>📨</span><b>Zákazky<i class="qbdg">3</i></b></div>
+                </div>
+
+                <div class="sect">Naskladnené pri tebe <a onclick="go('stock')">Viac →</a></div>
+                <div class="prow" onclick="go('product')">
+                  <img class="pi" src="img/boiler.jpg" alt="">
+                  <div class="pinfo"><b>Čerpadlo Grundfos 15/60</b><div class="sub"><span class="stk ok">● 6 ks skladom</span> · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div>
+                  <div class="goa">→</div>
+                </div>
+                <div class="prow" onclick="go('product')">
+                  <img class="pi" src="img/copper.jpg" alt="">
+                  <div class="pinfo"><b>Expanzná nádoba 8L</b><div class="sub"><span class="stk low">● posledné 2 ks</span> · Express Žilina</div><div class="price">24,90 € <small>bez DPH</small></div></div>
+                  <div class="goa">→</div>
+                </div>
+
                 <div class="sect">Kategórie <a onclick="go('scan')">Všetko →</a></div>
                 <div class="cats">
-                  <div class="catc" onclick="go('scan')"><img class="ct" src="img/heatpump.jpg" alt=""><div class="cl"><b>Kúrenie</b><small>2 340</small></div></div>
-                  <div class="catc" onclick="go('stock')"><img class="ct" src="img/store-aisle.jpg" alt=""><div class="cl"><b>Voda</b><small>5 120</small></div></div>
+                  <div class="catc" onclick="go('scan')"><img class="ct" src="img/heating.jpg" alt=""><div class="cl"><b>Kúrenie</b><small>2 340</small></div></div>
+                  <div class="catc" onclick="go('stock')"><img class="ct" src="img/copper.jpg" alt=""><div class="cl"><b>Voda</b><small>5 120</small></div></div>
                   <div class="catc" onclick="go('stock')"><img class="ct" src="img/bathroom.jpg" alt=""><div class="cl"><b>Sanita</b><small>1 870</small></div></div>
                 </div>
 
@@ -542,21 +586,9 @@
                 </div>
 
                 <div class="advisor">
-                  <img src="img/staff.jpg" alt="">
-                  <div class="ai"><b>Tomáš · tvoj predajca</b><small>express.EMPIRIA Žilina</small></div>
+                  <img src="img/worker1.jpg" alt="">
+                  <div class="ai"><b>Tomáš · tvoj predajca</b><small>express.EMPIRIA Žilina · online</small></div>
                   <div class="acts"><span>💬</span><span class="call">📞</span></div>
-                </div>
-
-                <div class="sect">Naskladom pri tebe <a onclick="go('stock')">Viac →</a></div>
-                <div class="prow" onclick="go('product')">
-                  <img class="pi" src="img/heatpump.jpg" alt="">
-                  <div class="pinfo"><b>Čerpadlo Grundfos 15/60</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">86,40 € <small>bez DPH</small></div></div>
-                  <div class="goa">→</div>
-                </div>
-                <div class="prow" onclick="go('product')">
-                  <img class="pi" src="img/store-aisle.jpg" alt="">
-                  <div class="pinfo"><b>Expanzná nádoba 8L</b><div class="sub">★ 2,1 km · Express Žilina</div><div class="price">24,90 € <small>bez DPH</small></div></div>
-                  <div class="goa">→</div>
                 </div>
 
                 <div class="sect">Nové zákazky <a onclick="go('leady')">Viac →</a></div>
